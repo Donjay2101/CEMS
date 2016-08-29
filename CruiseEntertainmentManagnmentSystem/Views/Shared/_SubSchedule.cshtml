@@ -1,0 +1,115 @@
+﻿
+<script>
+
+    $(document).ready(function () {
+
+        $(".date").datepicker({
+            changeMonth: true,//this option for allowing user to select month
+            changeYear: true //this option for allowing user to select from year range
+        });
+        //alert('hello');
+        setDateToPicker();
+    });
+
+    function setDateToPicker()
+    {
+        debugger;
+        var selectedate = $('#S_startDate').val();
+        var cdate = new Date(selectedate);
+       // var year = cdate.getFullYear();
+
+        $(".date").datepicker
+      (
+          "option", "defaultDate", cdate
+      );
+       
+    }
+
+
+    $(document).on('change', '#Schedules', function () {
+        debugger;
+        var data = $('#Schedules option:selected').html().split('-');
+        $('#S_startDate').val(data[0]);
+        $('#S_endDate').val(data[1]);
+        //var cdate = new Date(data[0]);
+        setDateToPicker();
+    });
+</script>
+
+<div style="padding-left:15px;padding-right:15px;">
+    <div class="section">
+        <div class='row text-right'><span id='closebtn' style=' font-size: 19px;border: 1px solid #BFBFBF;margin-right: 3px;color: #A7A7A7;font-weight: bold;cursor:pointer'>&nbsp;X&nbsp;</span></div>
+
+        <div class="row">
+            <h3 class="popup-heading"> SubSchedule for Cruise: @ViewBag.CruiseName </h3>
+            <input type="hidden" id="CruiseID" value="@ViewBag.CruiseID" />
+            @*<input type="button" onclick="countTask()" value="count" />*@
+            @*@Html.DropDownList("Cruises")*@
+        </div>
+        <br />
+        <div class="row">
+            <div class="row ">
+                <div class="col-md-2 text-right">
+                    <label class="date">Schedule Start Date</label>
+                </div>
+                <div class="col-md-4 text-left">
+                    @Html.DropDownList("Schedules")
+                </div>
+                
+            </div>
+            <div class="col-md-2">
+                <label class="date">Schedule Start Date</label>
+            </div>
+            <div class="col-md-4">
+
+                <input type="text"  id="S_startDate" value="@ViewBag.ShipStartDate" disabled style="width:100%;" @*class="wrap-content"*@ />
+            </div>
+            <div class="col-md-2">
+                <label class="date"> Schedule End Date</label>
+            </div>
+            <div class="col-md-4">
+                <input type="text"  id="S_endDate" value="@ViewBag.ShipEndDate" disabled style="width:100%;" @*class="wrap-content"*@ />
+            </div>
+        </div>
+        <br />
+        @*<div class="row">
+                <div class="col-md-3">
+                    NO. Of Days
+                </div>
+                <div>
+                    <input type="number" min="1" max="365" id="ndays" />
+                </div>
+            </div>*@
+
+    </div>
+    <div class="section">
+        
+        <br />
+        <div class="row">
+            <table border="1" id="TaskTable" style=" border-color: azure;">
+                <tr>
+                    <th>Category Name</th>
+                    <th>Person</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Days</th>
+                    <th>Action</th>
+                </tr>
+                <tr class="edittr">
+                    <td><div id="dropdown">@Html.DropDownList("TaskName", "select--")</div></td>
+                    <td><div id="Person"><select id="Persons"><option>select--</option></select></div></td>
+                    <td><input type="text" class="date" name="StDate" id="StDate" style="width:100%;" /></td>
+                    <td><input type="text" class="date" name="EDate" id="EDate" style="width:100%;" /></td>
+                    <td><input type="number" name="Days" id="Days" value="" class="wrap-content" /></td>
+                    <td><input type="button" name="tskbtn" class="wrap-content" value="Add" id="Stskbtn" /> </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <input type="button" id="btnSubSchedule" value="Proceed" style="width:15%" />
+    </div>
+
+</div>

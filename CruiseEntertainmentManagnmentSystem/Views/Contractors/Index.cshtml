@@ -1,0 +1,269 @@
+﻿@*@model IEnumerable<CruiseEntertainmentManagnmentSystem.Models.Contractor>*@
+<script>
+    $(document).ready(function () {
+        $('#btnWardrobe').click(function(){
+            $('#btnWardrobe').toggleClass("dynamic");
+            $('#btnDirectors').removeClass("dynamic");
+            $('#btnProduction').removeClass("dynamic");
+        });
+        $('#btnProduction').click(function () {
+            $('#btnWardrobe').removeClass("dynamic");
+            $('#btnProduction').addClass("dynamic");
+            $('#btnDirectors').removeClass("dynamic");
+        });
+        $('#btnDirectors').click(function () {
+            $('#btnWardrobe').removeClass("dynamic");
+            $('#btnProduction').removeClass("dynamic");
+            $('#btnDirectors').addClass("dynamic");
+        });
+    });
+</script>
+
+<style>
+
+    .tabbtn{
+    width: 86px;
+    margin-bottom: 0px;
+    margin-right: 0px;
+    border-radius: 0;
+    border: 0px;
+    /*border-right: 5px solid #FFFFFF;*/
+    background: #828282;
+    color: white;
+    border-top-left-radius:3px;
+    border-top-right-radius:3px;
+    }
+    .dynamic{
+    background:aliceblue;
+    color:#5692D1;
+    border:1px solid #BBB4B4;
+    border-top-left-radius:3px;
+    border-top-right-radius:3px;
+    border-bottom:0px;
+    margin-right: 0px;
+    }
+</style>
+
+
+@{
+    ViewBag.Title = "Contractors";
+}
+
+<div class="row">
+
+    <h3 class="text-center page-heading">@ViewBag.Title</h3>
+
+    <div style="border-bottom: 1px solid #DEDDDD;height:38px;vertical-align:top;">
+        <input type="button" value="Wardrobe" id="btnWardrobe" class="tabbtn" />
+        <input type="button" value="Production" id="btnProduction" class="tabbtn" />
+        <input type="button" value="Directors" id="btnDirectors" class="tabbtn" />
+    </div>
+    <br />
+    <a href="#" onclick="gotoCreate('/Contractors/Create?option=@ViewBag.Option')" class="create-link" id="createnew">Create New</a>
+       @*@Html.ActionLink("Create New", "Create", null, new { @class = "create-link" })*@
+   
+    <div id="dataContainer">
+        @Html.Action("Contractors",new{option=@ViewBag.Option})
+    </div>
+
+
+</div>
+
+
+
+<script>
+
+   
+
+</script>
+
+
+
+
+
+
+
+@*<table>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.InitiatedDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.position)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ship)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Shows)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Term)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BaseSalary)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Days_On_Land)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Per_Diem_On_Land)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Days_OnBoard)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Per_Diem_On_Board)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Total_Per_Diem_On_Land)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Total_Per_Diem_On_Board)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Total_Per_Diem)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Total_Fee)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Payment_1)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Payment_2)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Payment_2_Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Day_Rate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EndDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TampaDates)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.shipDates)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Address)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.City)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Zip)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Phone)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SSN)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.InitiatedDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.position)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ship)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Shows)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Term)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BaseSalary)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Days_On_Land)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Per_Diem_On_Land)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Days_OnBoard)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Per_Diem_On_Board)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Total_Per_Diem_On_Land)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Total_Per_Diem_On_Board)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Total_Per_Diem)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Total_Fee)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Payment_1)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Payment_2)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Payment_2_Date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Day_Rate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EndDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TampaDates)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.shipDates)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Address)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.City)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Zip)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Phone)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SSN)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Email)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>*@

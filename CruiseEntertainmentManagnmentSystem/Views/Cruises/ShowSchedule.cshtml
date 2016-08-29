@@ -1,0 +1,197 @@
+﻿@{
+    ViewBag.Title = "ShowSchedule";
+}
+@{
+    ViewBag.Title = "Index";
+}
+
+<style>
+
+    .rotate {
+        /* Something you can count on */
+        /*height: 140px;*/
+        white-space: nowrap;
+          width: 36px;
+         
+            transform : rotate(-90deg); 
+            height:10px;
+            word-wrap:break-word
+    }
+
+        th.rotate > div {
+            
+          
+            /*transform:
+             Magic Numbers 
+            translate(25px, 51px)
+             45 is really 360 - 45 
+            rotate(315deg);*/
+            
+        }
+
+            th.rotate > div > span {
+                border-bottom: 1px solid #ccc;
+                /*padding: 5px 10px;*/
+            }
+
+              #yearlytable
+              {
+                  width:100%;
+              }
+            #yearlytable tr td{
+                 width:100px;
+              font-size: 13px;
+                 /*line-height:0px;*/
+            }
+
+
+            #yearlytable tr th{
+                
+            }
+            
+
+    /*.col{
+        height:140px;
+        width:100px;
+        display: table-cell;
+    }
+   .rotate {
+       transform : rotate(-90deg);    
+       width:57px;  
+          }
+   .rotate > span{
+           margin-left: -92px;
+       width:100px;
+   }
+   
+   #yearlytable td,th{
+       border:1px solid;
+   }*/
+
+</style>
+<script>
+    $(document).ready(function () {
+
+       debugger;
+        var CID;
+        
+            CID=$('#CruiseID').val();
+            
+            var view=sessionStorage.getItem("View");
+            if(view==1)
+            {
+                showData(CID);
+                return;
+            }
+
+        if(CID!=null)
+        {
+            sessionStorage.setItem('selectedID', CID);
+            $('#Cruise').val(CID);
+            GetSchedule(CID);
+            return;
+        }
+        var date = new Date();
+        createCalendar(date, null);
+        id = sessionStorage.getItem('selectedID');
+        if(id!=null)
+        {
+            $('#Cruise').val(id);
+        }
+
+
+    });
+
+    $(document).on('change','#Cruise',function(){
+
+        var id = $(this).val();
+        GetSchedule(id);
+
+    });
+
+    function GetSchedule(id)
+    {
+        var year=$('#cmbYear').val();
+        if(year == undefined && year=='')
+        {
+            var curdate = new Date();
+
+            $('#cmbYear').val(curdate.getFullYear());
+            year=0;
+        }
+        sessionStorage.setItem('selectedID', id);
+        $.ajax({
+            url: '/Cruises/GetSchedules',
+            data: { cruiseID: id ,Year:year},
+            success: function (data) {
+                debugger;
+                getData(data,year);
+            },
+            error: function () {
+            }
+        });
+    }
+    $(function () {
+        $("#exp_data").click(function (e) {
+            $("#Cal").css("border:1px solid");
+            window.open('data:application/vnd.ms-excel,' + encodeURIComponent($('#Cal').html()));
+            e.preventDefault();
+        });
+    });
+  
+</script>
+
+
+
+
+<div class="container">
+    <div>
+        <input type="hidden" value="@ViewBag.CruiseID" id="CruiseID" />
+        <br />
+        <div>
+            <a href="#" onclick="addSubSchedule()">Add Subschedule</a>|    
+            <a href="#" onclick="addSchedule()">Add Schedule</a>         
+
+            @Html.DropDownList("Cruise", "Select")
+            <span>For year:</span><select id="cmbYear" style="width: 71px;">
+                @{
+                    
+                    int year = DateTime.Now.Year;
+                    int startYear = year - 10;
+                } 
+                @for (int i = 1; i <= 20; i++)
+                {
+                    if (year == startYear)
+                    {
+                        <option value="@startYear" selected>@startYear</option>
+                    }
+                    else
+                    {
+                        <option value="@startYear" >@startYear</option>
+                    }
+
+                    startYear++;
+                }
+            </select>
+            <a href="#" onclick="openNotes()">Add Notes </a>
+            <a href="#"  onclick="showData()">Get Yearly View</a>
+            <a href="#" onclick="getData(@ViewBag.Data)" style="margin-left: 20px;">Get Monthly View</a>
+            <a href="#" id="exp_data" hidden="hidden" style="margin-left: 37px">Export Data</a>
+
+        </div>
+
+    </div>
+    <br />
+    <div class="cal-div">
+        <div onload="getData(@ViewBag.Data)" id="CalendarDiv">
+        </div>
+    </div>
+    <div id="Cal" style="overflow:scroll;width:90%;height:600px">
+       
+    </div>
+    <div class="htmldata" hidden="hidden"></div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

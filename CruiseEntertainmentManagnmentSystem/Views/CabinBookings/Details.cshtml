@@ -1,0 +1,85 @@
+﻿@model CruiseEntertainmentManagnmentSystem.Models.CabinBooking
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>CabinBooking</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.CabinNo)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.CabinNo)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Reservation)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Reservation)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Name)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Name)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Position)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Position)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.BookingType)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.BookingType)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.BookingFrom)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.BookingFrom)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.BookingTo)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.BookingTo)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Hotel)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Hotel)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Fleet)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Fleet)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Requestor)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Requestor)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,47 @@
+﻿@model CruiseEntertainmentManagnmentSystem.Models.BookingType
+
+@{
+    ViewBag.Title = "BookingType";
+}
+
+<h2 class="title pad">@ViewBag.Title</h2>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset style="padding-left: 15px;">
+
+        @Html.HiddenFor(model => model.ID)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Name)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Name, new { @class = "half" })
+            @Html.ValidationMessageFor(model => model.Name)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Description)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Description, new { @class = "half" })
+            @Html.ValidationMessageFor(model => model.Description)
+        </div>
+
+        <div class="row">
+            <input type="submit" value="Save" class="btn" style=" margin-left: 19px;" /><span></span>
+            <a href="#" onclick="goToPrevious(@ViewBag.ReturnUrl)">Back to List</a>
+            @Html.ActionLink("Back to List", "Index")
+
+        </div>
+        <br /><br />
+    </fieldset>
+}
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
