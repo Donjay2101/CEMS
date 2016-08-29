@@ -84,7 +84,7 @@ function getBookingHistory(opt,startDate,endDate)
 
 
 
-function gotoCreate(url) {
+function goToCreate(url) {
 
     debugger;
     var cururl = window.location.href;

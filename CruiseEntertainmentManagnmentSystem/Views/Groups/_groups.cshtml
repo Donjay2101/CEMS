@@ -12,7 +12,7 @@
                .RenderValueAs(c =>
                 @<div id="balloon" class="balloonClass">
                     <b>
-                        <a href="#" onclick="goToCreate('Groups/Edit/@c.ID')">Edit</a>
+                        <a href="#" onclick="goToCreate('/Groups/Edit/@c.ID')">Edit</a>
                         @*@Html.ActionLink("Edit", "Edit", "Groups", new { id = c.ID }, new { @class = "modal_link" })*@
                     </b>
                 </div>);
