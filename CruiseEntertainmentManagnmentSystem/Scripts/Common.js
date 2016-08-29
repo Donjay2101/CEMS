@@ -9,14 +9,15 @@ function finalDelete(id,name,url,option)
     if (result)
     {
         var data;
-        //if (option != undefined)
-        //{
-        //    url=url+ {ID:id,Option:option}
-        //}
-        //else
-        //{
-        //    data = { ID: id}
-        //}
+        if (option != undefined)
+        {
+            url = getUrl(url);
+            url += "&option=" + option;
+        }
+        else
+        {
+            url = getUrl(url);
+        }
         url = getUrl(url);
         $.ajax({            
             url: url,

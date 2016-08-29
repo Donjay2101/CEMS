@@ -114,12 +114,18 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers
 
         public ActionResult Delete(int id = 0)
         {
-            BookingType bookingtype = db.bookingtype.Find(id);
-            if (bookingtype == null)
+            try
             {
-                return HttpNotFound();
+                BookingType bookingtype = db.bookingtype.Find(id);
+                db.bookingtype.Remove(bookingtype);
+                db.SaveChanges();
+
+                return Json(UResponse.Instance.JsonResponse("Done", _returnUrl), JsonRequestBehavior.AllowGet);
             }
-            return View(bookingtype);
+            catch
+            {
+                return Json(UResponse.Instance.JsonResponse("NotDone", _returnUrl), JsonRequestBehavior.AllowGet);
+            }
         }
 
         //

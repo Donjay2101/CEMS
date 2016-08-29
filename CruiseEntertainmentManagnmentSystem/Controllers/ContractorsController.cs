@@ -221,13 +221,18 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers
 
         public ActionResult Delete(int id = 0)
         {
-            Contractor contractor = db.Contractors.Find(id);
-            if (contractor == null)
+            try
             {
-                return HttpNotFound();
+                Contractor contractor = db.Contractors.Find(id);
+                db.Contractors.Remove(contractor);
+                db.SaveChanges();
+                // return RedirectToAction("Index");
+                return Json(UResponse.Instance.JsonResponse("Done",_returnUrl), JsonRequestBehavior.AllowGet);
             }
-            return View(contractor);
-
+            catch
+            {
+                return Json(UResponse.Instance.JsonResponse("NotDone", null), JsonRequestBehavior.AllowGet);
+            }
         }
 
         //
