@@ -114,12 +114,17 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers
 
         public ActionResult Delete(int id = 0)
         {
-            Cruises cruises = db.cruises.Find(id);
-            if (cruises == null)
+            try
             {
-                return HttpNotFound();
+                Cruises cruises = db.cruises.Find(id);
+                db.cruises.Remove(cruises);
+                db.SaveChanges();
+                return Json(UResponse.Instance.JsonResponse("Done", _returnUrl), JsonRequestBehavior.AllowGet);
             }
-            return View(cruises);
+            catch
+            {
+                return Json(UResponse.Instance.JsonResponse("NotDone", _returnUrl), JsonRequestBehavior.AllowGet);
+            }
         }
 
         //
@@ -135,11 +140,11 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers
                 Cruises cruises = db.cruises.Find(id);
                 db.cruises.Remove(cruises);
                 db.SaveChanges();
-                return Json(UResponse.Instance.JsonResponse("Done", "/Cruises/Cruises"),JsonRequestBehavior.AllowGet);
+                return Json(UResponse.Instance.JsonResponse("Done", _returnUrl),JsonRequestBehavior.AllowGet);
             }
             catch
             {
-                return Json(UResponse.Instance.JsonResponse("NotDone", "/Cruises/Cruises"), JsonRequestBehavior.AllowGet);
+                return Json(UResponse.Instance.JsonResponse("NotDone", _returnUrl), JsonRequestBehavior.AllowGet);
             }
 
            

@@ -9,24 +9,26 @@ function finalDelete(id,name,url,option)
     if (result)
     {
         var data;
-        if (option != undefined)
-        {
-            data = {ID:id,Option:option}
-        }
-        else
-        {
-            data = { ID: id}
-        }
+        //if (option != undefined)
+        //{
+        //    url=url+ {ID:id,Option:option}
+        //}
+        //else
+        //{
+        //    data = { ID: id}
+        //}
+        url = getUrl(url);
         $.ajax({            
             url: url,
-            method: "POST",
+            method: "GET",
             data: data,
             success: function (data) {
                debugger;
                 data = JSON.parse(data);
                 if (data.Result == "Done")
                 {
-                    $("#dataContainer").load(data.Data);
+                    window.location.href = data.Data;
+                    //$("#dataContainer").load();
                 }             
 
             },
@@ -86,7 +88,14 @@ function getBookingHistory(opt,startDate,endDate)
 
 function goToCreate(url) {
 
-    debugger;
+    debugger;    
+    newurl=getUrl(url);
+    window.location.href = newurl;
+}
+
+
+function getUrl(url)
+{
     var cururl = window.location.href;
     var comidx = cururl.split('/');
     var returnUrl = "";
@@ -103,10 +112,8 @@ function goToCreate(url) {
     else {
         newurl = url + "?returnUrl=" + returnUrl;
     }
-
-    window.location.href = newurl;
+    return newurl;
 }
-
 
 function goToPrevious(url) {
     debugger;
