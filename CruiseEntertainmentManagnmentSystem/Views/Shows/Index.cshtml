@@ -9,7 +9,8 @@
 
 <h3 class="text-center page-heading">@ViewBag.Title</h3>
 <br />
-@Html.ActionLink("Create New", "Create", null, new { @class = "create-link" })
+<a href="#" onclick="goToCreate('/Shows/create')">Create New</a>
+@*@Html.ActionLink("Create New", "Create", null, new { @class = "create-link" })*@
 
 <div id="dataContainer">
     @Html.Action("Shows")
