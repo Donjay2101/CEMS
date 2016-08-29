@@ -24,7 +24,7 @@
                                     @<div id="balloon" class="balloonClass">
                                         <b>
                                             @*<a href="#" onclick="Delete('@c.ID','@c.Name')">Delete</a>*@
-                                            <a href="#" onclick="finalDelete('@c.ID','@c.Name','/Categories/Delete')">Delete</a>
+                                            <a href="#" onclick="finalDelete('','@c.Name','/Categories/Delete?ID=@c.ID')">Delete</a>
                                             @*@Html.ActionLink("Delete", "Delete", new { id = c.ID }, new { @class = "modal_link" })*@
                                         </b>
                                     </div>);
@@ -42,7 +42,7 @@
                         columns.Add(c => c.Name).Titled("Name");
                         columns.Add(c => c.Address).Titled("Address");
                         columns.Add(c => c.Payrate).Titled("Pay Rate");
-                    }).WithPaging(10).Sortable().Filterable().WithMultipleFilters()
+                    }).Sortable().Filterable().WithMultipleFilters()
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 <script src="~/Scripts/Common.js"></script>
 <script src="~/Scripts/gridmvc.min.js"></script>

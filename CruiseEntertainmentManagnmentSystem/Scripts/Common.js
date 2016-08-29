@@ -18,7 +18,7 @@ function finalDelete(id,name,url,option)
         {
             url = getUrl(url);
         }
-        url = getUrl(url);
+        //url = getUrl(url);
         $.ajax({            
             url: url,
             method: "GET",
@@ -29,7 +29,7 @@ function finalDelete(id,name,url,option)
                 if (data.Result == "Done")
                 {
                     window.location.href = data.Data;
-                    //$("#dataContainer").load();
+                    //$("#dataContainer").load(data.Data);
                 }             
 
             },

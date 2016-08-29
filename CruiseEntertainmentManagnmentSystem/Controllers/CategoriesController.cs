@@ -118,12 +118,17 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers
 
         public ActionResult Delete(int id = 0)
         {
-            Category categories = db.categories.Find(id);
-            if (categories == null)
+            try
             {
-                return HttpNotFound();
+                Category categories = db.categories.Find(id);
+                db.categories.Remove(categories);
+                db.SaveChanges();
+                return Json(UResponse.Instance.JsonResponse("Done", _returnUrl), JsonRequestBehavior.AllowGet);
             }
-            return View(categories);
+            catch
+            {
+                return Json(UResponse.Instance.JsonResponse("NotDone", _returnUrl), JsonRequestBehavior.AllowGet);
+            }
         }
 
         //
