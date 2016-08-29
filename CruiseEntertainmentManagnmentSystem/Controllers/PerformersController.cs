@@ -139,23 +139,20 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers
 
         public ActionResult Delete(int id = 0)
         {
-            Performers performers = db.performers.Find(id);
-            if (performers == null)
+            try
             {
-                return HttpNotFound();
+                Performers performers = db.performers.Find(id);
+                db.performers.Remove(performers);
+                db.SaveChanges();
+
+
+                return Json(UResponse.Instance.JsonResponse("Done", _returnUrl), JsonRequestBehavior.AllowGet);
             }
-            var performer = (from G in db.groups
-                             join P in db.performers on G.ID equals P.PGroup
-                             where P.ID == id
-                             select new PerformerViewmodel
-                             {
-                                 Alias = P.Alias,
-                                 GroupName = G.GroupName,
-                                 ID = P.ID,
-                                 Name = P.Name,
-                                 PGroup = P.PGroup
-                             }).SingleOrDefault();
-            return View(performer);
+            catch
+            {
+                return Json(UResponse.Instance.JsonResponse("NotDone", _returnUrl), JsonRequestBehavior.AllowGet);
+            }
+
         }
 
         //

@@ -234,12 +234,17 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers
         // GET: /Persons/Delete/5       
         public ActionResult Delete(int id = 0)
         {
-            Persons persons = db.persons.Find(id);
-            if (persons == null)
+            try
             {
-                return HttpNotFound();
+                Persons persons = db.persons.Find(id);
+                db.persons.Remove(persons);
+                db.SaveChanges();
+                return Json(UResponse.Instance.JsonResponse("Done", _returnUrl), JsonRequestBehavior.AllowGet);
             }
-            return View();
+            catch
+            {
+                return Json(UResponse.Instance.JsonResponse("NotDone", _returnUrl), JsonRequestBehavior.AllowGet);
+            }
         }
 
         //

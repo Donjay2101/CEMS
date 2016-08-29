@@ -109,12 +109,17 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers
 
         public ActionResult Delete(int id = 0)
         {
-            Position position = db.positions.Find(id);
-            if (position == null)
+            try
             {
-                return HttpNotFound();
+                Position position = db.positions.Find(id);
+                db.positions.Remove(position);
+                db.SaveChanges();
+                return Json(UResponse.Instance.JsonResponse("Done", _returnUrl), JsonRequestBehavior.AllowGet);
             }
-            return View(position);
+            catch
+            {
+                return Json(UResponse.Instance.JsonResponse("NotDone", _returnUrl), JsonRequestBehavior.AllowGet);
+            }
         }
 
         //

@@ -115,12 +115,17 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers
 
         public ActionResult Delete(int id = 0)
         {
-            CabinCategories cabincategories = db.cabincategories.Find(id);
-            if (cabincategories == null)
+            try
             {
-                return HttpNotFound();
+                CabinCategories cabincategories = db.cabincategories.Find(id);
+                db.cabincategories.Remove(cabincategories);
+                db.SaveChanges();
+                return Json(UResponse.Instance.JsonResponse("Done", _returnUrl), JsonRequestBehavior.AllowGet);
             }
-            return View(cabincategories);
+            catch
+            {
+                return Json(UResponse.Instance.JsonResponse("NotDone", _returnUrl), JsonRequestBehavior.AllowGet);
+            }
         }
 
         //
