@@ -104,7 +104,7 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers
             {
                 ViewBag.Layout = "~/Views/Shared/_Layout.cshtml";
             }
-            ViewBag.Position = new SelectList(db.positions, "ID", "Name");
+            ViewBag.Position = new SelectList(db.positions.OrderBy(x => x.Name).ToList(), "ID", "Name");
             ViewBag.Categories = ShrdMaster.Instance.GetCategoryIdByPersonID(0);
             ViewBag.ReturnUrl = _returnUrl;
             return View();
@@ -166,7 +166,7 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers
                 }
                 return Redirect(_returnUrl);
             }
-            ViewBag.Position = new SelectList(db.positions, "ID", "Name");
+            ViewBag.Position = new SelectList(db.positions.OrderBy(x => x.Name).ToList(), "ID", "Name");
             ViewBag.ReturnUrl = _returnUrl;
             return View(persons);
         }
@@ -196,7 +196,7 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers
                 return HttpNotFound();
             }
             //var category = db.PersonMappings.Where(x => x.PersonID == persons.ID).SingleOrDefault();
-            ViewBag.Position = new SelectList(db.positions, "ID", "Name");
+            ViewBag.Position = new SelectList(db.positions.OrderBy(x => x.Name).ToList(), "ID", "Name");
             ViewBag.Categories = ShrdMaster.Instance.GetCategoryIdByPersonID(persons.ID);
             ViewBag.ReturnUrl = _returnUrl;
             return View(persons);
@@ -224,7 +224,7 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers
                 db.SaveChanges();
                 return Redirect(_returnUrl);
             }
-            ViewBag.Position = new SelectList(db.positions, "ID", "Name",persons.Position);
+            ViewBag.Position = new SelectList(db.positions.OrderBy(x => x.Name).ToList(), "ID", "Name",persons.Position);
             ViewBag.Categories = ShrdMaster.Instance.GetCategoryIdByPersonID(persons.ID);
             ViewBag.ReturnUrl = _returnUrl;
             return View(persons);

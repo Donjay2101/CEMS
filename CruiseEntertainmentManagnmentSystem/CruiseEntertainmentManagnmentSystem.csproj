@@ -250,7 +250,6 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BookingTypeController.cs" />
-    <Compile Include="Controllers\CabinBookingController.cs" />
     <Compile Include="Controllers\CabinBookingsController.cs" />
     <Compile Include="Controllers\CabinCategoriesController.cs" />
     <Compile Include="Controllers\CabinsController.cs" />

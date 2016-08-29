@@ -32,7 +32,7 @@ namespace CruiseEntertainmentManagnmentSystem.Models
             new CabinType(){ID="Cabin Type 4",Value="Cabin Type 4"},
             };
 
-            return Cabins;
+            return Cabins.OrderBy(x=>x.Value).ToList();
         }
 
 
@@ -45,7 +45,7 @@ namespace CruiseEntertainmentManagnmentSystem.Models
             new AgreementType(){ID=3,Value="Production Agreement With Royality"}
             };
 
-            return agreements;
+            return agreements.OrderBy(x=>x.Value).ToList();
         }
 
         public static List<StatusType> GetStatus()

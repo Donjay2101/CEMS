@@ -64,7 +64,7 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers
 
         public ActionResult Create(int ID=0,string returnUrl="")
         {
-            var cabins = db.cabins.ToList();
+            var cabins = db.cabins.OrderBy(x=>x.CabinName).ToList();
             SelectList list =null;
             if(ID>0)
             {
@@ -79,8 +79,8 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers
             string number = AutoGenerateNumber();
             ViewBag.Reservation = number;
             ViewBag.returnURL = returnUrl;
-            ViewBag.Position = new SelectList(db.positions, "ID", "Name");
-            ViewBag.BookingType = new SelectList(db.bookingtype, "ID", "Name");
+            ViewBag.Position = new SelectList(db.positions.OrderBy(x=>x.Name).ToList(), "ID", "Name");
+            ViewBag.BookingType = new SelectList(db.bookingtype.OrderBy(x=>x.Name).ToList(), "ID", "Name");
             ViewBag.ReturnUrl = _returnUrl;
             return View();
         }
@@ -106,13 +106,13 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers
             //    returnUrl = Request.QueryString["returnUrl"];
             //   // return RedirectToAction(returnUrl);
             //}
-            var cabins = db.cabins.ToList();
+            var cabins = db.cabins.OrderBy(x=>x.CabinName).ToList();
             SelectList list = new SelectList(cabins, "ID", "CabinName", cabinbooking.CabinNo);
             ViewBag.CabinNo = list;
             ViewBag.Reservation = cabinbooking.Reservation;
             //ViewBag.CabinNo = new SelectList(db.cabins, "ID", "CabinName", cabinbooking.CabinNo);
-            ViewBag.Position = new SelectList(db.positions, "ID", "Name", cabinbooking.Position);
-            ViewBag.BookingType = new SelectList(db.bookingtype, "ID", "Name", cabinbooking.BookingType);
+            ViewBag.Position = new SelectList(db.positions.OrderBy(x=>x.Name).ToList(), "ID", "Name", cabinbooking.Position);
+            ViewBag.BookingType = new SelectList(db.bookingtype.OrderBy(x=>x.Name).ToList(), "ID", "Name", cabinbooking.BookingType);
             ViewBag.ReturnURL = _returnUrl;
             
             if (ModelState.IsValid)
@@ -135,7 +135,7 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers
                 //}
                 }
                
-                return RedirectToAction(_returnUrl);
+                return Redirect(_returnUrl);
             }
 
            
@@ -162,13 +162,13 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers
             {
                 return HttpNotFound();
             }
-            var cabins = db.cabins.ToList();
+            var cabins = db.cabins.OrderBy(x=>x.CabinName).ToList();
             SelectList list = new SelectList(cabins, "ID", "CabinName", cabinbooking.CabinNo);
             ViewBag.CabinNo = list;
            // ViewBag.Reservation = cabinbooking.Reservation;
             //ViewBag.CabinNo = new SelectList(db.cabins, "ID", "CabinName", cabinbooking.CabinNo);
-            ViewBag.Position = new SelectList(db.positions, "ID", "Name", cabinbooking.Position);
-            ViewBag.BookingType = new SelectList(db.bookingtype, "ID", "Name", cabinbooking.BookingType);
+            ViewBag.Position = new SelectList(db.positions.OrderBy(x=>x.Name).ToList(), "ID", "Name", cabinbooking.Position);
+            ViewBag.BookingType = new SelectList(db.bookingtype.OrderBy(x=>x.Name).ToList(), "ID", "Name", cabinbooking.BookingType);
             ViewBag.ReturnUrl = _returnUrl;
             return View(cabinbooking);
         }
@@ -196,13 +196,13 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers
                 //}
                 return RedirectToAction(_returnUrl);
             }
-            var cabins = db.cabins.ToList();
+            var cabins = db.cabins.OrderBy(x=>x.CabinName).ToList();
             SelectList list = new SelectList(cabins, "ID", "CabinName", cabinbooking.CabinNo);
             ViewBag.CabinNo = list;
           //  ViewBag.Reservation = cabinbooking.Reservation;
             //ViewBag.CabinNo = new SelectList(db.cabins, "ID", "CabinName", cabinbooking.CabinNo);
-            ViewBag.Position = new SelectList(db.positions, "ID", "Name", cabinbooking.Position);
-            ViewBag.BookingType = new SelectList(db.bookingtype, "ID", "Name", cabinbooking.BookingType);
+            ViewBag.Position = new SelectList(db.positions.OrderBy(x=>x.Name).ToList(), "ID", "Name", cabinbooking.Position);
+            ViewBag.BookingType = new SelectList(db.bookingtype.OrderBy(x=>x.Name).ToList(), "ID", "Name", cabinbooking.BookingType);
             ViewBag.ReturnUrl = _returnUrl;
             return View(cabinbooking);
         }

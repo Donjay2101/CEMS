@@ -104,8 +104,8 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers
         public ActionResult Create(int option)
         {
            
-            ViewBag.ship = new SelectList(db.cruises, "id", "name");
-            ViewBag.position = new SelectList(db.positions, "ID", "Name");
+            ViewBag.ship = new SelectList(db.cruises.OrderBy(x=>x.Name).ToList(), "id", "name");
+            ViewBag.position = new SelectList(db.positions.OrderBy(x=>x.Name).ToList(), "ID", "Name");
             ViewBag.AgreementType = new SelectList(Common.Agreements(), "ID", "Value");
             ViewBag.MPerson = new SelectList(ShrdMaster.Instance.GetPersons(), "ID", "FullName");
             ViewBag.ReturnUrl = _returnUrl;
@@ -164,8 +164,8 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers
             }
 
 
-            ViewBag.ship = new SelectList(db.cruises, "id", "name");
-            ViewBag.position = new SelectList(db.positions, "ID", "Name");
+            ViewBag.ship = new SelectList(db.cruises.OrderBy(x=>x.Name).ToList(), "id", "name");
+            ViewBag.position = new SelectList(db.positions.OrderBy(x=>x.Name).ToList(), "ID", "Name");
             ViewBag.AgreementType = new SelectList(Common.Agreements(), "ID", "Value");
             ViewBag.MPerson = new SelectList(ShrdMaster.Instance.GetPersons(), "ID", "FullName");
             ViewBag.ReturnUrl = _returnUrl;
@@ -179,8 +179,8 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers
         {
 
             Contractor contractor = db.Contractors.Find(id);
-            ViewBag.ship = new SelectList(db.cruises, "id", "name", contractor.ship);
-            ViewBag.position = new SelectList(db.positions, "ID", "Name", contractor.position);
+            ViewBag.ship = new SelectList(db.cruises.OrderBy(x=>x.Name).ToList(), "id", "name", contractor.ship);
+            ViewBag.position = new SelectList(db.positions.OrderBy(x=>x.Name).ToList(), "ID", "Name", contractor.position);
             ViewBag.AgreementType = new SelectList(Common.Agreements(), "ID", "Value", contractor.AgreementType);
             ViewBag.MPerson = new SelectList(ShrdMaster.Instance.GetPersons(), "ID", "FullName", contractor.Person);
             ViewBag.ReturnUrl = _returnUrl;
@@ -207,8 +207,8 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers
                 return Redirect(_returnUrl);
             }
 
-            ViewBag.ship = new SelectList(db.cruises, "id", "name", contractor.ship);
-            ViewBag.position = new SelectList(db.positions, "ID", "Name", contractor.position);
+            ViewBag.ship = new SelectList(db.cruises.OrderBy(x => x.Name).ToList(), "id", "name", contractor.ship);
+            ViewBag.position = new SelectList(db.positions.OrderBy(x => x.Name).ToList(), "ID", "Name", contractor.position);
             ViewBag.AgreementType = new SelectList(Common.Agreements(), "ID", "Value", contractor.AgreementType);
             ViewBag.ReturnUrl = _returnUrl;
             ViewBag.MPerson = new SelectList(ShrdMaster.Instance.GetPersons(), "ID", "FullName", contractor.Person);

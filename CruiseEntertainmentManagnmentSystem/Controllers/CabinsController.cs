@@ -80,7 +80,7 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers
         {
            
             
-            ViewBag.catName = new SelectList(db.cabincategories, "ID", "CategoryName");
+            ViewBag.catName = new SelectList(db.cabincategories.OrderBy(x=>x.CategoryName).ToList(), "ID", "CategoryName");
             ViewBag.CabinType = new SelectList(Common.CabinTypes(), "ID", "Value");
             ViewBag.ReturnUrl = _returnUrl;
             return View();
@@ -98,8 +98,9 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers
                 db.cabins.Add(cabins);
                 db.SaveChanges();
                 return Redirect(_returnUrl);
-            } 
-            ViewBag.catName = new SelectList(db.cabincategories, "ID", "CategoryName",cabins.CatName);
+            }
+            ViewBag.catName = new SelectList(db.cabincategories.OrderBy(x => x.CategoryName).ToList(), "ID", "CategoryName", cabins.CatName);
+            
             ViewBag.CabinType = new SelectList(Common.CabinTypes(), "ID", "Value",cabins.CabinType);
             ViewBag.ReturnUrl = _returnUrl;
             return View(cabins);
@@ -115,7 +116,7 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.catName = new SelectList(db.cabincategories, "ID", "CategoryName", cabins.CatName);
+            ViewBag.catName = new SelectList(db.cabincategories.OrderBy(x => x.CategoryName).ToList(), "ID", "CategoryName", cabins.CatName);
             ViewBag.CabinType = new SelectList(Common.CabinTypes(), "ID", "Value",cabins.CabinType);
             ViewBag.ReturnUrl = _returnUrl;
             return View(cabins);
@@ -134,7 +135,7 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers
                 db.SaveChanges();
                 return Redirect(_returnUrl);
             }
-            ViewBag.catName = new SelectList(db.cabincategories, "ID", "CategoryName", cabins.CatName);
+            ViewBag.catName = new SelectList(db.cabincategories.OrderBy(x => x.CategoryName).ToList(), "ID", "CategoryName", cabins.CatName);
             ViewBag.CabinType = new SelectList(Common.CabinTypes(), "ID", "Value",cabins.CabinType);
             ViewBag.ReturnUrl = _returnUrl;
             return View(cabins);

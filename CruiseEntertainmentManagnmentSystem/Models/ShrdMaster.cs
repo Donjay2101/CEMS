@@ -80,7 +80,7 @@ namespace CruiseEntertainmentManagnmentSystem.Models
             //                ID = person.ID
             //            };
 
-            return data;
+            return data.OrderBy(x=>x.FullName);
             //db.persons.Select(x => new { }).ToList();
         }
 

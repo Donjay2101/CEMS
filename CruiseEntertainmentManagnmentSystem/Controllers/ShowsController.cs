@@ -57,7 +57,7 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers
 
         public ActionResult Create()
         {
-            ViewBag.ship = new SelectList(db.cruises,"ID","name");
+            ViewBag.ship = new SelectList(db.cruises.OrderBy(x => x.Name).ToList(), "ID","name");
             ViewBag.ReturnUrl = _returnUrl;
             return View();
         }
@@ -75,7 +75,7 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers
                 db.SaveChanges();
                 return Redirect(_returnUrl);
             }
-            ViewBag.ship = new SelectList(db.cruises,"ID","name",shows.Ship);
+            ViewBag.ship = new SelectList(db.cruises.OrderBy(x => x.Name).ToList(), "ID","name",shows.Ship);
             ViewBag.ReturnUrl = _returnUrl;
             return View(shows);
         }
@@ -90,7 +90,7 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.ship = new SelectList(db.cruises,"ID","name");
+            ViewBag.ship = new SelectList(db.cruises.OrderBy(x => x.Name).ToList(), "ID","name",shows.Ship);
             ViewBag.ReturnUrl = _returnUrl;
             return View(shows);
         }
@@ -108,7 +108,7 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers
                 db.SaveChanges();
                 return Redirect(_returnUrl);
             }
-            ViewBag.ship = new SelectList(db.cruises,"ID","name",shows.Ship);
+            ViewBag.ship = new SelectList(db.cruises.OrderBy(x => x.Name).ToList(), "ID","name",shows.Ship);
             ViewBag.ReturnUrl = _returnUrl;
             return View(shows);
         }

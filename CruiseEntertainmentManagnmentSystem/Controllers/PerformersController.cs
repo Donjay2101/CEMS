@@ -76,7 +76,7 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers
 
         public ActionResult Create()
         {
-            ViewBag.PGroup = new SelectList(db.groups, "ID", "GroupName");
+            ViewBag.PGroup = new SelectList(db.groups.OrderBy(x => x.GroupName).ToList(), "ID", "GroupName");
             ViewBag.ReturnUrl = _returnUrl;
             return View();
         }
@@ -95,7 +95,7 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers
                 return Redirect(_returnUrl);
             }
 
-            ViewBag.PGroup = new SelectList(db.groups, "ID", "GroupName", performers.PGroup);
+            ViewBag.PGroup = new SelectList(db.groups.OrderBy(x => x.GroupName).ToList(), "ID", "GroupName", performers.PGroup);
             ViewBag.ReturnUrl = _returnUrl;
             return View(performers);
         }
@@ -111,7 +111,7 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers
                 return HttpNotFound();
             }
 
-            ViewBag.PGroup = new SelectList(db.groups, "ID", "GroupName",performers.PGroup);
+            ViewBag.PGroup = new SelectList(db.groups.OrderBy(x => x.GroupName).ToList(), "ID", "GroupName",performers.PGroup);
             ViewBag.ReturnUrl = _returnUrl;
             return View(performers);
         }
@@ -129,7 +129,7 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers
                 db.SaveChanges();
                 return Redirect(_returnUrl);
             }
-            ViewBag.PGroup = new SelectList(db.groups, "ID", "GroupName", performers.PGroup);
+            ViewBag.PGroup = new SelectList(db.groups.OrderBy(x => x.GroupName).ToList(), "ID", "GroupName", performers.PGroup);
             ViewBag.ReturnUrl = _returnUrl;
             return View(performers);
         }
