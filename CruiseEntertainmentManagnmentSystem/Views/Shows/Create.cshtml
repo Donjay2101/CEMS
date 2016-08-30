@@ -12,27 +12,31 @@
     @Html.ValidationSummary(true)
 
     <fieldset style="margin :10px;">
+        <div class="row">
+            <div class="col-md-5">
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.Name)
+                </div>
+                <div class="editor-field">
+                    @Html.TextBoxFor(model => model.Name)
+                    @Html.ValidationMessageFor(model => model.Name)
+                </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Name)
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.Ship)
+                </div>
+                <div class="editor-field">
+                    @Html.DropDownList("ship", "--Select--")
+                    @Html.ValidationMessageFor(model => model.Ship)
+                </div>
+            </div>
         </div>
-        <div class="editor-field">
-            @Html.TextBoxFor(model => model.Name, new { @class = "onefourth" })
-            @Html.ValidationMessageFor(model => model.Name)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Ship)
-        </div>
-        <div class="editor-field">
-            @Html.DropDownList("ship", "--Select--")
-            @Html.ValidationMessageFor(model => model.Ship)
-        </div>
+       
        
     </fieldset>
 
 <div class="row">
-    <input type="submit" value="Create" class="btn" style=" margin-left: 19px;" /><span></span>@*@Html.ActionLink("Back to List", "Index")*@
+    <input type="submit" value="Create" class="btn" style="margin-left: 19px;" /><span></span>@*@Html.ActionLink("Back to List", "Index")*@
 
 
 

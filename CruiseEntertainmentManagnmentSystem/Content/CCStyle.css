@@ -22,7 +22,7 @@ td {
 
 #dateportion {
     width: 100%;
-    height: 600px !important;
+    height: 500px !important;
     border: 1px solid #D8CFCF;
     border-left: none;
     border-right: none;
@@ -51,12 +51,12 @@ td {
    height: 40px;
     border-bottom: 1px solid #D3CDCD;
     }
-select#Cruise {
+/*select#Cruise {
     width: 30%;
     border-radius: 5px;
     border: none;
     height: 25px;
-}
+}*/
 
 #Calendar table {
     width: 100%;
@@ -134,9 +134,9 @@ select#Cruise {
     margin-right: -15px;
             }
             select{
-                    width: 300px;
+                    width: 60%;
     border-color: #E2E2E2;
-    height: 30px;
+    height:27px;
     border-radius: 5px;
             }
             .pad{

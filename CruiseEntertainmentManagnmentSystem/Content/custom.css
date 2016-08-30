@@ -23,13 +23,14 @@
 .title {
     color: white;
     background: #55C9E9;
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 500;
-    padding-left: 50px; 
+    padding-left: 20px; 
+
     /* box-shadow: 0 0 5px #BAB8B8; */
     /*text-align: center;*/
-    padding-top: 15px;
-    padding-bottom: 10px;
+    /*padding-top: 15px;
+    padding-bottom: 10px;*/
     /*border-left: 1px solid grey;*/
    
 }
@@ -71,12 +72,12 @@ input, textarea {
     border: 1px solid #e2e2e2;
     background: #fff;
     color: #333;
-    font-size: 14px;
+    font-size: 12px;
     margin: 5px 0 6px 0;
     padding: 5px;
     width: 60%;
     border-radius: 2px;
-    height: 31px;
+    height:27px;
 }
 .back{
 
@@ -130,7 +131,7 @@ hr {
 }
 .date {
      color:black!important; 
-     font-size: 13px;
+     font-size: 12px;
 }
 .setContract{
     height: 300px;
@@ -296,6 +297,7 @@ a#btncheck {
 }
 .chkbox-label{
     color: lightslategrey!important;
+    font-size:12px;
 }
 #categories{
     list-style-type:none;padding-left:4px;
@@ -324,6 +326,7 @@ h4.crewdata {
 }
 select {
     border-radius: 2px!important;
+        font-size: 12px;
 }
 .emergncy_contact{
      
@@ -479,4 +482,18 @@ h4.privacy {
 .content-row{
     min-height: 700px;
     background: #49505A;
+}
+.form-group {
+    margin-bottom: 10px;
+}
+.form-control {
+    height: 25px;
+    padding: 2px 8px;
+    font-size: 12px;
+}
+a{
+   font-size: 12px;
+}
+label {
+    font-size: 12px;
 }
