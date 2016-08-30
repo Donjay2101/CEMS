@@ -6,6 +6,7 @@ using CruiseEntertainmentManagnmentSystem.ViewModel;
 using CruiseEntertainmentManagnmentSystem.Filters;
 using System.Text;
 using System.Data.Entity;
+using System.Data.SqlClient;
 
 namespace CruiseEntertainmentManagnmentSystem.Controllers
 {
@@ -42,46 +43,48 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers
 
             //var list = (from C in db.Contractors join CR in db.cruises on C.ship equals CR.ID join p in db.positions on C.position equals p.ID select C).ToList(); 
 
-            var list = (from C in db.Contractors
-                        join CR in db.cruises on C.ship equals CR.ID into ship
-                        from shipt in ship.DefaultIfEmpty()
-                        join p in db.positions on C.position equals p.ID into pos
-                        from post in pos.DefaultIfEmpty()
-                        join per in db.persons on C.Person equals per.ID into pers
-                        from perst in pers.DefaultIfEmpty()
-                        select new ContractorViewModel
-                        {
-                            ID = C.ID,
-                            Name = perst.FirstName + " " + perst.LastName,
-                            InitiatedDate = C.InitiatedDate,
-                            Email = C.Email,
-                            Address = C.Address,
-                            City = C.City,
-                            Zip = C.Zip,
-                            Phone = C.Phone,
-                            BaseSalary = C.BaseSalary,
-                            Day_Rate = C.Day_Rate,
-                            Days_On_Land = C.Days_On_Land,
-                            Days_OnBoard = C.Days_OnBoard,
-                            EndDate = C.EndDate,
-                            Payment_1 = C.Payment_1,
-                            Payment_2 = C.Payment_2,
-                            Payment_2_Date = C.Payment_2_Date.Value,
-                            position = C.position,
-                            PositionName = post.Name,
-                            Shows = C.Shows,
-                            SSN = C.SSN,
-                            Term = C.Term,
-                            Total_Fee = C.Total_Fee,
-                            Total_Per_Diem = C.Total_Per_Diem,
-                            Total_Per_Diem_On_Board = C.Total_Per_Diem_On_Board,
-                            Total_Per_Diem_On_Land = C.Total_Per_Diem_On_Land,
-                            ship = C.ship,
-                            ShipName = shipt.Name,
-                            shipDates = C.shipDates,
-                            ContractorType = C.ContractorType,
-                            AgreementType = C.AgreementType
-                        }).Where(x => x.ContractorType == option).ToList();
+            //var list = (from C in db.Contractors
+            //            join CR in db.cruises on C.ship equals CR.ID into ship
+            //            from shipt in ship.DefaultIfEmpty()
+            //            join p in db.positions on C.position equals p.ID into pos
+            //            from post in pos.DefaultIfEmpty()
+            //            join per in db.persons on C.Person equals per.ID into pers
+            //            from perst in pers.DefaultIfEmpty()
+            //            select new ContractorViewModel
+            //            {
+            //                ID = C.ID,
+            //                Name = perst.FirstName + " " + perst.LastName,
+            //                InitiatedDate = C.InitiatedDate,
+            //                Email = C.Email,
+            //                Address = C.Address,
+            //                City = C.City,
+            //                Zip = C.Zip,
+            //                Phone = C.Phone,
+            //                BaseSalary = C.BaseSalary,
+            //                Day_Rate = C.Day_Rate,
+            //                Days_On_Land = C.Days_On_Land,
+            //                Days_OnBoard = C.Days_OnBoard,
+            //                EndDate = C.EndDate,
+            //                Payment_1 = C.Payment_1,
+            //                Payment_2 = C.Payment_2,
+            //                Payment_2_Date = C.Payment_2_Date.Value,
+            //                position = C.position,
+            //                PositionName = post.Name,
+            //                Shows = C.Shows,
+            //                SSN = C.SSN,
+            //                Term = C.Term,
+            //                Total_Fee = C.Total_Fee,
+            //                //Total_Per_Diem = C.Total_Per_Diem,
+            //                Total_Per_Diem_On_Board = C.Total_Per_Diem_On_Board,
+            //                Total_Per_Diem_On_Land = C.Total_Per_Diem_On_Land,
+            //                ship = C.ship,
+            //                ShipName = shipt.Name,
+            //                shipDates = C.shipDates,
+            //                ContractorType = C.ContractorType,
+            //                AgreementType = C.AgreementType
+            //            }).Where(x => x.ContractorType == option).ToList();
+
+            var list = db.Database.SqlQuery<ContractorViewModel>("exec sp_GetContractors @option", new SqlParameter("@option", option)).ToList();
             return PartialView($"_ContractorsView", list);
         }
         //

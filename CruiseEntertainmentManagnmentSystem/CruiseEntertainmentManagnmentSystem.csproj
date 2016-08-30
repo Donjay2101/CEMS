@@ -313,6 +313,7 @@
     <Compile Include="ViewModel\NewDate.cs" />
     <Compile Include="ViewModel\PerformerViewmodel.cs" />
     <Compile Include="ViewModel\PersonsViewModel.cs" />
+    <Compile Include="ViewModel\PositionViewModel.cs" />
     <Compile Include="ViewModel\ShowsViewModel.cs" />
     <Compile Include="ViewModel\TRFDataViewModel.cs" />
     <Compile Include="ViewModel\TRFModel.cs" />

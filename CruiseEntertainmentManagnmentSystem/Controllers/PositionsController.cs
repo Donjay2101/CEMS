@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using CruiseEntertainmentManagnmentSystem.Models;
+using CruiseEntertainmentManagnmentSystem.ViewModel;
 
 namespace CruiseEntertainmentManagnmentSystem.Controllers
 {
@@ -29,7 +30,8 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers
 
         public ActionResult Positions()
         {
-            var list = db.positions.ToList();
+            var list = db.Database.SqlQuery<PositionViewModel>("exec sp_GetPositions").ToList();
+                //db.positions.ToList();
 
             return PartialView("_positions", list);
         }
@@ -53,6 +55,7 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers
         public ActionResult Create()
         {
             ViewBag.ReturnUrl = _returnUrl;
+            ViewBag.Categories = new SelectList(db.categories.OrderBy(x => x.Name).ToList(), "ID", "Name");
             return View();
         }
 
@@ -69,6 +72,7 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers
                 db.SaveChanges();
                 return Redirect(_returnUrl);
             }
+            ViewBag.Categories = new SelectList(db.categories.OrderBy(x => x.Name).ToList(), "ID", "Name");
             ViewBag.ReturnUrl = _returnUrl;
             return View(position);
         }
@@ -83,6 +87,7 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.Categories = new SelectList(db.categories.OrderBy(x => x.Name).ToList(), "ID", "Name");
             ViewBag.ReturnUrl = _returnUrl;
             return View(position);
         }
@@ -100,6 +105,7 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers
                 db.SaveChanges();
                 return Redirect(_returnUrl);
             }
+            ViewBag.Categories = new SelectList(db.categories.OrderBy(x => x.Name).ToList(), "ID", "Name");
             ViewBag.ReturnUrl = _returnUrl;
             return View(position);
         }

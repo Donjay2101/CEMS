@@ -1,22 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace CruiseEntertainmentManagnmentSystem.Models
+namespace CruiseEntertainmentManagnmentSystem.ViewModel
 {
-    public class Position
+    public class PositionViewModel
     {
         public int ID { get; set; }
-        [Required]
+        
         public string Name { get; set; }
-     
+
         public string Description { get; set; }
 
         public int CategoryID { get; set; }
 
         public string Payrange { get; set; }
 
+        public string CategoryName { get; set; }
     }
 }

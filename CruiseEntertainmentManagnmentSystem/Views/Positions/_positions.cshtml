@@ -1,4 +1,4 @@
-﻿@model IEnumerable<CruiseEntertainmentManagnmentSystem.Models.Position>
+﻿@model IEnumerable<CruiseEntertainmentManagnmentSystem.ViewModel.PositionViewModel>
 @using GridMvc.Html
 
 @Html.Grid(Model).Columns(columns =>
@@ -29,7 +29,9 @@
                                         </b>
                                     </div>);
                         columns.Add(c => c.Name).Titled("Name");
-                        columns.Add(c => c.Description).Titled("Description");
+                        columns.Add(c => c.CategoryName).Titled("Category");
+                        columns.Add(c => c.Payrange).Titled("Pay");
+                        //columns.Add(c => c.Description).Titled("Description");
                     }).Sortable().Filterable().WithMultipleFilters()
 
 
