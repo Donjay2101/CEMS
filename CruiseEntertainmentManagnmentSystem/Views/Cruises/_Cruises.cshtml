@@ -39,6 +39,7 @@
                                                             </b>
                                                         </div>);
                         columns.Add(c => c.Name).Titled("Cruise Name");
+                        columns.Add(c => c.ShipBrand).Titled("Ship Brand");
                         columns.Add(c => c.Description).Titled("Description").Filterable(true);
                     }).Sortable().Filterable().WithMultipleFilters()
 

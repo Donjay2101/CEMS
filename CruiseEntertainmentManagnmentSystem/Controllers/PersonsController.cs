@@ -33,7 +33,7 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers
 
         public ActionResult Persons()
         {
-            
+
             //var list = (from p in db.persons
             //            join map in db.PersonMappings 
             //            on p.ID equals map.PersonID
@@ -60,19 +60,21 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers
             //                Color = p.Color,
             //                Category = cat.Name
             //            }).OrderBy(x=>x.Name).Distinct().ToList();
-            var list = db.persons.Select(x=>new PersonsViewModel{
-                            ID = x.ID,
-                            FirstName=x.FirstName,
-                            LastName= x.LastName,
-                            Alias = x.Alias,
-                            Color = x.Color,
-                            Email=x.Email,
-                            Address=x.Address,
-                            City=x.City,
-                            State=x.State,
-                            Zip=x.Zip,
-                            Phone=x.Phone                            
-            }).ToList();
+            var list = db.Database.SqlQuery<PersonsViewModel>("exec sp_GetPersons").ToList();
+                
+            //    db.persons.Select(x=>new PersonsViewModel{
+            //                ID = x.ID,
+            //                FirstName=x.FirstName,
+            //                LastName= x.LastName,
+            //                Alias = x.Alias,
+            //                Color = x.Color,
+            //                Email=x.Email,
+            //                Address=x.Address,
+            //                City=x.City,
+            //                State=x.State,
+            //                Zip=x.Zip,
+            //                Phone=x.Phone                            
+            //}).ToList();
            // var restpersons = db.persons.ToList().Except(list).ToList();
 
             return PartialView("_persons", list);

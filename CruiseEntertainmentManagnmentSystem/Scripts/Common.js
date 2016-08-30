@@ -187,12 +187,12 @@ $(document).on('change', '#Mapcategories', function () {
     $.ajax({
         url: '/persons/SelectPersons?ID=' + data,
         success: function (data) {
-           // debugger;
+           debugger;
             htmlString = "<div class='col-md-2'></div><div class='addpersontable col-md-5'><table id='personsTable' align='center'><tr><th >Name</th><th class='text-center'>Action</th></tr>";
 
             if (data != null) {
                 for (i = 0; i < data.length; i++) {
-                    htmlString += "<tr><td class='text-left'>" + data[i].Name + "</td><td class='text-center'><input type='checkbox' style='width:30%!important' id='mapchk' class='Pchkbox' value='" + data[i].ID + "' " + data[i].Checked + " /> </td></tr>";
+                    htmlString += "<tr><td class='text-left'>" + data[i].FullName + "</td><td class='text-center'><input type='checkbox' style='width:30%!important' id='mapchk' class='Pchkbox' value='" + data[i].ID + "' " + data[i].Checked + " /> </td></tr>";
                 }
                 htmlString += "</table></div>";
 

@@ -140,14 +140,21 @@ namespace CruiseEntertainmentManagnmentSystem.Models
 
         public List<Persons> GetPersonsByCategoryID(int ID)
         {
-            var list = db.persons.Join(db.PersonMappings, pr => pr.ID, pm => pm.PersonID, (pr, pm) => new { Persons = pr, PersonMapping = pm }).Where(x=>x.PersonMapping.CategoryID==ID).Select(x => x.Persons).ToList();
+            var list = db.persons.Join(db.PersonMappings, pr => pr.ID, pm => pm.PersonID, (pr, pm) => new { Persons = pr, PersonMapping = pm })
+                .Where(x=>x.PersonMapping.CategoryID==ID).Select(x => x.Persons).ToList();
             //var l = list.ToList();
             list.ForEach(x => x.Checked ="checked");
 
             var personsList = db.persons.ToList().Except(list).AsEnumerable();
             personsList.ToList().ForEach(x => x.Checked = null);
 
-            var finalList = list.Union(personsList).OrderByDescending(x=>x.Checked).ToList();
+            var joinlist= list.Union(personsList).OrderByDescending(x=>x.Checked).ToList();
+            var finalList = joinlist.Select(x => new Persons
+            {
+                FullName=x.FirstName+" "+x.LastName,
+                ID=x.ID,
+                Checked=x.Checked
+            }).ToList();
 
             return finalList;
         }
