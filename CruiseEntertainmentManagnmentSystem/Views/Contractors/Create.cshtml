@@ -447,7 +447,7 @@
     //        url: '/Contractors/GetPersonByID?ID=' + person,
     //        type: 'GET',
     //        success: function (data) {
-    //            debugger;
+    //            //debugger;
     //            if (data != "-1") {
     //                if (confirm('data will change in some of given fields, do you want to proceed?')) {
     //                    $('#Address').val(data.Address);
@@ -476,13 +476,13 @@
 
     //$(document).on('change', '#MockPerson', function () {
 
-    //    debugger;
+    //    //debugger;
     //    $('#loadingDiv').css('display', 'block');
     //    var person = 0;
     //    var length=$('.es-list li').length;
     //    for (i = 0; i < length; i++)
     //    {
-    //      //  debugger;
+    //      //  //debugger;
     //        if ($('.es-list li').eq(i).attr('class') == "selected") {
     //            $('#MockPerson').val($('.es-list li').eq(i).html());
     //            person = $('.es-list li').eq(i).val();
@@ -502,7 +502,7 @@
     //        url: '/Contractors/GetPersonByID?ID=' + person,
     //        type: 'GET',
     //        success: function (data) {
-    //            debugger;
+    //            //debugger;
     //            if (data != "-1") {
     //                if (confirm('data will change in some of given fields, do you want to proceed?'))
     //                {
@@ -532,12 +532,12 @@
 
     $(document).on('focusout', '#MockPerson', function () {
 
-        debugger;
+        //debugger;
         $('#loadingDiv').css('display', 'block');
         var person = 0;
         var length = $('.es-list li').length;
         for (i = 0; i < length; i++) {
-            //  debugger;
+            //  //debugger;
             if ($('.es-list li').eq(i).attr('class') == "selected") {
                 $('#MockPerson').val($('.es-list li').eq(i).html());
                 person = $('.es-list li').eq(i).val();
@@ -557,7 +557,7 @@
             url: '/Contractors/GetPersonByID?ID=' + person,
             type: 'GET',
             success: function (data) {
-                debugger;
+                //debugger;
                 if (data != "-1") {
                     if (confirm('This action will change some of the data in the fields below.Proceed?')) {
                         $('#Address').val(data.Address);

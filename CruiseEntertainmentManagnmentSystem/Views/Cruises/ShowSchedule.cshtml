@@ -72,7 +72,7 @@
 <script>
     $(document).ready(function () {
 
-       debugger;
+       //debugger;
         var CID;
         
             CID=$('#CruiseID').val();
@@ -124,7 +124,7 @@
             url: '/Cruises/GetSchedules',
             data: { cruiseID: id ,Year:year},
             success: function (data) {
-                debugger;
+                //debugger;
                 getData(data,year);
             },
             error: function () {
@@ -140,57 +140,79 @@
     });
   
 </script>
-
-
-
-
-<div class="container">
     <div>
         <input type="hidden" value="@ViewBag.CruiseID" id="CruiseID" />
-        <br />
-        <div>
-            <a href="#" onclick="addSubSchedule()">Add Subschedule</a>|    
-            <a href="#" onclick="addSchedule()">Add Schedule</a>         
+        <div class="row">
+            <div class="col-md-6">
+                <div class="row form-group">
+                    <div class="col-md-4">
+                        @Html.DropDownList("Cruise", "Select")
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-md-4">
+                        <a href="#" onclick="addSubSchedule()">Add Contractor</a>
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-md-4">
+                        <a href="#" onclick="addSchedule()">Add Schedule</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="row form-group">
+                    <div class="col-md-12">
+                        <span>For year:</span><select id="cmbYear" style="width: 71px;">
+                            @{
 
-            @Html.DropDownList("Cruise", "Select")
-            <span>For year:</span><select id="cmbYear" style="width: 71px;">
-                @{
-                    
-                    int year = DateTime.Now.Year;
-                    int startYear = year - 10;
-                } 
-                @for (int i = 1; i <= 20; i++)
-                {
-                    if (year == startYear)
-                    {
-                        <option value="@startYear" selected>@startYear</option>
-                    }
-                    else
-                    {
-                        <option value="@startYear" >@startYear</option>
-                    }
+                                int year = DateTime.Now.Year;
+                                int startYear = year - 10;
+                            }
+                            @for (int i = 1; i <= 20; i++)
+                            {
+                                if (year == startYear)
+                                {
+                                    <option value="@startYear" selected>@startYear</option>
+                                }
+                                else
+                                {
+                                    <option value="@startYear">@startYear</option>
+                                }
 
-                    startYear++;
-                }
-            </select>
-            <a href="#" onclick="openNotes()">Add Notes </a>
-            <a href="#"  onclick="showData()">Get Yearly View</a>
-            <a href="#" onclick="getData(@ViewBag.Data)" style="margin-left: 20px;">Get Monthly View</a>
-            <a href="#" id="exp_data" hidden="hidden" style="margin-left: 37px">Export Data</a>
+                                startYear++;
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-md-12">
+                        <a href="#" onclick="showData()">Get Yearly View</a>
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-md-12">
+                        <a href="#" onclick="openNotes()">Add Notes </a>
+                        <a href="#" onclick="getData(@ViewBag.Data)" style="margin-left: 20px;">Get Monthly View</a>
+                        <a href="#" id="exp_data" hidden="hidden" style="margin-left: 37px">Export Data</a>
+                    </div>
+                </div>
+            </div>
+        </div>            
+    </div>
+<div class="row form-group">
+    <div class="col-md-12">
+        <div class="cal-div">
+            <div onload="getData(@ViewBag.Data)" id="CalendarDiv">
+            </div>
+        </div>
+        <div id="Cal" style="overflow:scroll;width:90%;height:600px">
 
         </div>
-
     </div>
-    <br />
-    <div class="cal-div">
-        <div onload="getData(@ViewBag.Data)" id="CalendarDiv">
-        </div>
-    </div>
-    <div id="Cal" style="overflow:scroll;width:90%;height:600px">
-       
-    </div>
-    <div class="htmldata" hidden="hidden"></div>
 </div>
+
+    <div class="htmldata" hidden="hidden"></div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

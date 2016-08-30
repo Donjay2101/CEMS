@@ -114,7 +114,7 @@ var init = (function () {
 
 
     ///TampaDates
-  //  debugger;
+  //  //debugger;
     var Tampa = $('#TampaDates').val();
     var item;
      var endDate = $('#EndDate').val();
@@ -255,7 +255,7 @@ $(document).on('change', '#Days_On_Travel', function () {
 //})
 
 //$(document).on('focusout', '#Payment_1_Date', function () {
-//    debugger;
+//    //debugger;
 //    var data = $(this).val();
 //    if (check(data))
 //    {
@@ -269,7 +269,7 @@ $(document).on('change', '#Days_On_Travel', function () {
 //to intiliaze the payement 1 date because it was not initiating at automatically.
 
 //$(document).on('focusout', '#Payment_2_Date', function () {
-//    debugger;
+//    //debugger;
 //    var data = $(this).val();
 //    if (check(data)) {
 //        var data = sessionStorage.getItem('payment2Date');
@@ -529,7 +529,7 @@ function CalculatePerDiemOnLand()
 
 function CalculatePerdiemOnBoard()
 {
-    //debugger;
+    ////debugger;
     var dayonland = $('#Days_OnBoard').val();
     var PerDiemOnLand = $('#Per_Diem_On_Board').val();
     if (check(dayonland))
@@ -731,7 +731,7 @@ function gen_Contract(id,url,Type)
     //$.ajax({
     //    url: url,
     //    success: function (data) {
-    //        //debugger;
+    //        ////debugger;
     //        alert(data);
     //        console.log(data);
     //        if (data == 1)
@@ -885,7 +885,7 @@ var getSession = function (name) {
 }
 
 $(document).on('click', '#btnWardrobe', function () {
-   // debugger;
+   // //debugger;
     //$(this).css('background-color', '#EAEAEA');
     //$('#btnProduction').css('background-color', 'white');
     //$('#btnDirectors').css('background-color', 'white');

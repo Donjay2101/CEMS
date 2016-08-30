@@ -3,7 +3,7 @@
 
 function finalDelete(ID,Name,Url,option)
 {
-    debugger;   
+    //debugger;   
     var result = confirm('You are about to delete' + Name + '. If yes click ok.')
     
     if (result)
@@ -22,7 +22,7 @@ function finalDelete(ID,Name,Url,option)
             method: "POST",
             data: data,
             success: function (data) {
-               debugger;
+               //debugger;
                 var data = JSON.parse(data);
                 if (data.Result == "Done")
                 {
@@ -47,7 +47,7 @@ function getBookingHistory(opt,startDate,endDate)
     console.log(sDate + "  0------" + eDate);
     $('#loading').show();
     $('#historyContainer').show();
-    //debugger;
+    ////debugger;
     if (sDate != null && eDate != null)
     {
         sdate = formatDate(sDate);
@@ -66,7 +66,7 @@ function getBookingHistory(opt,startDate,endDate)
     //    data: { ID: ID },
     //    success: function (data) {
 
-    //        //debugger;
+    //        ////debugger;
     //        var data = JSON.parse(data);
     //        if (data.Result == "Done") {
     //            $("#dataContainer").load(data.Data);
@@ -83,7 +83,7 @@ function getBookingHistory(opt,startDate,endDate)
 
 function goToPrevious(returnUrl)
 {
-    //debugger;
+    ////debugger;
     val=$('#returnUrl').val();
     if(val!=undefined && val!='')
     {

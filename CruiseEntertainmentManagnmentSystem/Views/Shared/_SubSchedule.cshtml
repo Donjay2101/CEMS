@@ -13,7 +13,7 @@
 
     function setDateToPicker()
     {
-        debugger;
+        //debugger;
         var selectedate = $('#S_startDate').val();
         var cdate = new Date(selectedate);
        // var year = cdate.getFullYear();
@@ -27,7 +27,7 @@
 
 
     $(document).on('change', '#Schedules', function () {
-        debugger;
+        //debugger;
         var data = $('#Schedules option:selected').html().split('-');
         $('#S_startDate').val(data[0]);
         $('#S_endDate').val(data[1]);

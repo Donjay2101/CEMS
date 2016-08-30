@@ -17,7 +17,7 @@
     padding-right:15px;
 }
 .bg{
-    background:aliceblue;
+    /*background:aliceblue;*/
     /*box-shadow: 0 0 5px #A9A7A7;*/
 }
 .title {
@@ -196,7 +196,7 @@ input.register {
 }
 section#login {
     width: 82%;
-    padding-top: 30px;
+    padding-top:15px;
     font-size: 15px;
     font-weight: 600;
     float: right;
@@ -451,7 +451,7 @@ h4.privacy {
     font-weight: 800;
 }
 /*.logo-box{
-        box-shadow: 0 0 20px #D2C8C8;
+            box-shadow: 0 0 20px #D2C8C8;
             background: #49505A;
 }*/
 .menu-col{
@@ -460,14 +460,14 @@ h4.privacy {
 .logo-box {
     box-shadow: 0 0 20px #D2C8C8;
     background: #49505A;
-    height: 115px;
+    height: 65px;
     margin-top: 0px;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 #databox{
     min-height: 700px;
-    background: aliceblue;
+    background: white;
     
 }
 .onefourth{
