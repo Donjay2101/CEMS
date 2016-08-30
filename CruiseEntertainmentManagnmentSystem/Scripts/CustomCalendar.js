@@ -22,7 +22,7 @@
 
         function getData(data,year)
         {
-            debugger;
+            //debugger;
             //if (check(data))
             //{
             //    alert('select any ship from list');
@@ -140,7 +140,7 @@
 
                 //console.log(dataList);
 
-                //debugger;
+                ////debugger;
                 if (startDate == undefined || startDate == '')
                 {
                     startDate = new Date();
@@ -156,7 +156,7 @@
 
         function DisplayDates(month,year)
         {
-            //debugger;
+            ////debugger;
             var end = 0;
             curmonth=month + 1; 
             var findDate = new Date(curmonth+ "/1/"+ year + "");
@@ -242,7 +242,7 @@
 
         function getHtmlString(count,month)
         {
-            debugger;
+            //debugger;
             var day;
             var ar = 0;
             dataList =JSON.parse(sessionStorage.getItem('dataList'));
@@ -295,7 +295,7 @@
        
 
         $(document).on('click', '#next', function () {
-            debugger;
+            //debugger;
             var datepart = $('#disp').html();
             var val = datepart.split(',');
             var month = months.indexOf(val[0]);
@@ -313,7 +313,7 @@
 
         $(document).on('click', '#prev', function () {
 
-            //debugger;
+            ////debugger;
             var datepart = $('#disp').html();
             var val = datepart.split(',');
             var month = months.indexOf(val[0]);
@@ -329,7 +329,7 @@
 
         function getfullYearView(data,year)
         {
-            debugger;
+            //debugger;
             var curDate ;
             var curyear;
             var datestring;
@@ -399,11 +399,11 @@
                     for (k = 1; k < count; k++) //for column
                     {
                         for (sb = 0; sb < data.YearlyCruiseViewModel[j].length; sb++) {
-                            ////debugger;
+                            //////debugger;
                             c = 0;
                             var Sdate = convertJSONDate(data.YearlyCruiseViewModel[j][sb].Date);
                             if ((Sdate - tempstartDate) == 0) {
-                                //debugger;
+                                ////debugger;
                                 htmlString += "<td  width='100px' style='word-wrap:break-word;border:1px solid;text-align:center; background:" + data.YearlyCruiseViewModel[j][sb].Color + ";'>" + data.YearlyCruiseViewModel[j][sb].TaskName + "</td>";
                                 c = 1;
                                 break;
@@ -433,11 +433,11 @@
                                 for (k = 1; k < count; k++) //for column
                                 {
                                     for (sb = 0; sb < data.Notes[temp].length; sb++) {
-                                        ////debugger;
+                                        //////debugger;
                                         c = 0;
                                         var Sdate = convertJSONDate(data.Notes[temp][sb].Date);
                                         if ((Sdate - tempstartDate) == 0) {
-                                            //debugger;
+                                            ////debugger;
                                             htmlString += "<td  width='100px' style='word-wrap:break-word;border:1px solid;text-align:center;'>" + data.Notes[temp][sb].Notes + "</td>";
                                             c = 1;
                                             break;
@@ -487,11 +487,11 @@
                                 {
 
                                     for (sb = 0; sb < data.Subtasks.length; sb++) {
-                                        ////debugger;
+                                        //////debugger;
                                         c = 0;
                                         var Sdate = convertJSONDate(data.Subtasks[sb].Date);
                                         if ((Sdate - tempstartDate) == 0 && category == data.Subtasks[sb].CategoryName) {
-                                            //debugger;
+                                            ////debugger;
                                             htmlString += "<td  width='100px' style='word-wrap:break-word;border:1px solid;text-align:center; background:" + data.Subtasks[sb].SubColor + ";'>" + data.Subtasks[sb].Person + "</td>";
                                             c = 1;
 
@@ -533,7 +533,7 @@
 
         function showData(year)
         {
-            debugger;
+            //debugger;
             year=$('#cmbYear').val();
 
             if(year==undefined || year=="")
@@ -546,7 +546,7 @@
                 url: '/Cruises/getYearlySchedule',
                 data:{Year:year},
                 success: function (data) {
-                    debugger;
+                    //debugger;
                     getfullYearView(data, year);
                     
                 },

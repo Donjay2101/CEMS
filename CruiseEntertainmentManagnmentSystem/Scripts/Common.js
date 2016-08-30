@@ -3,7 +3,7 @@
 
 function finalDelete(id,name,url,option)
 {
-    debugger;   
+    //debugger;   
     var result = confirm('You are about to delete' + name + '. If yes click ok.')
     
     if (result)
@@ -24,7 +24,7 @@ function finalDelete(id,name,url,option)
             method: "GET",
             data: data,
             success: function (data) {
-               debugger;
+               //debugger;
                 data = JSON.parse(data);
                 if (data.Result == "Done")
                 {
@@ -50,7 +50,7 @@ function getBookingHistory(opt,startDate,endDate)
     console.log(sDate + "  0------" + eDate);
     $('#loading').show();
     $('#historyContainer').show();
-    //debugger;
+    ////debugger;
     if (sDate != null && eDate != null)
     {
         sdate = formatDate(sDate);
@@ -69,7 +69,7 @@ function getBookingHistory(opt,startDate,endDate)
     //    data: { ID: ID },
     //    success: function (data) {
 
-    //        //debugger;
+    //        ////debugger;
     //        var data = JSON.parse(data);
     //        if (data.Result == "Done") {
     //            $("#dataContainer").load(data.Data);
@@ -89,7 +89,7 @@ function getBookingHistory(opt,startDate,endDate)
 
 function goToCreate(url) {
 
-    debugger;    
+    //debugger;    
     newurl=getUrl(url);
     window.location.href = newurl;
 }
@@ -117,7 +117,7 @@ function getUrl(url)
 }
 
 function goToPrevious(url) {
-    debugger;
+    //debugger;
     //console.log(getURL());
   //  var txt = decodeURI(url);
     //url =  txt;
@@ -136,11 +136,11 @@ function goToPrevious(url) {
 
 function AddPerson()
 {
-    debugger;
+    //debugger;
     $.ajax({
         url: '/Categories/SelectCategories',
         success: function (data) {
-           debugger;
+           //debugger;
             if (data != null) {
                 var selectdata = "<option value='-1'>select--</option>";
                 for (i = 0; i < data.length; i++) {
@@ -181,13 +181,13 @@ function AddPerson()
 }
 
 $(document).on('change', '#Mapcategories', function () {
-   // debugger;
+   // //debugger;
     var data = $(this).val();
 
     $.ajax({
         url: '/persons/SelectPersons?ID=' + data,
         success: function (data) {
-           debugger;
+           //debugger;
             htmlString = "<div class='col-md-2'></div><div class='addpersontable col-md-5'><table id='personsTable' align='center'><tr><th >Name</th><th class='text-center'>Action</th></tr>";
 
             if (data != null) {
@@ -207,7 +207,7 @@ $(document).on('change', '#Mapcategories', function () {
 });
 
 $(document).on('click', '#AddPToC', function () {
-    //debugger;
+    ////debugger;
 
     showloadDiv();
     var chkboxes = $('.Pchkbox');
@@ -234,7 +234,7 @@ $(document).on('click', '#AddPToC', function () {
         data: JSON.stringify(personsArr),
         dataType: "json",
         success: function (data) {
-            //debugger;
+            ////debugger;
             $('#overLay').css('display', 'none');
             $('#Datacontainer').html("");
             closeloadDiv();
@@ -262,11 +262,11 @@ function closeloadDiv() {
 
 function copyCategory(ID)
 {
-    debugger;
+    //debugger;
     $.ajax({
         url: '/Categories/SelectCategories',
         success: function (data) {
-            // debugger;
+            // //debugger;
             if (data != null) {
                 var selectdata = "<option value='-1'>select--</option>";
                 for (i = 0; i < data.length; i++) {
@@ -313,7 +313,7 @@ $(document).on('click', '#copyCategory', function () {
 
 
 function checkCategory() {
-    debugger;
+    //debugger;
     var list = $('#categories li');
     var catList = "";
     var count = 0;
@@ -344,7 +344,7 @@ function checkCategory() {
 
 
 $(document).on("click", "#btncheck", function () {
-    debugger;
+    //debugger;
     $('#loadingDiv').css('display', 'block');
     var username = $('#UserName').val();
 
@@ -353,7 +353,7 @@ $(document).on("click", "#btncheck", function () {
             url: "/Persons/CheckUserName?username=" + username,
             type: "GET",
             success: function (data) {
-                debugger;
+                //debugger;
                 if (data == "1") {
                     $("#error").css('color', 'red');
                     $("#error").html('User name already exists. Please enter a different user name.');
@@ -374,7 +374,7 @@ $(document).on("click", "#btncheck", function () {
 
 $(document).on("change", ".date", function () {
 
-    debugger;
+    //debugger;
     var data=$(this).val();
 
     var curdate = new Date(data);

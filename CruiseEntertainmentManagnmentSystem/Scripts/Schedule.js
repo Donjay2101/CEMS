@@ -400,7 +400,7 @@ function AddTask(index,option)
 
 function EditTask(index,option)
 {
-    debugger;
+    //debugger;
     if (isEditOpen) {
         alert('row is in editable mode. cancel to change the edit mode');
         return;
@@ -477,7 +477,7 @@ function EditTask(index,option)
 
 function saveTask()
 {
-    //debugger;
+    ////debugger;
     //dropdownstring = $('#TaskName').html();
     length = $('#TaskName >option').length;
 
@@ -561,7 +561,7 @@ $(document).on('change', '#TaskName', function () {
 //-------------------------for update the date part------------------------///
 $(document).on('change', '#uEDate', function () {
 
-    // debugger;
+    // //debugger;
 
     var index = $(this).closest('tr').index();
 
@@ -616,7 +616,7 @@ $(document).on('change', '#uDays', function () {
 
 function updateTask(index,option)
 {
-    debugger;
+    //debugger;
     var mainendDate = $('#S_endDate').val();
     mainendDate = new Date(mainendDate);
 
@@ -896,7 +896,7 @@ function manageOff(startDate,endDate) {
 
 $(document).on('click', '#backbtn', function () {
 
-    //debugger;
+    ////debugger;
     var data = sessionStorage.getItem('Container');
     if(data!=null && data!=undefined)
     {
@@ -1019,7 +1019,7 @@ function AddDates(index,length,opt)
 {
     //index = index + 1;
     html = "";
-    //debugger;
+    ////debugger;
     //index=index+1
    // alert('index: ' + index + ' Length: ' + length);
     var result = $('#sunchkbx').is(':checked');
@@ -1186,7 +1186,7 @@ function AddDates(index,length,opt)
 
 function minusDates(index,length,opt)
 {
-    //debugger;
+    ////debugger;
     var c = 0, temp = 1;
     var loop = false;
    // alert(index);
@@ -1258,7 +1258,7 @@ function minusDates(index,length,opt)
 function minusSundays(index,length)
 {
 
-    //debugger;
+    ////debugger;
 
     var Task = $("#offTable tr").eq(index).find('td').eq(2).html();;
     var Date = $("#offTable tr").eq(index).find('td').eq(0).html();
@@ -1511,7 +1511,7 @@ $(document).on('focusout', '#EoffDate', function () {
 
 function addSchedule() {
 
-    //debugger;
+    ////debugger;
     var ID=$('#Cruise').val();
     if (ID != undefined && ID != "")
     {
@@ -1545,7 +1545,7 @@ var submitSchedule = function (Date,Task,TaskID) {
 
 $(document).on('click', '#btnsubmitSchedule', function () {
     
-    //debugger;
+    ////debugger;
     var l = $('#offTable tr').size();
     var data = "";
     var arr = new submitSchedule();
@@ -1556,7 +1556,7 @@ $(document).on('click', '#btnsubmitSchedule', function () {
     //console.log('out' + sessionStorage.getItem('taskArray'));
     for (i = 1; i < l; i++)
     {
-        debugger;
+        //debugger;
         var Date = $('#offTable tr').eq(i).find('td').eq(0).html();
         var Task = $('#offTable tr').eq(i).find('td').eq(2).html();
         var TaskID =parseInt(tasks[Task]);
@@ -1569,7 +1569,7 @@ $(document).on('click', '#btnsubmitSchedule', function () {
         
         
     }
-    //debugger;
+    ////debugger;
     var jsonstring = JSON.stringify(subarr);
     
     cruiseID=$('#CruiseID').val();
@@ -1802,7 +1802,7 @@ $(document).on('click', '#closebtn', function () {
             $.ajax({
                 url: '/Cruises/Persons?ID='+id,                
                 success: function (data) {
-                    debugger;
+                    //debugger;
                     var htmlString = "";
                     for (i = 0; i < data.length; i++)
                     {
@@ -1889,7 +1889,7 @@ $(document).on('click', '#closebtn', function () {
             
            
         }
-        //debugger;
+        ////debugger;
         var jsonstring = JSON.stringify(subarr);
 
        
@@ -1948,7 +1948,7 @@ $(document).on('click', '#closebtn', function () {
                 {
                     if( data.CruiseViewModel!=null && data.CruiseViewModel.length>0)
                     {
-                        debugger;
+                        //debugger;
 
                         var htmlString = "<div class='row text-right'><span id='closebtn' style=' font-size: 19px;border: 1px solid #BFBFBF;margin-right: 3px;color: #A7A7A7;font-weight: bold;cursor:pointer'>&nbsp;X&nbsp;</span></div>";
                         htmlString+="<div class='row'>";
@@ -1993,7 +1993,7 @@ $(document).on('click', '#closebtn', function () {
 
     $(document).on('click', '#btnSaveNotes', function () {
         var arr = new Array;;
-        debugger;
+        //debugger;
         var data = $('#notesContainer').find('div.row');
         var date;
         var taskId;

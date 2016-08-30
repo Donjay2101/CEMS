@@ -8,7 +8,7 @@
 <h3 class="title pad">@ViewBag.Title</h3>
 <script type="text/javascript">
     $(document).on('change', '#BookingTo', function () {
-        debugger;
+        //debugger;
         var curDate = new Date();
         curDate = formatDate(curDate);
         curDate = new Date(curDate);
@@ -36,7 +36,7 @@
     });
 
     $(document).on('change', '#BookingFrom', function () {
-        debugger;
+        //debugger;
         var curDate = new Date();
         curDate = formatDate(curDate);
         curDate = new Date(curDate);
@@ -81,7 +81,7 @@
 <script>
 
     $(document).on('change', '#BookingTo', function () {
-        debugger;
+        //debugger;
         var from = $('#BookingFrom').val();
         var to = $('#BookingTo').val();
         if (from != undefined && from != "" && to != undefined && to != "")
