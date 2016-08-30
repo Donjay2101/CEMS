@@ -58,6 +58,15 @@
                 @Html.DropDownList("MPerson", null, "select--", new { ID = "MockPerson" })
                 @Html.ValidationMessageFor(model => model.Person)
             </div>
+            <div class="editor-label">
+                <label>Ship's Brand</label>
+            </div>
+            <div class="editor-field">
+
+                @*@Html.EditorFor(model => model.ship)*@
+                @*@Html.DropDownList("ship", "select---")*@
+                @Html.ValidationMessageFor(model => model.ship)
+            </div>
 
             <div class="editor-label">
                 @Html.LabelFor(model => model.ship)

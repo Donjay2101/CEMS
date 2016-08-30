@@ -272,5 +272,19 @@ namespace CruiseEntertainmentManagnmentSystem.Models
 
             return defaultUrl;
         }
+
+
+        public List<ShipBrand> GetBrands()
+        {
+            var data=db.Database.SqlQuery<ShipBrand>("exec sp_GetShipBrands").ToList();
+
+            return data;
+        }
+    }
+
+    public class ShipBrand
+    {
+        //public string ID { get; set; }
+        public string Name { get; set; }
     }
 }
