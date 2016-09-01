@@ -49,49 +49,84 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers.User
         public ActionResult ProfileView()
         {
 
-            //string id = ;
 
-            var Userdata = ShrdMaster.Instance.GetPersonByUserName(User.Identity.Name);
+        
+            Persons userdata;
+            PersonalInformation information=null;
+            userdata = ShrdMaster.Instance.GetPersonByUserName(User.Identity.Name);
 
-            ProfileViewModel vm = new ProfileViewModel();
-            if(Userdata!=null)
+            SessionContext<Persons>.Instance.SetSession("User", userdata);
+            //PersonalInformation vm = new PersonalInformation();
+            if(userdata != null)
             {
-                ViewBag.FullName= Userdata.FirstName+" "+Userdata.LastName;
-                ViewBag.Email = Userdata.Email;
+                ViewBag.FullName= userdata.FirstName+" "+ userdata.LastName;
+                ViewBag.Email = userdata.Email;
+                Session["LoggedUser"] = userdata;
+
+                information = db.PersonalInformations.FirstOrDefault(x => x.PersonID == userdata.ID);
+                
                 //vm.LastName = Userdata.LastName;
                 //vm.Email = Userdata.Email;
             }
-            
+            if(information != null)
+            {
+                return View(information);
+            }
             return View();
         }
+
+        [HttpPost]
+        public ActionResult ProfileView(PersonalInformation model)
+        {
+
+            if(ModelState.IsValid)
+            {
+                Persons person = SessionContext<Persons>.Instance.GetSession("User");
+                if(person!=null)
+                {
+                    if(model.ID>0)
+                    {
+                        db.Entry(model).State = EntityState.Modified;
+                    }
+                    else
+                    {
+                        model.PersonID = person.ID;
+                        db.PersonalInformations.Add(model);
+                    }                    
+                }                
+                
+                db.SaveChanges();
+            }
+            return View(model);
+        }
+        
+
         public ActionResult CrewDataForm()
         {
             Persons person;
             person = GetPerson();
-            //if (person.Sex == 0)
-            //{
-            //    person.IsFemale = true;
-            //}
-            //else
-            //{
-            //    person.IsFemale = false;
-            //}
-            //ViewBag.Ship = new SelectList(db.cruises, "ID", "Name", person.Ship);
-            //ViewBag.Status = new SelectList(Common.GetStatus(), "ID", "Value", person.Status);
-            //ViewBag.Position = new SelectList(db.positions, "ID", "Name", person.Position);
-            return View(person);
+            ViewBag.Ships = new SelectList(ShrdMaster.Instance.GetShips("Norwegian"), "ID", "Name");
+
+            ViewBag.Department = new SelectList(ShrdMaster.Instance.GetDepartmentforCrewDataForm(), "ID", "Name");
+            
+            return View();
         }
 
         [HttpPost]
-        public ActionResult CrewDataForm(Persons model)
+        public ActionResult CrewDataForm(CrewDataForm model)
         {
             Persons person;
-            person = GetPerson();
+            person = SessionContext<Persons>.Instance.GetSession("User");
             if (ModelState.IsValid)
             {
                 if (model.ID > 0)
                 {
                     db.Entry(model).State = EntityState.Modified;
+                }
+                else
+                {
+                    model.PersonID = person.ID;
+                    db.CrewdataForms.Add(model);
                 }
                 db.SaveChanges();
             }
@@ -101,6 +136,38 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers.User
             //ViewBag.Status = new SelectList(Common.GetStatus(), "ID", "Value", person.Status);
             //ViewBag.Position = new SelectList(db.positions, "ID", "Name", person.Position);
             return RedirectToAction("CrewDataForm");
+        }
+
+        public ActionResult PersonalInformationForm()
+        {
+            var person = SessionContext<Persons>.Instance.GetSession("User");
+            ViewBag.Positions = new SelectList(ShrdMaster.Instance.GetPostionsforPIF(person.ID), "ID", "Name");
+            ViewBag.Ships = new SelectList(ShrdMaster.Instance.getShipsForPIF("Regent", "Oceania"), "ID", "Name");
+
+
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult PersonalInformationForm(PersonalInformationForm model)
+        {
+            var person = SessionContext<Persons>.Instance.GetSession("User");
+
+            if(ModelState.IsValid)
+            {
+                if(model.ID>0)
+                {
+                    db.Entry(model).State = EntityState.Modified;
+                }
+                else
+                {
+                    db.PersonalInformationForms.Add(model);
+                }
+                db.SaveChanges();
+            }
+
+            return View(model);
+
         }
 
         public ActionResult TRF()

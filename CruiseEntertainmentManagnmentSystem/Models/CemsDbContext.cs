@@ -37,7 +37,10 @@ namespace CruiseEntertainmentManagnmentSystem.Models
         public DbSet<CruiseNote> Notes { get; set; }
         public DbSet<ContractorShow> ContractorShows { get; set; }
         public DbSet<PersonalInformation> PersonalInformations { get; set; }
+        public DbSet<CrewDataForm> CrewdataForms { get; set; }
+        public DbSet<PositionMapping> PositionMappings { get; set; }
+        public DbSet<PersonalInformationForm> PersonalInformationForms { get; set; }
 
-        public System.Data.Entity.DbSet<CruiseEntertainmentManagnmentSystem.ViewModel.ProfileViewModel> ProfileViewModels { get; set; }
+        
     }
 }

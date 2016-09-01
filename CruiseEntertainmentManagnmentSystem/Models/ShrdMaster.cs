@@ -282,6 +282,15 @@ namespace CruiseEntertainmentManagnmentSystem.Models
         }
 
 
+        public List<Cruises> GetShips(string ShipBrand="")
+        {
+            if(string.IsNullOrEmpty(ShipBrand))
+            {
+                return db.cruises.ToList();
+            }
+            return db.cruises.Where(x => x.ShipBrand.ToUpper() == ShipBrand.ToUpper()).ToList();
+        }
+
         public List<Shows> GetShowsByContractorID(int id,int shipID)
         {
             var list = db.shows.Join(db.ContractorShows, pr => pr.ID, pm => pm.ShowID, (pr, pm) => new { Show = pr, ContractorShow= pm })
@@ -296,11 +305,45 @@ namespace CruiseEntertainmentManagnmentSystem.Models
 
             return finalList;
         }
+
+
+        public List<CrewDepartment> GetDepartmentforCrewDataForm()
+        {
+            List<CrewDepartment> list = new List<CrewDepartment>() {
+                new CrewDepartment() { ID="Entertainment Contractor",Name="Entertainment Contractor"}
+            };
+        
+        return list;
+        }
+
+        public List<Cruises> getShipsForPIF(string ShipBrand,string ShipBrand1)
+        {
+            if (string.IsNullOrEmpty(ShipBrand))
+            {
+                return db.cruises.ToList();
+            }
+            return db.cruises.Where(x => x.ShipBrand.ToUpper() == ShipBrand.ToUpper() || x.ShipBrand.ToUpper()==ShipBrand1.ToUpper()).ToList();
+        }
+
+        public List<Position> GetPostionsforPIF(int personID)
+        {
+            var positons = db.PositionMappings.Where(x => x.PersonID == personID).AsEnumerable();
+            var data = db.positions.Join(positons, p => p.ID, pm => pm.PositionID, (p, pm) => new { Position = p, PositionMapping = pm })
+                .Select(x => x.Position).ToList();
+            return data;
+        }
+       
     }
 
     public class ShipBrand
     {
         //public string ID { get; set; }
+        public string Name { get; set; }
+    }
+
+    public class CrewDepartment
+    {
+        public string ID { get; set; }
         public string Name { get; set; }
     }
 }

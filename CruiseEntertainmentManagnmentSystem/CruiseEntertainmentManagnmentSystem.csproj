@@ -282,6 +282,7 @@
     <Compile Include="Models\Common.cs" />
     <Compile Include="Models\Contractor.cs" />
     <Compile Include="Models\ContractorShow.cs" />
+    <Compile Include="Models\CrewDataForm.cs" />
     <Compile Include="Models\CruiseNote.cs" />
     <Compile Include="Models\Cruises.cs" />
     <Compile Include="Models\CruiseSchedule.cs" />
@@ -299,7 +300,10 @@
     <Compile Include="Models\PersonalInformations.cs" />
     <Compile Include="Models\PersonMapping.cs" />
     <Compile Include="Models\Persons.cs" />
+    <Compile Include="Models\PersonalInformationForm.cs" />
     <Compile Include="Models\Position.cs" />
+    <Compile Include="Models\PositionMapping.cs" />
+    <Compile Include="Models\SessionContext.cs" />
     <Compile Include="Models\Shows.cs" />
     <Compile Include="Models\ShrdMaster.cs" />
     <Compile Include="Models\TRF.cs" />
@@ -540,7 +544,6 @@
     <Content Include="Views\Shows\Edit.cshtml" />
     <Content Include="Views\Shows\Index.cshtml" />
     <Content Include="Views\Shows\_shows.cshtml" />
-    <Content Include="Views\UserHome\CrewDataForm.cshtml" />
     <Content Include="Views\UserHome\Index.cshtml" />
     <Content Include="Views\UserHome\PDF.cshtml" />
     <Content Include="Views\UserHome\TRF.cshtml" />
@@ -548,6 +551,8 @@
     <Content Include="Views\UserHome\w9.cshtml" />
     <Content Include="Views\UserHome\w9pdf.cshtml" />
     <Content Include="Views\UserHome\ProfileView.cshtml" />
+    <Content Include="Views\UserHome\CrewDataForm.cshtml" />
+    <Content Include="Views\UserHome\PersonalInformationForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

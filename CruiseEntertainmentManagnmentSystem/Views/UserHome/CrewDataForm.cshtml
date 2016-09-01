@@ -1,726 +1,191 @@
-﻿@model CruiseEntertainmentManagnmentSystem.Models.Persons
+﻿@model CruiseEntertainmentManagnmentSystem.Models.CrewDataForm
 
 @{
-    Layout = ViewBag.Layout = "~/Views/Shared/_UserLayout.cshtml";
-    ViewBag.Title = "Norwegian Cruise Line - Crew Data Form";
+    ViewBag.Title = "CrewDataForm";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
 }
 
-<h2 class="row title topbottomspace">
-    @ViewBag.Title
-</h2>
+<h2>CrewDataForm</h2>
 
-@using (Html.BeginForm())
+
+@using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
-    @Html.ValidationSummary(true)
-
-    <fieldset>
-
-        <div class="row">
-            <div class="row">
-                <h4 class="crewdata">Primary Information</h4>
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="editor-label">
-                            @Html.LabelFor(model => model.HireDate)
-                        </div>
-                        <div class="editor-field">
-                            @*@if(Model.HireDate==null)
-                            {
-                             <input type="text" id="HireDate" name="HireDate" class="date" />
-                            }
-                            else
-                            {
-                                <input type="text" id="HireDate" name="HireDate" value="@Model.HireDate.Value.ToShortDateString()" class="date" />
-                            }*@
-                            
-                            @Html.TextBoxFor(model => model.HireDate,"{0:MM/dd/yyyy}", new { @class="date"})
-                          
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="editor-label">
-                            @Html.LabelFor(model => model.MAPSID)
-                        </div>
-                        <div class="editor-field">
-                            @Html.TextBoxFor(model => model.MAPSID)
-                            @Html.ValidationMessageFor(model => model.MAPSID)
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="editor-label">
-                            @Html.LabelFor(model => model.Department)
-                        </div>
-                        <div class="editor-field">
-                            @Html.TextBoxFor(model => model.Department)
-                            @Html.ValidationMessageFor(model => model.Department)
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-4">
-
-                        <div class="editor-label">
-                            @Html.LabelFor(model => model.FirstName)
-                        </div>
-                        <div class="editor-field">
-                            @Html.TextBoxFor(model => model.FirstName)
-                            @Html.ValidationMessageFor(model => model.FirstName)
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="editor-label">
-                            @Html.LabelFor(model => model.LastName)
-                        </div>
-                        <div class="editor-field">
-                            @Html.TextBoxFor(model => model.LastName)
-                            @Html.ValidationMessageFor(model => model.LastName)
-
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-
-
-                        <div class="editor-label">
-                            @Html.LabelFor(model => model.Position)
-                        </div>
-                        <div class="editor-field">
-                            @*@Html.TextBoxFor(model => model.Position)
-                            @Html.ValidationMessageFor(model => model.Position)*@
-                            @Html.DropDownList("Position","select")
-                            @*<select id="Position" name="Position" placeholder="Please Select"></select>*@
-                        </div>
-
-
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-offset-8 col-md-4">
-                        <div class="editor-label">
-                            @Html.LabelFor(model => model.Ship)
-                        </div>
-                        <div class="editor-field">
-                            @*@Html.TextBoxFor(model => model.Ship)*@
-                            @Html.DropDownList("Ship","select")
-                            @*<select id="Ship" name="Ship" placeholder="Please Select"></select>*@
-                        </div>
-                    </div>
-                </div>
+    
+    <div class="form-horizontal">
+        <h4>CrewDataForm</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })        
+        <div class="form-group">
+            @Html.LabelFor(model => model.MapsID, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.MapsID, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.MapsID, "", new { @class = "text-danger" })
             </div>
-            <hr />
-            <div class="row">
-                <h4 class="crewdata">Address Information</h4>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="editor-label">
-                            @Html.LabelFor(model => model.Address)
-                        </div>
-                        <div class="editor-field">
-                            @Html.TextBoxFor(model => model.Address)
-                            @Html.ValidationMessageFor(model => model.Address)
-                        </div>
-
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-2">
-                        <div class="editor-label">
-                            @Html.LabelFor(model => model.City)
-                        </div>
-                        <div class="editor-field">
-                            @Html.TextBoxFor(model => model.City, new { @class = "fulltextbox" })
-                            @Html.ValidationMessageFor(model => model.City)
-                        </div>
-                    </div>
-
-                    <div class="col-md-2">
-                        <div class="editor-label">
-                            @Html.LabelFor(model => model.Zip)
-                        </div>
-                        <div class="editor-field">
-                            @Html.TextBoxFor(model => model.Zip, new { @class = "fulltextbox" })
-                            @Html.ValidationMessageFor(model => model.Zip)
-                        </div>
-                    </div>
-                    <div class="col-md-2">
-
-                        <div class="editor-label">
-                            @Html.LabelFor(model => model.State)
-                        </div>
-                        <div class="editor-field">
-                            @Html.TextBoxFor(model => model.State, new { @class = "fulltextbox" })
-                            @Html.ValidationMessageFor(model => model.State)
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-2">
-
-                        <div class="editor-label">
-                            @Html.LabelFor(model => model.Phone)
-                        </div>
-                        <div class="editor-field">
-                            @Html.TextBoxFor(model => model.Phone, new { @class = "fulltextbox" })
-                            @Html.ValidationMessageFor(model => model.Phone)
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="editor-label">
-                            @Html.LabelFor(model => model.Email)
-                        </div>
-                        <div class="editor-field">
-                            @Html.TextBoxFor(model => model.Email, new { @class = "fulltextbox" })
-                            @Html.ValidationMessageFor(model => model.Email)
-                        </div>
-
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-2">
-
-                        <div class="editor-label">
-                            @Html.LabelFor(model => model.SSN)
-                        </div>
-                        <div class="editor-field">
-                            @Html.TextBoxFor(model => model.SSN, new { @class = "fulltextbox" })
-                            @Html.ValidationMessageFor(model => model.SSN)
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-2">
-                        <div class="editor-label">
-                            @Html.LabelFor(model => model.Arc)
-                        </div>
-                        <div class="editor-field">
-                            @Html.TextBoxFor(model => model.Arc, new { @class = "fulltextbox" })
-                            @Html.ValidationMessageFor(model => model.Arc)
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <hr />
-            <div class="row">
-                <h4 class="crewdata">Secondary Information</h4>
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="editor-label">
-                            @Html.LabelFor(model => model.Sex)
-                        </div>
-                        <div class="editor-field">
-                            <div class="editor-field">
-                                @if (Model.IsFemale)
-                                {
-                                    <div>
-                                        @Html.RadioButtonFor(model => model.Sex, "1") @Html.Label("Male");
-                                        @Html.RadioButtonFor(model => model.Sex, "0", new { @checked = "checked" }) @Html.Label("Female")
-                                    </div>
-
-                                }
-                                else
-                                {
-                                    <div>
-                                        @Html.RadioButtonFor(model => model.Sex, "1", new { @checked = "checked" }) @Html.Label("Male")
-                                        @Html.RadioButtonFor(model => model.Sex, "0") @Html.Label("Female")
-                                    </div>
-
-                                }
-                                @Html.ValidationMessageFor(model => model.Sex)
-                            </div>
-                            @Html.ValidationMessageFor(model => model.Sex)
-                        </div>
-                    </div>
-                    <div class="col-md-8">
-                        @Html.DropDownList("Status","select")
-                        @*radio button marital status*@
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-2">
-                        <div class="editor-label">
-                            @Html.LabelFor(model => model.DOB)
-                        </div>
-                        <div class="editor-field">
-                            @Html.TextBoxFor(model => model.DOB,"{0:MM/dd/yyyy}",new { @class = "date fulltextbox" })
-                            @*@if(Model.DOB==null)
-                            {
-                                <input type="text"  name="DOB" id="DOB" class="date fulltextbox" />
-                            }
-                            else
-                            {
-                                <input type="text" name="DOB" id="DOB" value="@Model.DOB.Value.ToShortDateString()" class="date fulltextbox" />
-                            }*@
-                            
-                            @Html.ValidationMessageFor(model => model.DOB)
-                        </div>
-                    </div>
-                    <div class="col-md-2"></div>
-                    <div class="col-md-2">
-                        <div class="editor-label">
-                            @Html.LabelFor(model => model.Hairs)
-                        </div>
-                        <div class="editor-field">
-                            @Html.TextBoxFor(model => model.Hairs, new { @class = "fulltextbox" })
-                            @Html.ValidationMessageFor(model => model.Hairs)
-                        </div>
-
-                    </div>
-                    <div class="col-md-2">
-                        <div class="editor-label">
-                            @Html.LabelFor(model => model.Eyes)
-                        </div>
-                        <div class="editor-field">
-                            @Html.TextBoxFor(model => model.Eyes, new { @class = "fulltextbox" })
-                            @Html.ValidationMessageFor(model => model.Eyes)
-                        </div>
-                    </div>
-                    <div class="col-md-2">
-
-                        <div class="editor-label">
-                            @Html.LabelFor(model => model.Height)
-                        </div>
-                        <div class="editor-field">
-                            @Html.TextBoxFor(model => model.Height, new { @class = "fulltextbox" })
-                            @Html.ValidationMessageFor(model => model.Height)
-                        </div>
-
-                    </div>
-                    <div class="col-md-2">
-
-                        <div class="editor-label">
-                            @Html.LabelFor(model => model.Weight)
-                        </div>
-                        <div class="editor-field">
-                            @Html.TextBoxFor(model => model.Weight, new { @class = "fulltextbox" })
-                            @Html.ValidationMessageFor(model => model.Weight)
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="editor-label">
-                            @Html.LabelFor(model => model.BirthPlace)
-                        </div>
-                        <div class="editor-field">
-                            @Html.TextBoxFor(model => model.BirthPlace)
-                            @Html.ValidationMessageFor(model => model.BirthPlace)
-                        </div>
-
-
-                    </div>
-                    <div class="col-md-4">
-                        <div class="editor-label">
-                            @Html.LabelFor(model => model.HomeAirPort)
-                        </div>
-                        <div class="editor-field">
-                            @Html.TextBoxFor(model => model.HomeAirPort)
-                            @Html.ValidationMessageFor(model => model.HomeAirPort)
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="editor-label">
-                            @Html.LabelFor(model => model.CitizenShip)
-                        </div>
-                        <div class="editor-field">
-                            @Html.TextBoxFor(model => model.CitizenShip)
-                            @Html.ValidationMessageFor(model => model.CitizenShip)
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-
-            <hr />
-            <div class="row">
-                <h4 class="crewdata">Passport Information</h4>
-                <div class="row">
-                    <div class="col-md-4">
-
-                        <div class="editor-label">
-                            @Html.LabelFor(model => model.PassPortNumber)
-                        </div>
-                        <div class="editor-field">
-                            @Html.TextBoxFor(model => model.PassPortNumber)
-                            @Html.ValidationMessageFor(model => model.PassPortNumber)
-                        </div>
-
-                    </div>
-                    <div class="col-md-4">
-
-
-
-                        <div class="editor-label">
-                            @Html.LabelFor(model => model.PassPortIssueDate)
-                        </div>
-                        <div class="editor-field">
-                            @*@if (Model.PassPortIssueDate == null)
-                            {
-                                <input type="text" name="PassPortIssueDate" id="PassPortIssueDate" class="date" />
-                            }
-                            else
-                            {
-                                <input type="text" name="PassPortIssueDate" id="PassPortIssueDate" value="@Model.PassPortIssueDate.Value.ToShortDateString()" class="date" />
-                            }*@
-                           @Html.TextBoxFor(model => model.PassPortIssueDate,"{0:MM/dd/yyyy}",new{@class="date"})
-                            @Html.ValidationMessageFor(model => model.PassPortIssueDate)
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-4">
-
-                        <div class="editor-label">
-                            @Html.LabelFor(model => model.CountryOfIssue)
-                        </div>
-                        <div class="editor-field">
-                            @Html.TextBoxFor(model => model.CountryOfIssue)
-                            @Html.ValidationMessageFor(model => model.CountryOfIssue)
-                        </div>
-
-
-                    </div>
-                    <div class="col-md-4">
-                        <div class="editor-label">
-                            @Html.LabelFor(model => model.PassportExpireDate)
-                        </div>
-                        <div class="editor-field">
-                            @*@if (Model.PassportExpireDate == DateTime.MinValue)
-                            {
-                                <input type="text" name="PassportExpireDate" id="PassportExpireDate" class="date" />
-                            }
-                            else
-                            {
-                                <input type="text" name="PassportExpireDate" id="PassportExpireDate" value="@Model.PassportExpireDate.Value.ToShortDateString()" class="date" />
-                            }*@
-                            @Html.TextBoxFor(model => model.PassportExpireDate,"{0:MM/dd/yyyy}", new { @class="date"})
-                            @Html.ValidationMessageFor(model => model.PassportExpireDate)
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-4">
-
-                        <div class="editor-label">
-                            @Html.LabelFor(model => model.VisaNumber)
-                        </div>
-                        <div class="editor-field">
-                            @Html.TextBoxFor(model => model.VisaNumber)
-                            @Html.ValidationMessageFor(model => model.VisaNumber)
-                        </div>
-
-                    </div>
-                    <div class="col-md-4">
-
-                        <div class="editor-label">
-                            @Html.LabelFor(model => model.VisaExpireTime)
-                        </div>
-                        <div class="editor-field">
-                            @*@if (Model.VisaExpireTime == DateTime.MinValue)
-                            {
-                                <input type="text" name="VisaExpireTime" id="VisaExpireTime" class="date " />
-                            }
-                            else
-                            {
-                                <input type="text" name="VisaExpireTime" id="VisaExpireTime" value="@Model.VisaExpireTime.Value.ToShortDateString()" class="date " />
-                            }*@
-                           @Html.TextBoxFor(model => model.VisaExpireTime,"{0:MM/dd/yyyy}", new {@class="date" })
-                            @Html.ValidationMessageFor(model => model.VisaExpireTime)
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-4">
-
-                        <div class="editor-label">
-                            @Html.LabelFor(model => model.LastPhysicalExam)
-                        </div>
-                        <div class="editor-field">
-                            @*@if (Model.LastPhysicalExam == DateTime.MinValue)
-                            {
-                                <input type="text" name="LastPhysicalExam" id="LastPhysicalExam" class="date " />
-                            }
-                            else
-                            {
-                                <input type="text" name="LastPhysicalExam" id="LastPhysicalExam" value="@Model.LastPhysicalExam.Value.ToShortDateString()" class="date" />
-                            }*@
-                            @Html.TextBoxFor(model => model.LastPhysicalExam,"{0:MM/dd/yyyy}", new { @class="date"})
-                            @Html.ValidationMessageFor(model => model.LastPhysicalExam)
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-4">
-
-                        <div class="editor-label">
-                            @Html.LabelFor(model => model.Languages)
-                        </div>
-                        <div class="editor-field">
-                            @Html.TextBoxFor(model => model.Languages)
-                            @Html.ValidationMessageFor(model => model.Languages)
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <hr />
-            <div class="row">
-                <h4 class="crewdata">Emergency Contact Information</h4>
-                <div class="row">
-                    <div class="col-md-4">
-                        <h6 class="emergncy_contact">Emergency Contact</h6>
-                        <hr />
-
-                        <div class="editor-label">
-                            @Html.LabelFor(model => model.EmergencycontactName)
-                        </div>
-                        <div class="editor-field">
-                            @Html.TextBoxFor(model => model.EmergencycontactName, new { @class = "fulltextbox" })
-                            @Html.ValidationMessageFor(model => model.EmergencycontactName)
-                        </div>
-
-                        <div class="editor-label">
-                            @Html.LabelFor(model => model.EmergencycontactRelation)
-                        </div>
-                        <div class="editor-field">
-                            @Html.TextBoxFor(model => model.EmergencycontactRelation, new { @class = "fulltextbox" })
-                            @Html.ValidationMessageFor(model => model.EmergencycontactRelation)
-                        </div>
-
-                        <div class="editor-label">
-                            @Html.LabelFor(model => model.EmergencycontactAddress)
-                        </div>
-                        <div class="editor-field">
-                            @Html.TextBoxFor(model => model.EmergencycontactAddress, new { @class = "fulltextbox" })
-                            @Html.ValidationMessageFor(model => model.EmergencycontactAddress)
-                        </div>
-
-                        <div class="editor-label">
-                            @Html.LabelFor(model => model.EmergencycontactCity)
-                        </div>
-                        <div class="editor-field">
-                            @Html.TextBoxFor(model => model.EmergencycontactCity, new { @class = "fulltextbox" })
-                            @Html.ValidationMessageFor(model => model.EmergencycontactCity)
-                        </div>
-
-                        <div class="editor-label">
-                            @Html.LabelFor(model => model.EmergencycontactState)
-                        </div>
-                        <div class="editor-field">
-                            @Html.TextBoxFor(model => model.EmergencycontactState, new { @class = "fulltextbox" })
-                            @Html.ValidationMessageFor(model => model.EmergencycontactState)
-                        </div>
-
-
-
-
-                    </div>
-                    <div class="col-md-6">
-                        <h6 class="emergncy_contact">Dependant Information</h6>
-                        <hr />
-                        <div class="row">
-                            <div class="col-md-8">
-                                <div class="editor-label">
-                                    @Html.LabelFor(model => model.DependentName1)
-                                </div>
-                                <div class="editor-field">
-                                    @Html.TextBoxFor(model => model.DependentName1, new { @class = "fulltextbox" })
-                                    @Html.ValidationMessageFor(model => model.DependentName1)
-                                </div>
-
-
-
-                                <div class="editor-label">
-                                    @Html.LabelFor(model => model.DependentName2)
-                                </div>
-                                <div class="editor-field">
-                                    @Html.TextBoxFor(model => model.DependentName2, new { @class = "fulltextbox" })
-                                    @Html.ValidationMessageFor(model => model.DependentName2)
-                                </div>
-
-
-
-                                <div class="editor-label">
-                                    @Html.LabelFor(model => model.DependentName3)
-                                </div>
-                                <div class="editor-field">
-                                    @Html.TextBoxFor(model => model.DependentName3, new { @class = "fulltextbox" })
-                                    @Html.ValidationMessageFor(model => model.DependentName3)
-                                </div>
-
-
-
-                                <div class="editor-label">
-                                    @Html.LabelFor(model => model.DependentName4)
-                                </div>
-                                <div class="editor-field">
-                                    @Html.TextBoxFor(model => model.DependentName4, new { @class = "fulltextbox" })
-                                    @Html.ValidationMessageFor(model => model.DependentName4)
-                                </div>
-
-
-
-                                <div class="editor-label">
-                                    @Html.LabelFor(model => model.DependentName5)
-                                </div>
-                                <div class="editor-field">
-                                    @Html.TextBoxFor(model => model.DependentName5, new { @class = "fulltextbox" })
-                                    @Html.ValidationMessageFor(model => model.DependentName5)
-                                </div>
-
-
-                            </div>
-                            <div class="col-md-4">
-                                <div class="editor-label">
-                                    @Html.LabelFor(model => model.DependentDateofBirth1)
-                                </div>
-                                <div class="editor-field">
-                                    @*@if (Model.DependentDateofBirth1 == DateTime.MinValue)
-                                    {
-                                        <input type="text" id="DependentDateofBirth1" name="DependentDateofBirth1" class="date fulltextbox" />
-                                    }
-                                    else
-                                    {
-                                        <input type="text" id="DependentDateofBirth1" name="DependentDateofBirth1" value="@Model.DependentDateofBirth1.Value.ToShortDateString()" class="date fulltextbox" />
-                                    }*@
-                                    @Html.TextBoxFor(model => model.DependentDateofBirth1,"{0:MM/dd/yyyy}", new { @class="date fulltextbox"})
-                                    @Html.ValidationMessageFor(model => model.DependentDateofBirth1)
-                                </div>
-                                <div class="editor-label">
-                                    @Html.LabelFor(model => model.DependentDateofBirth2)
-                                </div>
-                                <div class="editor-field">
-                                    @*@if (Model.DependentDateofBirth2 == DateTime.MinValue)
-                                    {
-                                        <input type="text" id="DependentDateofBirth2" name="DependentDateofBirth2" class="date fulltextbox" />
-                                    }
-                                    else
-                                    {
-                                        <input type="text" id="DependentDateofBirth2" name="DependentDateofBirth2" value="@Model.DependentDateofBirth2.Value.ToShortDateString()" class="date fulltextbox" />
-                                    }*@
-                                    @Html.TextBoxFor(model => model.DependentDateofBirth2,"{0:MM/dd/yyyy}", new { @class = "date fulltextbox" })
-                                    @Html.ValidationMessageFor(model => model.DependentDateofBirth2)
-                                </div>
-                                <div class="editor-label">
-                                    @Html.LabelFor(model => model.DependentDateofBirth3)
-                                </div>
-                                <div class="editor-field">
-                                    @*@if (Model.DependentDateofBirth3 == DateTime.MinValue)
-                                    {
-                                        <input type="text" id="DependentDateofBirth3" name="DependentDateofBirth3" class="date fulltextbox" />
-                                    }
-                                    else
-                                    {
-                                        <input type="text" id="DependentDateofBirth3" name="DependentDateofBirth3" value="@Model.DependentDateofBirth3.Value.ToShortDateString()" class="date fulltextbox" />
-                                    }*@
-                                    @Html.TextBoxFor(model => model.DependentDateofBirth3,"{0:MM/dd/yyyy}", new { @class = "date fulltextbox" })
-                                    @Html.ValidationMessageFor(model => model.DependentDateofBirth3)
-                                </div>
-                                <div class="editor-label">
-                                    @Html.LabelFor(model => model.DependentDateofBirth4)
-                                </div>
-                                <div class="editor-field">
-                                    @*@if (Model.DependentDateofBirth4 == DateTime.MinValue)
-                                    {
-                                        <input type="text" id="DependentDateofBirth4" name="DependentDateofBirth4" class="date fulltextbox" />
-                                    }
-                                    else
-                                    {
-                                        <input type="text" id="DependentDateofBirth4" name="DependentDateofBirth4" value="@Model.DependentDateofBirth4.Value.ToShortDateString()" class="date fulltextbox" />
-                                    }*@
-                                    @Html.TextBoxFor(model => model.DependentDateofBirth4,"{0:MM/dd/yyyy}", new { @class = "date fulltextbox" })
-                                    @Html.ValidationMessageFor(model => model.DependentDateofBirth4)
-                                </div>
-                                <div class="editor-label">
-                                    @Html.LabelFor(model => model.DependentDateofBirth5)
-                                </div>
-                                <div class="editor-field">
-                                    @*@if (Model.DependentDateofBirth5 == DateTime.MinValue)
-                                    {
-                                        <input type="text" id="DependentDateofBirth5" name="DependentDateofBirth5" class="date fulltextbox" />
-                                    }
-                                    else
-                                    {
-                                        <input type="text" id="DependentDateofBirth5" name="DependentDateofBirth5" value="@Model.DependentDateofBirth5.Value.ToShortDateString()" class="date fulltextbox" />
-                                    }*@
-                                    @Html.TextBoxFor(model => model.DependentDateofBirth5,"{0:MM/dd/yyyy}", new { @class = "date fulltextbox" })
-                                    @Html.ValidationMessageFor(model => model.DependentDateofBirth5)
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-
-                </div>
-                <div class="row">
-                    <div class="col-md-2">
-                        <div class="editor-label">
-                            @Html.LabelFor(model => model.EmergencycontactCountry)
-                        </div>
-                        <div class="editor-field">
-                            @Html.TextBoxFor(model => model.EmergencycontactCountry, new { @class = "fulltextbox" })
-                            @Html.ValidationMessageFor(model => model.EmergencycontactCountry)
-                        </div>
-                        <div class="editor-label">
-                            @Html.LabelFor(model => model.EmergencycontactFax)
-                        </div>
-                        <div class="editor-field">
-                            @Html.TextBoxFor(model => model.EmergencycontactFax, new { @class = "fulltextbox" })
-                            @Html.ValidationMessageFor(model => model.EmergencycontactFax)
-                        </div>
-                    </div>
-                    <div class="col-md-2">
-                        <div class="editor-label">
-                            @Html.LabelFor(model => model.EmergencycontactPhone)
-                        </div>
-                        <div class="editor-field">
-                            @Html.TextBoxFor(model => model.EmergencycontactPhone, new { @class = "fulltextbox" })
-                            @Html.ValidationMessageFor(model => model.EmergencycontactPhone)
-                        </div>
-
-                    </div>
-
-                </div>
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="editor-label">
-                            @Html.LabelFor(model => model.SignOffDate)
-                        </div>
-                        <div class="editor-field">
-                            @*@if (Model.SignOffDate == DateTime.MinValue)
-                            {
-                                <input type="text" id="SignOffDate" name="SignOffDate" class="date" />
-                            }
-                            else
-                            {
-                                <input type="text" id="SignOffDate" name="SignOffDate" value="@Model.SignOffDate.Value.ToShortDateString()" class="date" />
-                            }*@
-                            @Html.TextBoxFor(model => model.SignOffDate,"{0:MM/dd/yyyy}", new { @class = "date fulltextbox" })
-                            @Html.ValidationMessageFor(model => model.SignOffDate)
-                        </div>
-
-                    </div>
-                    <div class="col-md-4">
-                        <input type="submit" value="Create" class="btn" style="margin-top:25px;" />
-                    </div>
-                </div>
-            </div>
-
-
         </div>
-        @Html.HiddenFor(model=>model.ID)
-        @Html.HiddenFor(model => model.Alias)
-        @Html.HiddenFor(model => model.UserName)
-        @Html.HiddenFor(model => model.Password)
-    </fieldset>
+        <div class="form-group">
+            @Html.LabelFor(model => model.ARC, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ARC, new { htmlAttributes = new { @class = "form-control" } })
+                @*@Html.EditorFor(model => model.Ship, new { htmlAttributes = new { @class = "form-control" } })*@
+                @Html.ValidationMessageFor(model => model.Ship, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Department, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.Department, ViewBag.Department as List<SelectListItem>, "select--", new { @class = "form-control" })
+                @*@Html.EditorFor(model => model.Ship, new { htmlAttributes = new { @class = "form-control" } })*@
+                @Html.ValidationMessageFor(model => model.Ship, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Ship, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model=>model.Ship,ViewBag.Ships as IEnumerable<SelectListItem>,"select--",new { @class="form-control"})
+                @*@Html.EditorFor(model => model.Ship, new { htmlAttributes = new { @class = "form-control" } })*@
+                @Html.ValidationMessageFor(model => model.Ship, "", new { @class = "text-danger" })
+            </div>
+        </div>
+      
+
+        
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Hair, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Hair, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Hair, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Eye, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Eye, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Eye, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Height, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Height, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Height, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Weight, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Weight, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Weight, "", new { @class = "text-danger" })
+            </div>
+        </div>       
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DependentName1, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DependentName1, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.DependentName1, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DependentDob1, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DependentDob1, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.DependentDob1, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DependentName2, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DependentName2, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.DependentName2, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DependentDob2, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DependentDob2, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.DependentDob2, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DependentName3, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DependentName3, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.DependentName3, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DependentDob3, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DependentDob3, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.DependentDob3, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DependentName4, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DependentName4, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.DependentName4, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DependentDob4, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DependentDob4, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.DependentDob4, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DependentName5, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DependentName5, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.DependentName5, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DependentDob5, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DependentDob5, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.DependentDob5, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.SignOffDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.SignOffDate, new { htmlAttributes = new { @class = "form-control date" } })
+                @Html.ValidationMessageFor(model => model.SignOffDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
 }
 
-
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
-
-
-
