@@ -522,6 +522,7 @@ label {
         border-radius: 3px;
         width: 92%;
     margin-left: 7px;
+        min-height: 50px;
 }
 .position-list ul{
     padding:2px;
@@ -595,4 +596,7 @@ a#changepassword {
 #personal-info textarea {
     width: 100%!important;
     height:80px!important;
+}
+img#profileImage {
+    width: 70%;
 }
