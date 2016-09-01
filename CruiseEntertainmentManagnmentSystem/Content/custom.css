@@ -196,7 +196,7 @@ input.register {
     width: 80%;
 }
 section#login {
-    width: 82%;
+    width: 100%;
     padding-top:15px;
     font-size: 15px;
     font-weight: 600;
@@ -496,4 +496,93 @@ a{
 }
 label {
     font-size: 12px;
+}
+ .profile-header{
+    color: white;
+    text-align: center;
+    margin-top: 0px;
+    background: #0cacd8;
+    padding: 4px;
+    font-size: 15px;
+}
+.profile-view {
+    background: #616871;
+    color: white;
+    padding: 4px;
+    text-align: inherit;
+    padding-left: 40px;
+    margin: 1px;
+    margin-right: -15px;
+    margin-left: -14px;
+}
+.position-list {
+    max-height: 200px;
+    border: 1px solid #d4cdcd;
+    overflow-y: scroll;
+        border-radius: 3px;
+        width: 92%;
+    margin-left: 7px;
+}
+.position-list ul{
+    padding:2px;
+}
+.position-list input[type=checkbox]{
+    margin: 4px 0 0;
+    width: 10%!important;
+    height: 15px;
+}
+span.position-list-name {
+    font-size: 12px;
+}
+select.profile-category {
+    width: 92%;
+    margin-left: 6px;
+    border-radius: 4px!important;
+}
+label.user-name {
+    margin-top: 60px;
+}
+.Upload-img{
+    border: 1px solid #dad9d9;
+    position:fixed;
+    left: 35%;
+    width: 30%;
+    background: white;
+    top: 20%;
+    z-index: 99;
+    /*padding-top: 20px;*/
+    padding-bottom: 20px;
+    box-shadow: 0 0 30px #b5b3b3;
+    border-radius: 5px;
+}
+.remove{
+        color: #616871;
+    padding: 5px;
+}
+input.uploadImage , .file-upload{
+    background: #ffffff;
+    border: 1px solid #55c9e9;
+    color: #55c9e9;
+    width: 100%;
+    border-radius: 4px;
+}
+.profile-overlay{
+     position:fixed;
+    top:0;
+    left:0;
+    background:rgba(0,0,0,0.6);
+    z-index:5;
+    width:100%;
+    height:100%;
+    display:none;
+}
+.ActiveUser{
+        font-size: 12px;
+    padding-top: 4px;
+}
+.user-icon{
+     font-size: 12px;
+}
+a#changepassword {
+    color: white;
 }
