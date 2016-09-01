@@ -51,5 +51,6 @@ namespace CruiseEntertainmentManagnmentSystem.Models
         public DateTime VisaIssueDate { get; set; }
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:d}")]
         public DateTime VisaExpireDate { get; set; }
+        public string ImagePath { get; set; }
     }
 }

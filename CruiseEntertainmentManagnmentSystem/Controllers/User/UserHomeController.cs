@@ -47,14 +47,11 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers.User
 
 
         public ActionResult ProfileView()
-        {
-
-
-        
+        {        
             Persons userdata;
             PersonalInformation information=null;
             userdata = ShrdMaster.Instance.GetPersonByUserName(User.Identity.Name);
-
+            ViewBag.Categories = new SelectList(db.categories.ToList(),"ID","Name");
             SessionContext<Persons>.Instance.SetSession("User", userdata);
             //PersonalInformation vm = new PersonalInformation();
             if(userdata != null)
@@ -98,6 +95,34 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers.User
                 db.SaveChanges();
             }
             return View(model);
+        }
+
+        public ActionResult UploadImages()
+        {
+            
+                if (Request.Files.Count > 0)
+                {
+                    var file = Request.Files[0];
+                    var person = SessionContext<Persons>.Instance.GetSession("User");
+                    string Filename = file.FileName;
+                    string ext = Filename.Substring(Filename.LastIndexOf('.'), (Filename.Length - Filename.LastIndexOf('.')));
+                    Filename = person.ID + ext;
+
+                    string path = Server.MapPath("~/ProfileImages");
+                    path = Path.Combine(path, Filename);
+                    if (System.IO.File.Exists(path))
+                    {
+                        System.IO.File.Delete(path);
+                    }
+
+                    file.SaveAs(path);
+                string imagePath = "/ProfileImages/" + Filename;
+                return Json(imagePath, JsonRequestBehavior.AllowGet);           
+                }
+            return Json("-1", JsonRequestBehavior.AllowGet);
+            
+
+            
         }
         
 
