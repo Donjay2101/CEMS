@@ -381,6 +381,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="PDF\1_W9Form.Pdf" />
     <Content Include="Grid.mvc.readme" />
+    <Content Include="Controllers\User\Web.config" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\Common.js" />
     <Content Include="Scripts\Contractors.js" />
@@ -414,6 +415,7 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\Schedule.js" />
+    <Content Include="Scripts\UserScript.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Templates\AgreementTemplate.txt" />
     <Content Include="Templates\AgreemetTemplate1.txt" />
@@ -559,6 +561,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Content\components\" />
     <Folder Include="Content\themes\" />
+    <Folder Include="ProfileImages\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
