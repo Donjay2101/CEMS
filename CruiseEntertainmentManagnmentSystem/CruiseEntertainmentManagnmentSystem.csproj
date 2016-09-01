@@ -295,6 +295,7 @@
     <Compile Include="Models\JavaScriptSerializer.cs" />
     <Compile Include="Models\Logger.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\NoTMappedAttribute.cs" />
     <Compile Include="Models\Performers.cs" />
     <Compile Include="Models\PersonalInformation.cs" />
     <Compile Include="Models\PersonalInformations.cs" />

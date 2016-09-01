@@ -28,7 +28,7 @@
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="row">
-            <div class="col-md-3">
+            <div class="col-md-2">
                 @if (Model != null && Model.ImagePath != null)
                 {
                     <img src="@Model.ImagePath" class="img-circle img-responsive" id="profileImage" alt="" />
