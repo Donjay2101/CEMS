@@ -43,14 +43,14 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers
             }
 
 
-            var person = db.persons.Where(x => x.UserName == model.UserName && x.Password == model.Password).SingleOrDefault();
+            var person = db.persons.Where(x => x.Email== model.UserName && x.Password == model.Password).SingleOrDefault();
             if (person == null)
             {
                 ModelState.AddModelError("", "The user name or password provided is incorrect.");
                 return View(model);
             }
             SetupFormsAuthTicket(person, model.RememberMe);
-            returnUrl = "/UserHome/CrewDataForm";
+            returnUrl = "/UserHome/ProfileView";
             return RedirectToLocal(returnUrl);
             // If we got this far, something failed, redisplay form
            
@@ -64,7 +64,7 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers
             var userId = person.ID;
             var userData = userId.ToString(CultureInfo.InvariantCulture);
             var authTicket = new FormsAuthenticationTicket(1, //version
-                                                        person.UserName, // user name
+                                                        person.Email, // user name
                                                         DateTime.Now,             //creation
                                                         DateTime.Now.AddMinutes(30), //Expiration
                                                         persistanceFlag, //Persistent
@@ -93,6 +93,27 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers
             return distributor;
         }
 
+        public ActionResult ChangePassword()
+        {
+            return PartialView("_ChangePasswordPartial");
+        }
+
+        [HttpPost]
+        public ActionResult ChangePassword(ChangePasswordViewModel model)
+        {
+            bool changePasswordSucceeded;
+            changePasswordSucceeded = WebSecurity.ChangePassword(User.Identity.Name, model.OldPassword, model.NewPassword);
+            if(changePasswordSucceeded)
+            {
+                return Json("1", JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json("0", JsonRequestBehavior.AllowGet);
+            }
+
+            //return View();
+        }
 
         //
         // POST: /Account/LogOff

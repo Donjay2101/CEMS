@@ -330,6 +330,8 @@ function checkCategory() {
         return false;
     }
 
+    var count = 0;
+   
     $('#CategoryList').val(catList);
 
     var password = $('#Password').val();
@@ -386,6 +388,15 @@ $(document).on("change", ".date", function () {
 });
 
 
+
+$(document).on('click', '#changepassword', function () {
+    $('#loadingDiv').css('display', 'block');
+    $('#Datacontainer1').load('/Account/ChangePassword', function () {
+        $('#overLay1').css('display', 'block');
+        $('#loadingDiv').css('display', 'none');
+    });
+
+});
 
 
 

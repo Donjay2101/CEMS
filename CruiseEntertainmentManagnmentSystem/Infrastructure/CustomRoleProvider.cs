@@ -14,7 +14,7 @@ namespace CruiseEntertainmentManagnmentSystem.Infrastructure
         {
             using (var DB = new CemsDbContext())
             {
-                var user = DB.persons.SingleOrDefault(u => u.UserName== username);
+                var user = DB.persons.SingleOrDefault(u => u.Email== username);
                 if (user == null)
                     return false;
                 var roles = DB.UserRoles.Where(x => x.UserID == user.ID);
@@ -29,7 +29,7 @@ namespace CruiseEntertainmentManagnmentSystem.Infrastructure
             using (var cemsDbContext = new CemsDbContext())
             {
 
-                var user = cemsDbContext.persons.FirstOrDefault(u => u.UserName== username);
+                var user = cemsDbContext.persons.FirstOrDefault(u => u.Email== username);
 
                 if (user == null)
                 {

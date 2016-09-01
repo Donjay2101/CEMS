@@ -8,7 +8,28 @@
     <p>Contractor</p>
 </div>
 
+@if(ViewBag.Errors=="1")
+{
+    <script>
+        $(document).ready(function () {
 
+            var shows = sessionStorage.getItem('shows');
+            if(shows!=null)
+            {
+                $('#ulShows').html(shows);
+            }
+            
+
+            var brands = sessionStorage.getItem('brands');
+
+            if(brands!=null)
+            {
+                $('#Brands').html(brands);
+            }
+        });
+        
+    </script>
+}
 
 @using (Html.BeginForm("Create", "Contractors", FormMethod.Post, new { onsubmit="return checkValidation()"}))
 {
@@ -46,7 +67,16 @@
                 @Html.LabelFor(model => model.Shows)
             </div>
             <div class="editor-field">
-                @Html.EditorFor(model => model.Shows)
+                
+                <ul id="ulShows">
+
+                </ul>
+                @*<select id="Shows" name="Shows">
+                    <option value="-1">select--</option>
+                </select>*@
+                @*@Html.DropDownList("Shows","select--")*@
+                @*@Html.DropDownListFor(model=>model.Shows,ViewBag.Shows as List<SelectListItem>,"select--",new { @class="form-control"})*@
+                @*@Html.EditorFor(model => model.Shows)*@
                 @Html.ValidationMessageFor(model => model.Shows)
             </div>
         </div>
@@ -62,10 +92,7 @@
                 <label>Ship's Brand</label>
             </div>
             <div class="editor-field">
-
-                @*@Html.EditorFor(model => model.ship)*@
-                @*@Html.DropDownList("ship", "select---")*@
-                @Html.ValidationMessageFor(model => model.ship)
+                @Html.DropDownList("Brands","select--")              
             </div>
 
             <div class="editor-label">
@@ -399,15 +426,15 @@
                 @Html.EditorFor(model => model.Email)
                 @Html.ValidationMessageFor(model => model.Email)
             </div>
-            <div class="editor-label">
+            @*<div class="editor-label">
                 @Html.LabelFor(model => model.SSN)
             </div>
             <div class="editor-field">
-                @Html.EditorFor(model => model.SSN)
-                              
-                <input type="hidden" id="Person" name="Person" />
-            </div>
+                @Html.EditorFor(model => model.SSN)                                             
+            </div>*@
+            <input type="hidden" id="Person" name="Person" />
             <input type="hidden" value="@ViewBag.Option" id="ContractorType" name="ContractorType" />
+            @Html.HiddenFor(model=>model.ShowsList)            
             <div style ="margin-top:20px;">
                 <input type="submit" value="Create" class="btn" />
                 <a href="#" onclick="goToPrevious('@ViewBag.ReturnUrl')">Cancel</a>
@@ -432,14 +459,41 @@
     @Scripts.Render("~/bundles/jqueryval")
 <script>
     function checkValidation() {
+        debugger;
         var val = $('#AgreementType').val();
         
+        var shows = $('#ulShows').html();
+        sessionStorage.setItem('shows', shows);
+
+        var brands = $('#Brands').html();
+        sessionStorage.setItem('brands',brands);
 
         if (val == undefined || val < 1 || val == null) {
             $('#errormsg').html("select Contractor \"Agreement Type\".");
             return false;
         }
-
+        var count = 0;
+        var data = "";
+        $('#ulShows>li>input[type="checkbox"]').each(function (idx,el) {
+            debugger;
+          
+            if (el.checked) {
+                data += el.getAttribute('value') + ',';
+            }
+            count++;
+        });
+        if (count > 0)
+        {
+            var idx = data.lastIndexOf(',');
+            data = data.substr(0, idx);
+            $('#ShowsList').val(data);
+        }
+        else
+        {
+            alert('show is not selected.');
+            return false;
+        }
+        
         return true;
 
     }
@@ -595,6 +649,10 @@
     window.onload = function () {
         $('#MockPerson').editableSelect({ effects: 'fade' });                
     }
+
+        
+    
+
 </script>
     
 

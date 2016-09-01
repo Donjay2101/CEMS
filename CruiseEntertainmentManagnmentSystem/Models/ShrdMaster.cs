@@ -45,7 +45,7 @@ namespace CruiseEntertainmentManagnmentSystem.Models
 
         public Persons GetPersonByUserName(string username)
         {
-            var Person = db.persons.Where(x => x.UserName == username).FirstOrDefault();
+            var Person = db.persons.Where(x => x.Email == username).FirstOrDefault();
 
             return Person;
         }
@@ -207,7 +207,7 @@ namespace CruiseEntertainmentManagnmentSystem.Models
 
         public bool CheckUserName(string username)
         {
-              var data=db.persons.Where(x=>x.UserName==username).SingleOrDefault();
+              var data=db.persons.Where(x=>x.Email==username).SingleOrDefault();
 
             if(data!=null)
             {
@@ -229,7 +229,7 @@ namespace CruiseEntertainmentManagnmentSystem.Models
 
         public bool IsUserAdmin(string username)
         {
-            var users = db.persons.FirstOrDefault(x => x.UserName==username);
+            var users = db.persons.FirstOrDefault(x => x.Email==username);
             UserProfile adminusers = null;
             UserRole roles = null;
             if(users==null)
@@ -279,6 +279,22 @@ namespace CruiseEntertainmentManagnmentSystem.Models
             var data=db.Database.SqlQuery<ShipBrand>("exec sp_GetShipBrands").ToList();
 
             return data;
+        }
+
+
+        public List<Shows> GetShowsByContractorID(int id,int shipID)
+        {
+            var list = db.shows.Join(db.ContractorShows, pr => pr.ID, pm => pm.ShowID, (pr, pm) => new { Show = pr, ContractorShow= pm })
+                .Where(x => x.ContractorShow.ContractorID== id &&x.Show.Ship==shipID).Select(x => x.Show).ToList();
+            //var l = list.ToList();
+            list.ForEach(x => x.Checked = "checked");
+
+            var showsList = db.shows.Where(x=>x.Ship==shipID).ToList().Except(list).AsEnumerable();
+            showsList.ToList().ForEach(x => x.Checked = null);
+
+            var finalList = list.Union(showsList).OrderByDescending(x => x.Checked).ToList();
+
+            return finalList;
         }
     }
 

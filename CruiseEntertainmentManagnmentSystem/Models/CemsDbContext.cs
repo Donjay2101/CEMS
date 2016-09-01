@@ -35,5 +35,9 @@ namespace CruiseEntertainmentManagnmentSystem.Models
         public DbSet<TRF> TRFs { get; set; }
         public DbSet<WNine> WNines { get; set; }
         public DbSet<CruiseNote> Notes { get; set; }
+        public DbSet<ContractorShow> ContractorShows { get; set; }
+        public DbSet<PersonalInformation> PersonalInformations { get; set; }
+
+        public System.Data.Entity.DbSet<CruiseEntertainmentManagnmentSystem.ViewModel.ProfileViewModel> ProfileViewModels { get; set; }
     }
 }

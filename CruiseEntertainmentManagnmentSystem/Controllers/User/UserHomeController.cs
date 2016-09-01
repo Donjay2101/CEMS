@@ -12,10 +12,12 @@ using CruiseEntertainmentManagnmentSystem.ViewModel;
 using Microsoft.AspNet.Identity;
 using SelectPdf;
 using System.Data.Entity;
+using CruiseEntertainmentManagnmentSystem.Filters;
 
 namespace CruiseEntertainmentManagnmentSystem.Controllers.User
 {
     [Authorize(Roles="User")]
+    [InitializeSimpleMembership]
     public class UserHomeController : Controller
     {
         //
@@ -42,21 +44,41 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers.User
             }
             return person;
         }
+
+
+        public ActionResult ProfileView()
+        {
+
+            //string id = ;
+
+            var Userdata = ShrdMaster.Instance.GetPersonByUserName(User.Identity.Name);
+
+            ProfileViewModel vm = new ProfileViewModel();
+            if(Userdata!=null)
+            {
+                ViewBag.FullName= Userdata.FirstName+" "+Userdata.LastName;
+                ViewBag.Email = Userdata.Email;
+                //vm.LastName = Userdata.LastName;
+                //vm.Email = Userdata.Email;
+            }
+            
+            return View();
+        }
         public ActionResult CrewDataForm()
         {
             Persons person;
             person = GetPerson();
-            if (person.Sex == 0)
-            {
-                person.IsFemale = true;
-            }
-            else
-            {
-                person.IsFemale = false;
-            }
-            ViewBag.Ship = new SelectList(db.cruises, "ID", "Name", person.Ship);
-            ViewBag.Status = new SelectList(Common.GetStatus(), "ID", "Value", person.Status);
-            ViewBag.Position = new SelectList(db.positions, "ID", "Name", person.Position);
+            //if (person.Sex == 0)
+            //{
+            //    person.IsFemale = true;
+            //}
+            //else
+            //{
+            //    person.IsFemale = false;
+            //}
+            //ViewBag.Ship = new SelectList(db.cruises, "ID", "Name", person.Ship);
+            //ViewBag.Status = new SelectList(Common.GetStatus(), "ID", "Value", person.Status);
+            //ViewBag.Position = new SelectList(db.positions, "ID", "Name", person.Position);
             return View(person);
         }
 
@@ -75,9 +97,9 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers.User
             }
 
             Session["Person"] = model;
-            ViewBag.Ship = new SelectList(db.cruises, "ID", "Name", person.Ship);
-            ViewBag.Status = new SelectList(Common.GetStatus(), "ID", "Value", person.Status);
-            ViewBag.Position = new SelectList(db.positions, "ID", "Name", person.Position);
+            //ViewBag.Ship = new SelectList(db.cruises, "ID", "Name", person.Ship);
+            //ViewBag.Status = new SelectList(Common.GetStatus(), "ID", "Value", person.Status);
+            //ViewBag.Position = new SelectList(db.positions, "ID", "Name", person.Position);
             return RedirectToAction("CrewDataForm");
         }
 
@@ -118,15 +140,15 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers.User
             if (list == null)
             {
                 list = new TRFDataViewModel();
-                list.Gender = person.Sex;
-                list.FirstName = person.FirstName;
-                list.LastName = person.LastName;
-                list.Nationality = person.CitizenShip;
-                list.Cruise = person.Ship;
-                if (person.DOB != null)
-                {
-                    list.DOB= person.DOB.Value;
-                }
+                //list.Gender = person.Sex;
+                //list.FirstName = person.FirstName;
+                //list.LastName = person.LastName;
+                //list.Nationality = person.CitizenShip;
+                //list.Cruise = person.Ship;
+                //if (person.DOB != null)
+                //{
+                //    list.DOB= person.DOB.Value;
+                //}
                 TRFModel lst = new TRFModel();
 
                 lst = db.Database.SqlQuery<TRFModel>("exec GetTrfsByPersonID @personID", new SqlParameter("@personID", person.ID)).Where(x => x.CruiseID == cruiseID).FirstOrDefault();
@@ -224,12 +246,12 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers.User
             }
             
             list.Name = person.FirstName+" "+person.LastName;
-            list.Address = person.Address;
-            list.City = person.City;
-            list.State = person.State;
-            list.Zip = person.Zip;
-            list.Person = person.ID;
-            list.SSN = person.SSN;
+            //list.Address = person.Address;
+            //list.City = person.City;
+            //list.State = person.State;
+            //list.Zip = person.Zip;
+            //list.Person = person.ID;
+            //list.SSN = person.SSN;
             if(option==1)
             {
                 return View("w9pdf",list);

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -34,7 +35,7 @@ namespace CruiseEntertainmentManagnmentSystem.Models
         [DisplayName("Days On Land")]
         public int Days_On_Land { get; set; }
         
-        [DisplayName("Per Diem On Land")]
+        [DisplayName("Per Diem On Land/Travel")]
         public int Per_Diem_On_Land { get; set; }
         
         [DisplayName("Days On Board")]
@@ -129,7 +130,7 @@ namespace CruiseEntertainmentManagnmentSystem.Models
         [DisplayName("Days Travel")]
        public int Days_On_Travel { get; set; }
         
-        [DisplayName("Total Per Diem Days Travel")]
+        [DisplayName("Total Per Diem Travel")]
         public double Total_Per_Diem_On_Travel { get; set; } 
       
 
@@ -152,6 +153,9 @@ namespace CruiseEntertainmentManagnmentSystem.Models
         public int AgreementType { get; set; }
         public int Person { get;set;}
 
+
+        [NotMapped]
+        public string ShowsList { get; set; }
 
 
     }

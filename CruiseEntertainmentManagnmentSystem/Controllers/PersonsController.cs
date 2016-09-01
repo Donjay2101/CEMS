@@ -106,8 +106,9 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers
             {
                 ViewBag.Layout = "~/Views/Shared/_Layout.cshtml";
             }
-            ViewBag.Position = new SelectList(db.positions.OrderBy(x => x.Name).ToList(), "ID", "Name");
-            ViewBag.Categories = ShrdMaster.Instance.GetCategoryIdByPersonID(0);
+
+            //ViewBag.Position = new SelectList(db.positions.OrderBy(x => x.Name).ToList(), "ID", "Name");
+            //ViewBag.Categories = ShrdMaster.Instance.GetCategoryIdByPersonID(0);
             ViewBag.ReturnUrl = _returnUrl;
             return View();
         }
@@ -132,20 +133,26 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers
         [AllowAnonymous]
         public ActionResult Create(Persons persons,int option=0)
         {
-            if (option == 1)
+            
+            if(Request.QueryString["option"]!=null)
             {
-                ViewBag.Layout = "~/Views/Account/_Layout.cshtml";
+                int.TryParse(Request.QueryString["option"], out option);
+                
+                if (option==1)
+                {
+                    ViewBag.Layout = "~/Views/Account/_Layout.cshtml";
+                }
             }
             else
             {
                 ViewBag.Layout = "~/Views/Shared/_Layout.cshtml";
-            }
+            }           
             ViewBag.Categories = ShrdMaster.Instance.GetCategoryIdByPersonID(0);
             if (ModelState.IsValid)
             {
-               if(ShrdMaster.Instance.CheckUserName(persons.UserName))
+               if(ShrdMaster.Instance.CheckUserName(persons.Email))
                {
-                   ModelState.AddModelError("UserName", "User name already exists. Please enter a different user name.");
+                   ModelState.AddModelError("Email", "Email already exists. Please enter a different Email.");
                    return View(persons);
                }
                 db.persons.Add(persons);
@@ -156,19 +163,19 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers
                 db.UserRoles.Add(userrole);
                 db.SaveChanges();
                 
-                if (!string .IsNullOrEmpty(persons.CategoryList))
-                {
-                    ShrdMaster.Instance.SavePersonMapping(persons.CategoryList, persons.ID);
+                //if (!string .IsNullOrEmpty(persons.CategoryList))
+                //{
+                //    ShrdMaster.Instance.SavePersonMapping(persons.CategoryList, persons.ID);
 
-                }
-                else
-                {
-                    ModelState.AddModelError("Category", "category is not selected");
-                    return View(persons);
-                }
+                //}
+                //else
+                //{
+                //    ModelState.AddModelError("Category", "category is not selected");
+                //    return View(persons);
+                //}
                 return Redirect(_returnUrl);
             }
-            ViewBag.Position = new SelectList(db.positions.OrderBy(x => x.Name).ToList(), "ID", "Name");
+          //  ViewBag.Position = new SelectList(db.positions.OrderBy(x => x.Name).ToList(), "ID", "Name");
             ViewBag.ReturnUrl = _returnUrl;
             return View(persons);
         }
@@ -201,6 +208,7 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers
             ViewBag.Position = new SelectList(db.positions.OrderBy(x => x.Name).ToList(), "ID", "Name");
             ViewBag.Categories = ShrdMaster.Instance.GetCategoryIdByPersonID(persons.ID);
             ViewBag.ReturnUrl = _returnUrl;
+            
             return View(persons);
         }
 
@@ -214,20 +222,20 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers
             if (ModelState.IsValid)
             {
                 db.Entry(persons).State = EntityState.Modified;
-                if(!string.IsNullOrEmpty(persons.CategoryList))
-                {
-                    ShrdMaster.Instance.SavePersonMapping(persons.CategoryList, persons.ID);
-                }
-                else
-                {
-                    ModelState.AddModelError("Category","category is not selected");
-                    return View(persons);
-                }
+                //if(!string.IsNullOrEmpty(persons.CategoryList))
+                //{
+                //    ShrdMaster.Instance.SavePersonMapping(persons.CategoryList, persons.ID);
+                //}
+                //else
+                //{
+                //    ModelState.AddModelError("Category","category is not selected");
+                //    return View(persons);
+                //}
                 db.SaveChanges();
                 return Redirect(_returnUrl);
             }
-            ViewBag.Position = new SelectList(db.positions.OrderBy(x => x.Name).ToList(), "ID", "Name",persons.Position);
-            ViewBag.Categories = ShrdMaster.Instance.GetCategoryIdByPersonID(persons.ID);
+            //ViewBag.Position = new SelectList(db.positions.OrderBy(x => x.Name).ToList(), "ID", "Name",persons.Position);
+            //ViewBag.Categories = ShrdMaster.Instance.GetCategoryIdByPersonID(persons.ID);
             ViewBag.ReturnUrl = _returnUrl;
             return View(persons);
         }

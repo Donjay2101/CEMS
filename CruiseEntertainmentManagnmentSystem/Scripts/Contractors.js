@@ -147,77 +147,46 @@ var init = (function () {
 
 });
 
-$(document).on('change', '#BaseSalary', function () {
-    var val = $('#BaseSalary').val();
-    if (check(val))
-    {
-        return;
-    }
-    val = val / 7;
-    val = parseFloat(val).toFixed(2);
-    $('#Day_Rate').val(val);
 
-    CalculateTotalFee();
+
+$(document).on('change', '#Days_On_Travel', function () {
+
+    CalculatePerDiemonTravel();
 });
 
-$(document).on('change', '#Day_Rate', function () {
-    var val = $('#Day_Rate').val();
-    if (check(val))
-    {
-        return;
-    }
-    val = val * 7;
-    val = parseFloat(val).toFixed(2);
-    $('#BaseSalary').val(val);
-    CalculateTotalFee();
-});
-
-
-$(document).on('change', '#Total_Fee', function () {
-    var val = $('#Total_Fee').val();
-    if (check(val))
-    {
-        return;
-    }
-    var startDate = $('#Term1').val();
-    var endDate = $('#Term2').val();
-
-    if (check(startDate) && check(endDate))
-    {
-        return;
-    }
-    startDate = new Date(startDate);
-    endDate = new Date(endDate);
-    var diff = Date.daysBetween(startDate, endDate);
-    var day_rate = (val / diff).toFixed(2);
-
-    $('#Day_Rate').val(day_rate);
-    base = day_rate * 7;
-    $('#BaseSalary').val(base);
-    //CalculateTotalFee();
-});
-
-$(document).on('change', '#Days_On_Land', function () {   
+$(document).on('change', '#Days_On_Land', function () {
     CalculatePerDiemOnLand();
 });
+
+$(document).on('change', '#Per_Diem_On_Land', function () {
+    CalculatePerDiemOnLand();
+    CalculatePerDiemonTravel();
+});
+
+
+$(document).on('change', '#Total_Per_Diem_On_Land', function () {
+    ////debuger;
+    CalculatePerDiemOnLand();
+});
+
+
+
+
+
+
+
 $(document).on('change', '#Days_OnBoard', function () {
     CalculatePerdiemOnBoard();   
 });
 
 $(document).on('change', '#Per_Diem_On_Board', function () {
     CalculatePerdiemOnBoard();
+    CalculatePerDiemOnLand();
 });
 
-$(document).on('change', '#Per_Diem_On_Land', function () {
-   // CalculatePerDiemOnLand();
-});
 
 /// Assign totals of board and land to Total_per_diem
 
-$(document).on('change', '#Total_Per_Diem_On_Land', function () {
-    ////debuger;
-    CalculatePerDiemOnLand();
-});
 
 $(document).on('change', '#Total_Per_Diem_On_Board', function () {
     ////debuger;
@@ -226,10 +195,6 @@ $(document).on('change', '#Total_Per_Diem_On_Board', function () {
 
 
 
-$(document).on('change', '#Days_On_Travel', function () {
-    
-    CalculatePerDiemonTravel();
-})
 
 //$(document).on('change', '#Per_Diem_On_Land', function () {
 //    var dayonland = $('#Days_On_Land').val();
@@ -465,6 +430,10 @@ $(document).on('change', '#shipDates1', function () {
     CalculatePerdiemOnBoard();
 });
 
+$(document).on('change', '#Per_Diem_On_Land', function () {
+    CalculatePerDiemOnLand();
+});
+
 
 function CalculatePerDiemonTravel()
 {
@@ -473,7 +442,7 @@ function CalculatePerDiemonTravel()
     var PerDiemOnLand = $('#Per_Diem_On_Land').val();
 
     if (check(days)) {
-        days = 0;
+        days = "";
     }
     if (check(PerDiemOnLand)) {
         PerDiemOnLand = 0;
@@ -483,10 +452,10 @@ function CalculatePerDiemonTravel()
     var TotalDiemOnBoard = $('#Total_Per_Diem_On_Board').val();
     var TotalDiemOnLand = $('#Total_Per_Diem_On_Land').val();
     if (check(TotalDiemOnBoard)) {
-        TotalDiemOnBoard = 0;
+        TotalDiemOnBoard = "";
     }
     if (check(TotalDiemOnLand)) {
-        TotalDiemOnLand = 0;
+        TotalDiemOnLand = "";
     }
     var totalval1 = parseInt(TotalDiemOnBoard) + parseInt(TotalDiemOnLand) + parseInt(totalval);
     $('#Total_Per_Diem').val(totalval1);
@@ -561,6 +530,53 @@ function CalculatePerdiemOnBoard()
    
    // CalculateTotalFee();
 }
+
+
+$(document).on('change', '#BaseSalary', function () {
+    var val = $('#BaseSalary').val();
+    if (check(val)) {
+        return;
+    }
+    val = val / 7;
+    val = parseFloat(val).toFixed(2);
+    $('#Day_Rate').val(val);
+
+    CalculateTotalFee();
+});
+
+$(document).on('change', '#Day_Rate', function () {
+    var val = $('#Day_Rate').val();
+    if (check(val)) {
+        return;
+    }
+    val = val * 7;
+    val = parseFloat(val).toFixed(2);
+    $('#BaseSalary').val(val);
+    CalculateTotalFee();
+});
+
+
+$(document).on('change', '#Total_Fee', function () {
+    var val = $('#Total_Fee').val();
+    if (check(val)) {
+        return;
+    }
+    var startDate = $('#Term1').val();
+    var endDate = $('#Term2').val();
+
+    if (check(startDate) && check(endDate)) {
+        return;
+    }
+    startDate = new Date(startDate);
+    endDate = new Date(endDate);
+    var diff = Date.daysBetween(startDate, endDate);
+    var day_rate = (val / diff).toFixed(2);
+
+    $('#Day_Rate').val(day_rate);
+    base = day_rate * 7;
+    $('#BaseSalary').val(base);
+    //CalculateTotalFee();
+});
 
 function CalculateTotalFee()
 {
@@ -952,7 +968,7 @@ $(document).on('change', '#Hours_per_day', function () {
     var hrs_per_day = $('#Hours_per_day').val();
     var hrly_rate = $('#Hourly_Rate').val();
     var daily = hrly_rate * hrs_per_day;
-    var hrsPerWeek = hrs_per_day * 5;
+    var hrsPerWeek = hrs_per_day * 7;
     $('#Hours_per_week').val(hrsPerWeek);
     var hrs_per_week = hrsPerWeek;
     var weekly = hrly_rate * hrs_per_week;
@@ -966,7 +982,7 @@ $(document).on('change', '#Hours_per_day', function () {
 $(document).on('change', '#Hours_per_week', function () {
     var hrly_rate = $('#Hourly_Rate').val();    
     var hrs_per_week = $('#Hours_per_week').val();
-    var perdayhrs = parseInt(hrs_per_week) / 5;
+    var perdayhrs = parseInt(hrs_per_week) / 7;
     $('#Day_Rate').val(perdayhrs);
     var weekly = hrly_rate * hrs_per_week;
     $('#BaseSalary').val(weekly);
@@ -988,3 +1004,94 @@ function ContractorDelete(ID,Name,URL)
     finalDelete(ID, Name, URL,option);
 
 }
+
+
+
+$(document).on('change', '#Brands', function () {
+
+    var data = $(this).val();
+
+    $.ajax({
+        url: "/Contractors/GetShipsByBrand?Brand=" + data,
+        type: "GET",
+        success: function (data) {
+
+            var htmlString = "<option value='-1'>select--</option>";
+            if (data != null && data.length > 0) {
+                for (i = 0; i < data.length; i++) {
+                    htmlString += "<option value=\'" + data[i].ID + "\'>" + data[i].Name + "</option>";
+                }
+
+                //console.log(htmlString)
+                $('#ship').html(htmlString);
+            }
+        },
+        error: function (data) {
+
+        }
+    });
+});
+
+$(document).on('change', '#ship', function () {
+
+    debugger;
+    var id = $(this).val();
+
+    $.ajax({
+        url: "/contractors/GetShowsByShip?ID=" + id,
+        type: "GET",
+        success: function (data) {
+            debugger;
+            var htmlString = "";
+            if (data != null && data.length > 0) {
+                for (i = 0; i < data.length; i++) {
+                    htmlString += "<li ><input type='checkbox' value=\'" + data[i].ID + "\'/>" + data[i].Name + "</li>";
+                }
+            }
+            $('#ulShows').html(htmlString);
+        },
+        error: function (err) {
+            alert('error:' + err.statusText);
+        }
+    });
+});
+
+
+function CheckShows()
+{
+    debugger;
+    $('#ulShows>li>input[type="checkbox"]').each(function () {
+
+        var data="";
+        if(this.is(':checked'))
+        {
+            data+=this.attr('value')+',';
+        }
+
+    });
+    var idx=data.lastIndexOf(',');
+
+    data=data.substr(0,idx);
+    //var data = $('#ShowsList').val();
+    //var val = $(this).attr('value');
+    //if ($(this).is(':checked')) {
+    //    data += val + ",";
+    //}
+    //else {
+
+    //    var d = data.split(',');
+    //    for (i = 0; i < d.length; i++) {
+    //        if (d[i] == val) {
+    //            d.splice(i);
+    //        }
+    //    }
+    //    data = d.join(',');
+    //}
+
+    $('#ShowsList').val(data);
+}
+
+$(document).on('click', '#ulShows>li>input[type="checkbox"]', function () {
+
+    
+});

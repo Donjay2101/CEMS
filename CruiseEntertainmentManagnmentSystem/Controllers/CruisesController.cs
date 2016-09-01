@@ -244,7 +244,7 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers
             var SubTasks = (from CS in db.CruiseSubSchedules where CS.CruiseID==cruiseID  join p in db.persons on CS.PersonID equals p.ID select new CruiseScheduleViewModel{
             PersonID=p.ID,
             Person=p.Alias,
-            SubColor=p.Color,
+            SubColor="",
             Date=CS.TaskDate,
             CruiseID=CS.CruiseID
             }).Where(x=>x.Date.Year==Year).OrderBy(x=>x.Date).ToList();

@@ -20,13 +20,14 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers
 
         public ContractorsController()
         {
-            _returnUrl = ShrdMaster.Instance.GetReturnUrl("Contractors/Index");
+            _returnUrl = ShrdMaster.Instance.GetReturnUrl("/Contractors/Index");
         }
 
         //
         // GET: /Contractors/
 
         public ActionResult Index(int Type = 1)
+
         {
             if (Request.QueryString["option"] != null)
             {
@@ -111,6 +112,8 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers
             ViewBag.position = new SelectList(db.positions.OrderBy(x=>x.Name).ToList(), "ID", "Name");
             ViewBag.AgreementType = new SelectList(Common.Agreements(), "ID", "Value");
             ViewBag.MPerson = new SelectList(ShrdMaster.Instance.GetPersons(), "ID", "FullName");
+            ViewBag.Brands = new SelectList(ShrdMaster.Instance.GetBrands(), "Name", "Name");
+           // ViewBag.Shows = new SelectList(null, null, null);
             ViewBag.ReturnUrl = _returnUrl;
             ViewBag.Option = option;
             return View();
@@ -131,8 +134,11 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers
 
                 int type = contractor.ContractorType;
                 db.SaveChanges();
+                db.Database.ExecuteSqlCommand("exec sp_SaveShowsByContractor @input,@contractorID", new SqlParameter("@input", contractor.ShowsList), new SqlParameter("@contractorID", contractor.ID));
+                //db.SaveChanges();
                 return Redirect(_returnUrl);
             }
+
             ViewBag.ReturnUrl = _returnUrl;
             ViewBag.IniitaitedDate = contractor.InitiatedDate.ToShortDateString();
             ViewBag.Payment1Date = contractor.Payment_1_Date.ToShortDateString();
@@ -166,12 +172,13 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers
                 ViewBag.Payment5Date = "";
             }
 
-
+            ViewBag.Brands = new SelectList(ShrdMaster.Instance.GetBrands(), "Name", "Name");
             ViewBag.ship = new SelectList(db.cruises.OrderBy(x=>x.Name).ToList(), "id", "name");
             ViewBag.position = new SelectList(db.positions.OrderBy(x=>x.Name).ToList(), "ID", "Name");
             ViewBag.AgreementType = new SelectList(Common.Agreements(), "ID", "Value");
             ViewBag.MPerson = new SelectList(ShrdMaster.Instance.GetPersons(), "ID", "FullName");
             ViewBag.ReturnUrl = _returnUrl;
+            ViewBag.Errors ="1";
             return View(contractor);
         }
 
@@ -182,10 +189,16 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers
         {
 
             Contractor contractor = db.Contractors.Find(id);
-            ViewBag.ship = new SelectList(db.cruises.OrderBy(x=>x.Name).ToList(), "id", "name", contractor.ship);
+            var shipinfo = db.cruises.FirstOrDefault(x => x.ID == contractor.ship);
+            //var shows = db.shows.Where(x => x.Ship == contractor.ship).OrderBy(x=>x.Name).ToList();
+            ViewBag.ship = new SelectList(db.cruises.Where(x=>x.ShipBrand==shipinfo.ShipBrand).OrderBy(x=>x.Name).ToList(), "id", "name", contractor.ship);
             ViewBag.position = new SelectList(db.positions.OrderBy(x=>x.Name).ToList(), "ID", "Name", contractor.position);
             ViewBag.AgreementType = new SelectList(Common.Agreements(), "ID", "Value", contractor.AgreementType);
             ViewBag.MPerson = new SelectList(ShrdMaster.Instance.GetPersons(), "ID", "FullName", contractor.Person);
+            
+            ViewBag.Brands = new SelectList(ShrdMaster.Instance.GetBrands(), "Name", "Name",shipinfo.ShipBrand);
+            ViewBag.Shows = ShrdMaster.Instance.GetShowsByContractorID(contractor.ID,contractor.ship);
+
             ViewBag.ReturnUrl = _returnUrl;
             if (contractor == null)
             {
@@ -202,19 +215,22 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(Contractor contractor)
         {
-            _returnUrl= ShrdMaster.Instance.GetReturnUrl("Contractors/Index"); 
+          //  _returnUrl= ShrdMaster.Instance.GetReturnUrl("/Contractors/Index"); 
             if (ModelState.IsValid)
             {
                 db.Entry(contractor).State = EntityState.Modified;
                 db.SaveChanges();
+                db.Database.ExecuteSqlCommand("exec sp_SaveShowsByContractor @input,@contractorID", new SqlParameter("@input", contractor.ShowsList), new SqlParameter("@contractorID", contractor.ID));
                 return Redirect(_returnUrl);
             }
-
-            ViewBag.ship = new SelectList(db.cruises.OrderBy(x => x.Name).ToList(), "id", "name", contractor.ship);
+            var shipinfo = db.cruises.FirstOrDefault(x => x.ID == contractor.ship);
+            ViewBag.ship = new SelectList(db.cruises.Where(x => x.ShipBrand == shipinfo.ShipBrand).OrderBy(x => x.Name).ToList(), "id", "name", contractor.ship);
             ViewBag.position = new SelectList(db.positions.OrderBy(x => x.Name).ToList(), "ID", "Name", contractor.position);
             ViewBag.AgreementType = new SelectList(Common.Agreements(), "ID", "Value", contractor.AgreementType);
             ViewBag.ReturnUrl = _returnUrl;
-            ViewBag.MPerson = new SelectList(ShrdMaster.Instance.GetPersons(), "ID", "FullName", contractor.Person);
+            ViewBag.MPerson = new SelectList(ShrdMaster.Instance.GetPersons(), "ID", "FullName", contractor.Person);            
+            ViewBag.Brands = new SelectList(ShrdMaster.Instance.GetBrands(), "Name", "Name", shipinfo.ShipBrand);
+            ViewBag.Shows = new SelectList(db.shows.OrderBy(x => x.Name).ToList(), "ID", "Name");        
             ViewBag.Option = contractor.ContractorType;
             return View(contractor);
         }
@@ -497,6 +513,22 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers
 
             }
 
+        }
+
+
+        public ActionResult GetShipsByBrand(string Brand)
+        {
+            var data=db.cruises.Where(x => x.ShipBrand.ToUpper() == Brand.ToUpper()).ToList();
+
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+
+
+        public ActionResult GetShowsByShip(int id)
+        {
+            var data = db.shows.Where(x => x.Ship == id).OrderBy(x=>x.Name).ToList();
+
+            return Json(data, JsonRequestBehavior.AllowGet);
         }
 
         protected override void Dispose(bool disposing)

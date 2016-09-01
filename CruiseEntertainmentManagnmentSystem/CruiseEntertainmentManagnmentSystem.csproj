@@ -281,6 +281,7 @@
     <Compile Include="Models\CemsDbContext.cs" />
     <Compile Include="Models\Common.cs" />
     <Compile Include="Models\Contractor.cs" />
+    <Compile Include="Models\ContractorShow.cs" />
     <Compile Include="Models\CruiseNote.cs" />
     <Compile Include="Models\Cruises.cs" />
     <Compile Include="Models\CruiseSchedule.cs" />
@@ -294,6 +295,8 @@
     <Compile Include="Models\Logger.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Performers.cs" />
+    <Compile Include="Models\PersonalInformation.cs" />
+    <Compile Include="Models\PersonalInformations.cs" />
     <Compile Include="Models\PersonMapping.cs" />
     <Compile Include="Models\Persons.cs" />
     <Compile Include="Models\Position.cs" />
@@ -313,6 +316,7 @@
     <Compile Include="ViewModel\NewDate.cs" />
     <Compile Include="ViewModel\PerformerViewmodel.cs" />
     <Compile Include="ViewModel\PersonsViewModel.cs" />
+    <Compile Include="ViewModel\ProfileViewModel.cs" />
     <Compile Include="ViewModel\PositionViewModel.cs" />
     <Compile Include="ViewModel\ShowsViewModel.cs" />
     <Compile Include="ViewModel\TRFDataViewModel.cs" />
@@ -543,6 +547,7 @@
     <Content Include="Views\UserHome\TRfEdit.cshtml" />
     <Content Include="Views\UserHome\w9.cshtml" />
     <Content Include="Views\UserHome\w9pdf.cshtml" />
+    <Content Include="Views\UserHome\ProfileView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

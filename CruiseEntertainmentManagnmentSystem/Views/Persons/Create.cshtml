@@ -6,10 +6,10 @@
 }
 @*<script src="~/Scripts/jquery-2.2.0.js"></script>*@
 @*<script src="~/Scripts/bootstrap.min.js"></script>*@
-<link href="~/Content/bootstrap-colorpicker.min.css" rel="stylesheet" />
-<script src="~/Scripts/bootstrap-colorpicker.min.js"></script>
+@*<link href="~/Content/bootstrap-colorpicker.min.css" rel="stylesheet" />
+<script src="~/Scripts/bootstrap-colorpicker.min.js"></script>*@
 
-<style>
+@*<style>
     .colorpicker-2x .colorpicker-saturation {
         width: 100px;
         height: 100px;
@@ -25,9 +25,9 @@
     .colorpicker-2x .colorpicker-color div {
         height: 20px;
     }
-</style>
+</style>*@
     <h2 class="title pad">@ViewBag.Title</h2>
-@using (Html.BeginForm("Create", "Persons", FormMethod.Post, new { onsubmit = "return checkCategory()" }))
+@using (Html.BeginForm("Create", "Persons", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
@@ -53,27 +53,18 @@
                         @Html.EditorFor(model => model.LastName)
                         @Html.ValidationMessageFor(model => model.LastName)
                     </div>
-                </div>
+                </div>               
                 <div class="row">
                     <div class="editor-label">
-                        @Html.LabelFor(model => model.Alias)
+                        @Html.LabelFor(model => model.Email)
                     </div>
                     <div class="editor-field">
-                        @Html.EditorFor(model => model.Alias)
-                        @Html.ValidationMessageFor(model => model.Alias)
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="editor-label">
-                        @Html.LabelFor(model => model.UserName)
-                    </div>
-                    <div class="editor-field">
-                        @Html.TextBoxFor(model => model.UserName, new { style = "width: 150px !important;" })
+                        @Html.TextBoxFor(model => model.Email, new { style = "width: 150px !important;" })
 
                         @*@Html.EditorFor(model => model.UserName)*@
                         <a id="btncheck">Check</a>
                         <div class="row">
-                            @Html.ValidationMessageFor(model => model.UserName)
+                            @Html.ValidationMessageFor(model => model.Email)
                             <span style="color:red" id="error"></span>
                         </div>
                     </div>
@@ -92,92 +83,20 @@
                         <label>Confirm Password</label>
                     </div>
                     <div class="editor-field">
-                        @Html.EditorFor(model => model.RePassword)
-                        @Html.ValidationMessageFor(model => model.RePassword)
+                        @Html.EditorFor(model => model.ConfirmPassword)
+                        @Html.ValidationMessageFor(model => model.ConfirmPassword)
                     </div>
-                </div>
-                <div class="row">
-                    <div class="editor-label">
-                        @Html.LabelFor(model => model.Phone)
-                    </div>
-                    <div class="editor-field">
-                        @Html.EditorFor(model => model.Phone)
-                        @Html.ValidationMessageFor(model => model.Phone)
-                    </div>
-                </div>
+                </div>     ]
                 <div class="row">
 
                     <div class="editor-label">
-                        @Html.LabelFor(model => model.Email)
+                        @Html.LabelFor(model => model.Alias)
                     </div>
                     <div class="editor-field">
-                        @Html.EditorFor(model => model.Email)
-                        @Html.ValidationMessageFor(model => model.Email)
+                        @Html.EditorFor(model => model.Alias)
+                        @Html.ValidationMessageFor(model => model.Alias)
                     </div>
-                </div>
-                <div class="row">
-
-                    <div class="editor-label">
-                        @Html.LabelFor(model => model.SSN)
-                    </div>
-                    <div class="editor-field">
-                        @Html.EditorFor(model => model.SSN)
-
-                    </div>
-                </div>
-                <div class="row">
-
-                    <div class="editor-label">
-                        @Html.LabelFor(model => model.Address)
-                    </div>
-                    <div class="editor-field">
-                        @Html.EditorFor(model => model.Address)
-                        @Html.ValidationMessageFor(model => model.Address)
-                    </div>
-                </div>
-                
-                <div class="row">
-
-                    <div class="editor-label">
-                        @Html.LabelFor(model => model.City)
-                    </div>
-                    <div class="editor-field">
-                        @Html.EditorFor(model => model.City)
-                        @Html.ValidationMessageFor(model => model.City)
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="row">
-
-                    <div class="editor-label">
-                        @Html.LabelFor(model => model.Position)
-                    </div>
-                    <div class="editor-field">
-                        @Html.DropDownList("Position", "select")
-                        @Html.ValidationMessageFor(model => model.Position)
-                    </div>
-                </div>
-                <div class="row">
-
-                    <div class="editor-label">
-                        @Html.LabelFor(model => model.State)
-                    </div>
-                    <div class="editor-field">
-                        @Html.EditorFor(model => model.State)
-                        @Html.ValidationMessageFor(model => model.State)
-                    </div>
-                </div>
-                <div class="row">
-
-                    <div class="editor-label">
-                        @Html.LabelFor(model => model.Zip)
-                    </div>
-                    <div class="editor-field">
-                        @Html.EditorFor(model => model.Zip)
-                        @Html.ValidationMessageFor(model => model.Zip)
-                    </div>
-                </div>
+                </div>        
                 <div class="row">
 
                     <div class="editor-label">
@@ -197,47 +116,7 @@
                         @Html.EditorFor(model => model.WeeklySalary)
                         @Html.ValidationMessageFor(model => model.WeeklySalary)
                     </div>
-                </div>
-                <div class="row">
-
-                    <div class="editor-label">
-                        @Html.LabelFor(model => model.Color)
-                    </div>
-                    <div class="editor-field">
-                        @Html.EditorFor(model => model.Color, new { @class = "colorpicker-2x" })
-                        @Html.ValidationMessageFor(model => model.Color)
-                    </div>
-                </div>
-                <div class="row">
-
-
-                    <input type="hidden" id="CategoryList" name="CategoryList" />
-                    <div class="editor-label">
-                        @Html.LabelFor(model => model.Category)
-                    </div>
-
-                    <div class="PersonCategoryBox">
-                        @if (ViewBag.Categories != null)
-                        {
-                            <ul id="categories">
-                                @foreach (var item in ViewBag.Categories)
-                                {
-                                    <li>
-                                        <div><input type="checkbox" checked="@item.Checked" value="@item.ID" class="person-checkbox" style=" width: 6% !important;" /><span class="chkbox-label">@item.Name</span></div>
-                                    </li>
-
-                                }
-                            </ul>
-                        }
-
-                        
-                        @*@Html.Action("GetCategories")*@
-
-                            @*@Html.DropDownList("Category", "--Select--")
-                                @Html.ValidationMessageFor(model => model.Category)*@
-                        </div>
-                    </div>
-               
+                </div>                                           
                 </div>
             </div>
 
