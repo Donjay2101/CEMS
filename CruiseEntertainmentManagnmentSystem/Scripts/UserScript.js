@@ -115,3 +115,49 @@ $(document).ready(function () {
     }
 
 });
+
+
+$(document).on('change', '#Categories', function () {
+    debugger;
+    var id = $(this).val();
+    $.ajax({
+        url: "/UserHome/GetPositions?ID=" + id,
+        type: "GET",
+        success: function (data) {
+
+            if (data != null) {
+                HTMLStyleElement = '<li><input type="checkbox" name=""/><span class="position-list-name">Test</span></li>';
+                var htmlString = '';
+                if (data.length > 0) {
+                    for (i = 0; i < data.length; i++) {
+                        htmlString += '<li><input type="checkbox" name="' + data[i].ID + '" /><span class="position-list-name">' + data[i].Name + '</span></li>';
+                    }
+                    $('#ulPosition').html(htmlString);
+                }
+            }
+        },
+        error: function () {
+
+        }
+
+    });
+
+});
+
+
+function Check()
+{
+    var list = "";
+    $('#ulPosition li').each(function (idx, val) {
+        if(val.checked)
+        {
+            list += val.getAttribute('name')=",";
+        }                    
+    });
+
+    var finallist = list.substr(0, list.lastIndexOf(','));
+
+    $('#PositionList').val(finallist);
+
+}
+

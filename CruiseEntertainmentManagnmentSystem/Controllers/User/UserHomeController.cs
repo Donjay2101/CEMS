@@ -72,6 +72,13 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers.User
             return View();
         }
 
+        public ActionResult GetPositions(int ID)
+        {
+            var data = db.positions.Where(x => x.CategoryID == ID).ToList();
+
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+
         [HttpPost]
         public ActionResult ProfileView(PersonalInformation model)
         {
