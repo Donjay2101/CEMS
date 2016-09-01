@@ -346,6 +346,7 @@
     <Content Include="Global.asax" />
     <Content Include="Images\accent.png" />
     <Content Include="Images\admin.png" />
+    <Content Include="Images\avatar.png" />
     <Content Include="Images\avtaradmin.png" />
     <Content Include="Images\bullet.png" />
     <Content Include="Images\heroAccent.png" />
