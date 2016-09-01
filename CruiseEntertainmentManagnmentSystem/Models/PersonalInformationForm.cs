@@ -10,7 +10,7 @@ namespace CruiseEntertainmentManagnmentSystem.Models
     {
         public int ID { get; set; }
         public int PersonID { get; set; }
-        [DisplayName("How long haev you live at you current address?")]
+        [DisplayName(" How long have you lived at your current address?")]
         public int CurrentAddressStay { get; set; }
         [DisplayName("Passport#")]
         public string SecondaryPassportNumber { get; set; }

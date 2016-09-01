@@ -586,3 +586,14 @@ input.uploadImage , .file-upload{
 a#changepassword {
     color: white;
 }
+.fullWidth{
+    width:100%!important;
+}
+#personal-info input[type=checkbox]{
+    height: 50%!important;
+        margin-left: 0px;
+}
+#personal-info textarea {
+    width: 100%!important;
+    height:80px!important;
+}
