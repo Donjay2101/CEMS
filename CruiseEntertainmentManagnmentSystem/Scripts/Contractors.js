@@ -1045,7 +1045,7 @@ $(document).on('change', '#ship', function () {
             var htmlString = "";
             if (data != null && data.length > 0) {
                 for (i = 0; i < data.length; i++) {
-                    htmlString += "<li ><input type='checkbox' value=\'" + data[i].ID + "\'/>" + data[i].Name + "</li>";
+                    htmlString += "<li ><input type='checkbox' value=\'" + data[i].ID + "\'/><span class='small'>" + data[i].Name + "</span></li>";
                 }
             }
             $('#ulShows').html(htmlString);
