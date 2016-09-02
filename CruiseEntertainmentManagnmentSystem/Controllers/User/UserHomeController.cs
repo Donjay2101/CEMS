@@ -489,5 +489,12 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers.User
             //return PartialView("TRFData",data);
             return View();
         }
+
+        public ActionResult GetContacts()
+        {
+            var data = db.ContactLists.Where(x=>x.Active==true).ToList();
+
+            return PartialView("_ContactNCL", data);
+        }
     }
 }

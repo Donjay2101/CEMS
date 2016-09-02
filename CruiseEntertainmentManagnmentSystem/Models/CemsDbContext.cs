@@ -40,6 +40,7 @@ namespace CruiseEntertainmentManagnmentSystem.Models
         public DbSet<CrewDataForm> CrewdataForms { get; set; }
         public DbSet<PositionMapping> PositionMappings { get; set; }
         public DbSet<PersonalInformationForm> PersonalInformationForms { get; set; }
+        public DbSet<ContactList> ContactLists { get; set; }
 
         
     }

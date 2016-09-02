@@ -301,6 +301,8 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers
                              .Select(d => fromDate.AddDays(d));
         }
 
+        
+
         public bool CheckReservationNumber(string Number)
         {
             var result = db.CabinBookings.Where(x => x.Reservation == Number).ToList();

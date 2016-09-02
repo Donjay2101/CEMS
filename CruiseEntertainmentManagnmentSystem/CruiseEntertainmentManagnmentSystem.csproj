@@ -559,6 +559,10 @@
     <Content Include="Views\UserHome\PersonalInformationForm.cshtml" />
     <Content Include="Views\UserHome\ShipsAndShows.cshtml" />
     <Content Include="Views\UserHome\ContactNCL.cshtml" />
+    <Content Include="Views\Shared\_ContactNCL.cshtml" />
+    <Content Include="Views\Home\ContactCreate.cshtml" />
+    <Content Include="Views\Shared\_ContactListView.cshtml" />
+    <Content Include="Views\Home\ContactEdit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
