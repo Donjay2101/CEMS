@@ -12,11 +12,11 @@ $(document).on('click','#editPhoto',function(){
     '<div class="col-md-4 col-md-offset-4">';
     if (image!=null && image!="")
     {
-        htmlString += '<img src="' + image + '" class="img-circle"/>';
+        htmlString += '<img src="' + image + '" class="img-circle fullWidth"/>';
     }
     else
     {
-        htmlString += '<img src="/Images/avatar.png" class="img-circle"/>';
+        htmlString += '<img src="/Images/avatar.png" class="img-circle fullWidth"/>';
     }
     
     htmlString+='</div>'+

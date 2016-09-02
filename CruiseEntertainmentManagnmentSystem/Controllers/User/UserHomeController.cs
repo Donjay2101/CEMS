@@ -483,5 +483,11 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers.User
         //    var data=db.persons.ToList();
         //    return PartialView("TRFData",data);
         //}
+        public ActionResult ContactNCL()
+        {
+            //var data=db.persons.ToList();
+            //return PartialView("TRFData",data);
+            return View();
+        }
     }
 }

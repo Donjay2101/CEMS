@@ -600,3 +600,34 @@ a#changepassword {
 img#profileImage {
     width: 70%;
 }
+.top-space{
+    margin-top: 10px;
+}
+.change-password {
+    background: #f7f7f7;
+    width: 40%;
+    position: fixed;
+    left: 29%;
+    right: 25%;
+    top: 15%;
+    padding-bottom: 30px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 3px;
+    box-shadow: 0 0 30px #504f4f;
+}
+.chng-paswrd{
+    color: #55C9E9;
+    font-size: 17px;
+    border: 1px solid;
+    text-shadow: coral;
+    text-align: center;
+    background: #727477;
+    width: 100%;
+}
+.row-bottom-padding{
+    padding-bottom:50px;
+}
+ul#ulShows {
+    padding-left: 0px;
+}
