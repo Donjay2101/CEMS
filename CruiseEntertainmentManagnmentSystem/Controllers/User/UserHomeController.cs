@@ -250,15 +250,13 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers.User
 
         public ActionResult TRF()
         {
-
             return View();
-
         }
 
         public ActionResult GetAllTRF()
         {
             Persons person;
-            person = GetPerson();
+            person = SessionContext<Persons>.Instance.GetSession("User"); 
             List<TRFModel> list=new List<TRFModel>();
             if (person != null)
             {

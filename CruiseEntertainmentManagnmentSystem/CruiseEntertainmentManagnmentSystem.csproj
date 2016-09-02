@@ -256,7 +256,6 @@
     <Compile Include="Controllers\CategoriesController.cs" />
     <Compile Include="Controllers\ContractorsController.cs" />
     <Compile Include="Controllers\CruisesController.cs" />
-    <Compile Include="Controllers\GroupedData.cs" />
     <Compile Include="Controllers\GroupsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
