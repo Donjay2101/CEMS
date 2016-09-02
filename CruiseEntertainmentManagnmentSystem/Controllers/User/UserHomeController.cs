@@ -23,6 +23,7 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers.User
         //
         // GET: /UserHome/
         CemsDbContext db = new CemsDbContext();
+        PersonalInformation information;
         public ActionResult Index()
         {
             var Person = ShrdMaster.Instance.GetPersonByUserName(User.Identity.Name);
@@ -49,9 +50,10 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers.User
         public ActionResult ProfileView()
         {        
             Persons userdata;
-            PersonalInformation information=null;
+            information=null;
             userdata = ShrdMaster.Instance.GetPersonByUserName(User.Identity.Name);
             ViewBag.Categories = new SelectList(db.categories.ToList(),"ID","Name");
+            
             SessionContext<Persons>.Instance.SetSession("User", userdata);
             //PersonalInformation vm = new PersonalInformation();
             if(userdata != null)
@@ -60,13 +62,22 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers.User
                 ViewBag.Email = userdata.Email;
                 Session["LoggedUser"] = userdata;
 
-                information = db.PersonalInformations.FirstOrDefault(x => x.PersonID == userdata.ID);
-                
+                information = ShrdMaster.Instance.GetInformation(userdata.ID);
+                SessionContext<PersonalInformation>.Instance.SetSession("PersonalInformation", information);
+
                 //vm.LastName = Userdata.LastName;
                 //vm.Email = Userdata.Email;
             }
+            else
+            {
+                RedirectToAction("Login", "Account");
+            }
+
             if(information != null)
             {
+                ViewBag.Categories = new SelectList(db.categories.ToList(), "ID", "Name", information.CategoryID);
+
+                ViewBag.Positions = ShrdMaster.Instance.GetPositionsBYPersonIdAndCategoryID(userdata.ID, information.CategoryID);
                 return View(information);
             }
             return View();
@@ -82,10 +93,10 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers.User
         [HttpPost]
         public ActionResult ProfileView(PersonalInformation model)
         {
-
-            if(ModelState.IsValid)
+            Persons person= SessionContext<Persons>.Instance.GetSession("User"); 
+            if (ModelState.IsValid)
             {
-                Persons person = SessionContext<Persons>.Instance.GetSession("User");
+                
                 if(person!=null)
                 {
                     if(model.ID>0)
@@ -96,17 +107,28 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers.User
                     {
                         model.PersonID = person.ID;
                         db.PersonalInformations.Add(model);
-                    }                    
+                    }
+                    db.Database.ExecuteSqlCommand("exec sp_SavePositionsForContractorProfile @input,@personID,@categoryID", new SqlParameter("@input", model.PositionList),
+                        new SqlParameter("@personID", model.PersonID),
+                        new SqlParameter("@CategoryID", model.CategoryID));                    
                 }                
                 
                 db.SaveChanges();
             }
+
+            ViewBag.Categories = new SelectList(db.categories.ToList(), "ID", "Name", model.CategoryID);
+
+            ViewBag.Positions = ShrdMaster.Instance.GetPositionsBYPersonIdAndCategoryID(person.ID,model.CategoryID);
             return View(model);
         }
 
         public ActionResult UploadImages()
         {
-            
+            int ID=0;
+            if(Request.QueryString["id"]!=null)
+            {
+                int.TryParse(Request.QueryString["id"], out ID);
+            }
                 if (Request.Files.Count > 0)
                 {
                     var file = Request.Files[0];
@@ -124,6 +146,10 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers.User
 
                     file.SaveAs(path);
                 string imagePath = "/ProfileImages/" + Filename;
+                if(ID>0)
+                {
+                    db.Database.ExecuteSqlCommand("exec SP_SaveProfilePhoto @imagePath,@personID", new SqlParameter("@Imagepath", imagePath), new SqlParameter("@personID", ID));
+                }
                 return Json(imagePath, JsonRequestBehavior.AllowGet);           
                 }
             return Json("-1", JsonRequestBehavior.AllowGet);
@@ -136,7 +162,15 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers.User
         public ActionResult CrewDataForm()
         {
             Persons person;
-            person = GetPerson();
+            
+            person = SessionContext<Persons>.Instance.GetSession("User");
+            information = SessionContext<PersonalInformation>.Instance.GetSession("PersonalInformation");
+            if(person!=null)
+            {
+                ViewBag.SSN = information.SSN;
+               
+                return RedirectToAction("Login", "Account");
+            }
             ViewBag.Ships = new SelectList(ShrdMaster.Instance.GetShips("Norwegian"), "ID", "Name");
 
             ViewBag.Department = new SelectList(ShrdMaster.Instance.GetDepartmentforCrewDataForm(), "ID", "Name");
@@ -175,9 +209,21 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers.User
             var person = SessionContext<Persons>.Instance.GetSession("User");
             ViewBag.Positions = new SelectList(ShrdMaster.Instance.GetPostionsforPIF(person.ID), "ID", "Name");
             ViewBag.Ships = new SelectList(ShrdMaster.Instance.getShipsForPIF("Regent", "Oceania"), "ID", "Name");
-
-
             return View();
+        }
+
+
+        public ActionResult ShipsAndShows()
+        {
+            ViewBag.Ships = new SelectList(db.cruises.OrderBy(x => x.Name).ToList(), "ID", "Name");            
+            return View();
+        }
+
+        public ActionResult GetShows(int ShipID)
+        {
+            var data = db.shows.Where(x => x.Ship == ShipID).ToList();
+
+            return Json(data, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]

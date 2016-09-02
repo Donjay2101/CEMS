@@ -333,6 +333,26 @@ namespace CruiseEntertainmentManagnmentSystem.Models
             return data;
         }
        
+
+        public List<Position> GetPositionsBYPersonIdAndCategoryID(int personID,int categoryID)
+        {
+            var positions= db.PositionMappings.Where(x => x.PersonID == personID && x.CategoryID == categoryID).AsEnumerable();
+            var list = db.positions.Join(positions, pr => pr.ID, pm => pm.PositionID, (pr, pm) => new { Position= pr, PositionMapping= pm }).Select(x => x.Position).ToList();
+            //var l = list.ToList();
+            list.ForEach(x => x.Checked = "checked");
+
+            var positionsList = db.positions.Where(x=>x.CategoryID==categoryID).ToList().Except(list).AsEnumerable();
+            positionsList.ToList().ForEach(x => x.Checked = null);
+
+            var finalList = list.Union(positionsList).OrderByDescending(x => x.Checked).ToList();
+
+            return finalList;
+        }
+
+        public PersonalInformation GetInformation(int ID)
+        {
+            return db.PersonalInformations.FirstOrDefault(x => x.PersonID == ID);
+        }
     }
 
     public class ShipBrand

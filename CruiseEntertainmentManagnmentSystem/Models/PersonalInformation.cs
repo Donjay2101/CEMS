@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -86,7 +87,10 @@ namespace CruiseEntertainmentManagnmentSystem.Models
         public DateTime VisaExpireDate { get; set; }
         //[Display(Name = "Booking Date")]
         public string ImagePath { get; set; }
-        [NoTMapped]
+        public int CategoryID { get; set; }
+        [NotMapped]
         public string PositionList { get; set; }
+        
+        
     }
 }

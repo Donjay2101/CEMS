@@ -48,6 +48,11 @@ $(document).on('click', '#close', function () {
 $(document).on('click', '#btnUpdatePhoto', function () {
 
     debugger;
+    var id = $('#ID').val();
+    if (id == "")
+    {
+        id=0
+    }
     var file = $('#imgFile').get(0).files;
     var formdata = new FormData();
     if(file.length>0)
@@ -63,7 +68,7 @@ $(document).on('click', '#btnUpdatePhoto', function () {
 
         $.ajax({
             type: "POST",
-            url: '/UserHome/UploadImages',
+            url: '/UserHome/UploadImages?id='+id,
             contentType: false,
             processData: false,
             data: formdata,
@@ -117,17 +122,23 @@ $(document).ready(function () {
 });
 
 
-$(document).on('change', '#Categories', function () {
+$(document).on('change', '#CategoryID', function () {
     debugger;
+    var htmlString = '';
     var id = $(this).val();
+    if (id == "")
+    {
+        $('#ulPosition').html(htmlString);
+        return;
+    }
     $.ajax({
         url: "/UserHome/GetPositions?ID=" + id,
         type: "GET",
         success: function (data) {
 
             if (data != null) {
-                HTMLStyleElement = '<li><input type="checkbox" name=""/><span class="position-list-name">Test</span></li>';
-                var htmlString = '';
+                
+                
                 if (data.length > 0) {
                     for (i = 0; i < data.length; i++) {
                         htmlString += '<li><input type="checkbox" name="' + data[i].ID + '" /><span class="position-list-name">' + data[i].Name + '</span></li>';
@@ -147,11 +158,13 @@ $(document).on('change', '#Categories', function () {
 
 function Check()
 {
+    debugger;
     var list = "";
     $('#ulPosition li').each(function (idx, val) {
-        if(val.checked)
+        debugger;
+        if(val.children[0].checked)
         {
-            list += val.getAttribute('name')=",";
+            list += val.children[0].getAttribute('name')+",";
         }                    
     });
 
@@ -160,4 +173,39 @@ function Check()
     $('#PositionList').val(finallist);
 
 }
+
+
+$(document).on('change', '#ViewShips', function () {
+    debugger;
+    var id = $(this).val();
+    var htmlString = "";
+    if(id=="")
+    {
+        $('#ulShows').html(htmlString);
+        return;
+    }
+
+    $.ajax({
+        url: "/UserHome/GetShows?ShipID=" + id,
+        type: "GET",
+        success: function (data) {
+
+            if(data!=null)
+            {
+                for(i=0;i<data.length;i++)
+                {
+                    htmlString += "<li>" + data[i].Name + "</li>";
+                }
+                $('#ulShows').html(htmlString);
+            }
+        },
+        error: function (err) {
+
+            alert(err.statusText);
+        }
+
+
+    });
+
+});
 
