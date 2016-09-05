@@ -723,8 +723,8 @@ function getContract(id,url,type)
 {
 
     //dialog = ("over-lay").dialog();
-    var htmlstring = "<div class='row text-right' style='padding-bottom: 42px;cursor:pointer' id='closebtn' ><span  style=' font-size: 19px;border: 1px solid #BFBFBF;margin-right: 3px;color: #A7A7A7;font-weight: bold;cursor:pointer'>&nbsp;X&nbsp;</span></div><div class='row'><div class='col-md-3'><label>Set Rate as ::</label></div><div class='col-md-3'><select id='sl1'><option value='1'>Day Rate</option><option value='2'>Weekly Rate</option><option value='3'>Project Rate</option></select></div></div>";
-    htmlstring += "<div class='row'><div class='col-md-3'></div><div class='col-md-3'><input type='button' id='btn1' onclick='gen_Contract(\"" + id + "\",\"" + url + "\",\"" + type + "\")' value='Get Contract' class='btn' /></div></div>";
+    var htmlstring = "<div class='row text-right' style='padding-bottom: 42px;cursor:pointer' id='closebtn' ><span  style=' font-size: 19px;border: 1px solid #BFBFBF;margin-right: 3px;color: #A7A7A7;font-weight: bold;cursor:pointer'>&nbsp;X&nbsp;</span></div><div class='row'><div class='col-md-3'><label>Set Rate as ::</label></div><div class='col-md-5'><select id='sl1' class='fullWidth'><option value='1'>Day Rate</option><option value='2'>Weekly Rate</option><option value='3'>Project Rate</option></select></div></div>";
+    htmlstring += "<div class='row'><div class='col-md-3'></div><div class='col-md-5'><input type='button' id='btn1' onclick='gen_Contract(\"" + id + "\",\"" + url + "\",\"" + type + "\")' value='Get Contract' class='btn' /></div></div>";
 
     $('#overLay2').css('display', 'block');
     

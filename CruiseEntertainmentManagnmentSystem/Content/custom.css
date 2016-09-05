@@ -640,3 +640,31 @@ ul#ulShows {
 .contact-us input[type=checkbox]{
     height: 60%;
 }
+input#Stskbtn {
+    background: #5192cb;
+    color: white;
+}
+.sub-schedule select,.schedule select{
+    width:100%;
+}
+.sub-schedule #TaskTable select,.schedule #TaskTable select{
+    margin-top: 5px;
+}
+.Datacontainer{
+    font-size: 12px;
+}
+.popup-btn{
+        background: #5192cb;
+    color: white;
+    width: 20%;
+}
+.off-management {
+    width: 60%;
+    background: white;
+    padding: 20px;
+    position: fixed;
+    left: 20%;
+    top: 8%;
+    right: 20%;
+}
+
