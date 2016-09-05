@@ -562,6 +562,13 @@
     <Content Include="Views\Home\ContactCreate.cshtml" />
     <Content Include="Views\Shared\_ContactListView.cshtml" />
     <Content Include="Views\Home\ContactEdit.cshtml" />
+    <Content Include="Views\Shared\_TravelRequestForm.cshtml" />
+    <Content Include="Views\UserHome\TravelRequestForm.cshtml" />
+    <Content Include="Views\UserHome\FinanceAndPayments.cshtml" />
+    <Content Include="Views\UserHome\FastPay.cshtml" />
+    <Content Include="Views\UserHome\NewVendor.cshtml" />
+    <Content Include="Views\UserHome\VendorPayment.cshtml" />
+    <Content Include="Views\UserHome\_CrewDataForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

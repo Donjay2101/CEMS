@@ -133,8 +133,29 @@
         <div class="formGroup row">
             @Html.LabelFor(model => model.Sex, htmlAttributes: new { @class = "control-label col-md-4" })
             <div class="col-md-8">
-                <input type="radio" name="Sex" value="1" /><span>Male</span>
-                <input type="radio" name="Sex" value="0" /><span>Female</span>
+                @if (Model.IsFemale)
+                {
+                    <div>
+                        <div class="col-md-4">@Html.RadioButtonFor(model => model.Sex, "1")<span class="gendername">Male</span></div>
+                        <div class="col-md-4">@Html.RadioButtonFor(model => model.Sex, "0", new { @checked = "checked" })<span class="gendername">Female</span></div>
+                    </div>
+
+                }
+                else
+                {
+                    <div>
+                        <div class="col-md-4">
+                            @Html.RadioButtonFor(model => model.Sex, "1", new { @checked = "checked" })<span class="gendername">Male</span>
+                        </div>
+                        <div class="col-md-4">
+                            @Html.RadioButtonFor(model => model.Sex, "0")<span class="gendername">Female</span>
+                        </div>
+                    </div>
+
+                }
+
+                @*<input type="radio" name="Sex" value="1" /><span>Male</span>
+                <input type="radio" name="Sex" value="0" /><span>Female</span>*@
                 @*@Html.EditorFor(model => model.Sex, new { htmlAttributes = new { @class = "form-control" } })*@
                 @Html.ValidationMessageFor(model => model.Sex, "", new { @class = "text-danger" })
             </div>
@@ -255,11 +276,17 @@
         <div class="formGroup row">
             @Html.LabelFor(model => model.MaritalStatus, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <input type="radio" name="MaritalStatus" value="0" /><span>single</span>
-                <input type="radio" name="MaritalStatus" value="1" /><span>mmarried</span>
-                <input type="radio" name="MaritalStatus" value="2" /><span>divorced</span>
-                <input type="radio" name="MaritalStatus" value="3" /><span>widowed</span>
-                <input type="radio" name="MaritalStatus" value="4" /><span>seprated</span>
+
+                @Html.RadioButtonFor(model => model.MaritalStatus,Model.MaritalStatus,new { @value="0"})<span>single</span>
+                @Html.RadioButtonFor(model => model.MaritalStatus, Model.MaritalStatus, new { @value = "1" })<span>married</span>
+                @Html.RadioButtonFor(model => model.MaritalStatus, Model.MaritalStatus,new { @value = "2" })<span>divorced</span>
+                @Html.RadioButtonFor(model => model.MaritalStatus, Model.MaritalStatus, new { @value = "3" })<span>widowed</span>
+                @Html.RadioButtonFor(model => model.MaritalStatus, Model.MaritalStatus, new { @value = "4" })<span>seprated</span>
+                @*< input type="radio" name="MaritalStatus" value="0" />
+                <input type="radio" name="MaritalStatus" value="1" />
+                <input type="radio" name="MaritalStatus" value="2" />
+                <input type="radio" name="MaritalStatus" value="3" />
+                <input type="radio" name="MaritalStatus" value="4" />*@
                 @*@Html.EditorFor(model => model.MaritalStatus, new { htmlAttributes = new { @class = "form-control" } })*@
                 @Html.ValidationMessageFor(model => model.MaritalStatus, "", new { @class = "text-danger" })
             </div>

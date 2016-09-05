@@ -90,6 +90,10 @@ namespace CruiseEntertainmentManagnmentSystem.Models
         public int CategoryID { get; set; }
         [NotMapped]
         public string PositionList { get; set; }
+        [NotMapped]
+        public bool IsFemale { get; set; }
+
+        
         
         
     }

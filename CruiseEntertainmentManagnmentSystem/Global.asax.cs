@@ -29,6 +29,12 @@ namespace CruiseEntertainmentManagnmentSystem
 
         protected void Application_BeginRequest(object sender, EventArgs e)
         {
+            Response.Cache.SetCacheability(HttpCacheability.NoCache);
+            Response.Cache.SetExpires(DateTime.UtcNow.AddHours(-1));
+            Response.Cache.SetNoStore();
+
+           // string url = Request.Url.Fragment;
+
 
         }
 

@@ -1,0 +1,44 @@
+﻿
+@{
+    ViewBag.Title = "FinanceAndPayments";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+
+<h2>FinanceAndPayments</h2>
+
+<ul id="FNPmenu">
+    <li><a href="#" value="W9" >W9</a></li>
+    <li><a href="#" value="FASTPAY">Fast Pay</a></li>
+    <li><a href="#" value="NEWVENDOR">New Vendor</a></li>
+    <li><a href="#" value="VENODRPAYMENT">Vendor Payment</a></li>
+</ul>
+
+
+<div id="dataContainer">
+    
+    
+</div>
+
+<script>
+    $(document).on('click', '#FNPmenu>li', function () {
+
+        var value = $(this).find('a').attr('value');
+
+        switch(value.toUpperCase())
+        {
+            case "W9":
+                $('#dataContainer').load('/UserHome/w9');
+                break;
+            case "FASTPAY":
+                $('#dataContainer').load('/UserHome/FastPay');
+                break;
+            case "NEWVENDOR":
+                $('#dataContainer').load('/UserHome/NewVendor');
+                break;
+            case "VENDORPAYMENT":
+                $('#dataContainer').load('/UserHome/VendorPayment');
+                break;
+        }
+
+    });
+</script>

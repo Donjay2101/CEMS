@@ -78,6 +78,10 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers.User
                 ViewBag.Categories = new SelectList(db.categories.ToList(), "ID", "Name", information.CategoryID);
 
                 ViewBag.Positions = ShrdMaster.Instance.GetPositionsBYPersonIdAndCategoryID(userdata.ID, information.CategoryID);
+                if(information.Sex==0)
+                {
+                    information.IsFemale = true;
+                }
                 return View(information);
             }
             return View();
@@ -248,8 +252,9 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers.User
 
         }
 
-        public ActionResult TRF()
+        public ActionResult TravelRequestForm()
         {
+            ViewBag.Cruises = new SelectList(db.cruises.OrderBy(x => x.Name).ToList(), "ID", "Name");
             return View();
         }
 
@@ -268,6 +273,8 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers.User
             }
             return PartialView("_TRFPartial",list);
         }
+
+
 
         public ActionResult TRFEdit(int cruiseID)
         {
@@ -350,6 +357,30 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers.User
             return RedirectToAction("TRF");
         }
 
+
+        [HttpPost]
+        public ActionResult TravelRequestFormCreate(TRF model)
+        {
+            Persons person;
+            if(ModelState.IsValid)
+            {
+                person = SessionContext<Persons>.Instance.GetSession("User");
+                model.Person = person.ID;
+                db.TRFs.Add(model);
+                db.SaveChanges();
+                return RedirectToAction("TravelRequestForm");                
+            }
+            return RedirectToAction("TravelRequestForm",model);
+            
+        }
+
+
+        public ActionResult FinanceAndPayments()
+        {
+            return View();
+        }
+
+        #region W9
         [AllowAnonymous]
         public ActionResult w9(int option=0,int personID=0)
         {
@@ -475,6 +506,31 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers.User
             Response.WriteFile(path,false);
           //  return File(path,"application/PDF");
         }
+        #endregion W9
+
+
+
+        #region FASTPAY
+        public ActionResult FastPay()
+        {
+            return View();
+        }
+        #endregion FASTPAY
+    
+        #region NEWVENDOR
+        public ActionResult NewVendor()
+        {
+            return View();
+        }
+        #endregion NEWVENDOR
+
+
+        #region VENDORPAYMENT        
+        public ActionResult VendorPayment()
+        {
+            return View();
+        }
+        #endregion
 
         //public ActionResult GetTRFData()
         //{
