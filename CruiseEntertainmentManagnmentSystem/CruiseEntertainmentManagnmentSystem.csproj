@@ -367,6 +367,7 @@
     <Content Include="Images\orderedList9.png" />
     <Content Include="Images\User\NCL-1.jpg" />
     <Content Include="Images\User\NCL-2.jpg" />
+    <Content Include="Images\User\PIF.jpg" />
     <Content Include="img\bootstrap-colorpicker\alpha-horizontal.png" />
     <Content Include="img\bootstrap-colorpicker\alpha.png" />
     <Content Include="img\bootstrap-colorpicker\hue-horizontal.png" />
@@ -572,6 +573,7 @@
     <Content Include="Views\UserHome\NewVendor.cshtml" />
     <Content Include="Views\UserHome\VendorPayment.cshtml" />
     <Content Include="Views\UserHome\_CrewDataForm.cshtml" />
+    <Content Include="Views\UserHome\Personalnfo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

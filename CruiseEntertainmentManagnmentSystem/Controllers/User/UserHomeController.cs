@@ -532,6 +532,11 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers.User
         }
         #endregion
 
+
+        public ActionResult Personalnfo()
+        {
+            return View();
+        }
         //public ActionResult GetTRFData()
         //{
         //    var data=db.persons.ToList();
