@@ -667,4 +667,26 @@ input#Stskbtn {
     top: 8%;
     right: 20%;
 }
+/*FastPay*/
+.fastpay-img{
+    width: 70%;
+}
+ .fastpay-header{
+    color: black;
+    font-weight: 700;
+}
+ div#FasTPay {
+    border: 1px solid #cad4e2;
+    margin-top: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+ #FasTPay .form-group{
+     margin-bottom:0px;
+ }
+ #FasTPay p{
+  font-size: 12px;
+ }
+ /*FastPay*/
+
 

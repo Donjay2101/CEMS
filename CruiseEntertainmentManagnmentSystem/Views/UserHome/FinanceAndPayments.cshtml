@@ -4,21 +4,26 @@
     Layout = "~/Views/Shared/_UserLayout.cshtml";
 }
 
-<h2>FinanceAndPayments</h2>
-
-<ul id="FNPmenu">
-    <li><a href="#" value="W9" >W9</a></li>
-    <li><a href="#" value="FASTPAY">Fast Pay</a></li>
-    <li><a href="#" value="NEWVENDOR">New Vendor</a></li>
-    <li><a href="#" value="VENODRPAYMENT">Vendor Payment</a></li>
-</ul>
-
-
-<div id="dataContainer">
-    
-    
+<h4 class="profile-view">Finance And Payments</h4>
+<div>
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist" id="FNPmenu" >
+        <li role="presentation" class="active"><a aria-controls="W9" role="tab" data-toggle="tab"  value="W9">W9</a></li>
+        <li role="presentation"><a  aria-controls="Fast Pay" role="tab" data-toggle="tab"  value="FASTPAY">Fast Pay</a></li>
+        <li role="presentation"><a  aria-controls="New Vendor" role="tab" data-toggle="tab" value="NEWVENDOR">New Vendor</a></li>
+        <li role="presentation"><a  aria-controls="Vendor Payment" role="tab" data-toggle="tab" value="VENODRPAYMENT">Vendor Payment</a></li>
+    </ul>
+    <div class="row">
+        <div class="col-md-6 col-md-offset-6 text-right print">
+            <a href="#"><span class="glyphicon glyphicon-print" aria-hidden="true"></span>Print</a>
+            <a href="#"><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span>Download</a> 
+            <a href="#"><span class="glyphicon glyphicon-send" aria-hidden="true"></span>Submit</a>  
+        </div>
+    </div>
+    <!-- Tab panes -->
+    <div id="dataContainer">
+    </div>
 </div>
-
 <script>
     $(document).on('click', '#FNPmenu>li', function () {
 
