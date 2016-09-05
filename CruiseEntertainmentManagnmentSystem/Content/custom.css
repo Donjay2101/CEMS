@@ -675,7 +675,7 @@ input#Stskbtn {
     color: black;
     font-weight: 700;
 }
- div#FasTPay {
+ div#FasTPay ,#NewVendor{
     border: 1px solid #cad4e2;
     margin-top: 10px;
     padding-top: 10px;
@@ -688,5 +688,60 @@ input#Stskbtn {
   font-size: 12px;
  }
  /*FastPay*/
+ /*NewVendor*/
+ .bold-para {
+    border: 1px solid black;
+    padding: 10px;
+    font-weight: 600;
+}
+ .info {
+    border: 1px solid black;
+    background: #b5e4f1;
+    padding: 2px;
+    padding-left: 20px;
+    font-weight: 600;
+}
+ #NewVendor label {
+    color: black;
+}
+ #NewVendor  input[type=checkbox]{
+    width: 6%!important;
+    height: 15px;
+}
+ #NewVendor input[type="text"] {
+    border: none;
+    border-bottom: 1px solid black;
+    width:100%;
+       margin-bottom: 0px;
+}
+ .for-vendor{
+      
+    font-size: 13px;
+    font-weight: 900;
+}
+ input.blue-textbox {
+    border: none!important;
+    background: #cfd5da;
+    padding: 0px;
+    height: 25px;
+    padding-left: 10px;
+}
+.reserved {
+    border-top: 2px solid;
+    padding-top: 10px;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 800;
+}
+#NewVendor .col-md-2 input[type=checkbox] {
+    width: 10%!important;
+}
+.yellow-textbox {
+    background: yellow;
+    width: 100%;
+    border: none!important;
+    height: 24px;
+}
+  /*NewVendor*/
 
 
