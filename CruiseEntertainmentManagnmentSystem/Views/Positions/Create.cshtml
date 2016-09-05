@@ -3,8 +3,9 @@
 @{
     ViewBag.Title = "Position";
 }
-
-<h2 class="title pad">@ViewBag.Title</h2>
+<div class="row">
+    <h4 class="page-heading text-center">Position</h4>
+</div>
 @using (Html.BeginForm()) {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)

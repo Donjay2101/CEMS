@@ -4,8 +4,8 @@
     ViewBag.Title = "Create";
 }
 
-<div class="row title">
-    <p>Contractor</p>
+<div class="row">
+    <h4 class="page-heading text-center">Contractor</h4>
 </div>
 
 @if(ViewBag.Errors=="1")
@@ -66,9 +66,9 @@
             <div class="editor-label">
                 @Html.LabelFor(model => model.Shows)
             </div>
-            <div class="editor-field">
+            <div class="editor-field shows-list">
                 
-                <ul id="ulShows">
+                <ul id="ulShows" class="nonbullet">
 
                 </ul>
                 @*<select id="Shows" name="Shows">

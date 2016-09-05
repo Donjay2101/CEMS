@@ -4,9 +4,9 @@
     ViewBag.Title = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<h2 class="title pad">@ViewBag.Title</h2>
-
+<div class="row">
+    <h4 class="page-heading text-center">Shows</h4>
+</div>
 @using (Html.BeginForm()) {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)

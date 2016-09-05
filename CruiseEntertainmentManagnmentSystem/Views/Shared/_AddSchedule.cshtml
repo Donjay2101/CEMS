@@ -14,9 +14,9 @@
     });
 </script>
 
-<div style="padding-left:15px;padding-right:15px;">
+<div style="padding-left:15px;padding-right:15px;" class="schedule">
     <div class="section">
-        <div class='row text-right'><span id='closebtn' style=' font-size: 19px;border: 1px solid #BFBFBF;margin-right: 3px;color: #A7A7A7;font-weight: bold;cursor:pointer'>&nbsp;X&nbsp;</span></div>
+        <div class='row text-right'><span id='closebtn' style='font-size: 19px;border: 1px solid #BFBFBF;margin-right: 3px;color: #A7A7A7;font-weight: bold;cursor:pointer'>&nbsp;X&nbsp;</span></div>
         <div class="row">
             <h3 class="popup-heading"> Schedule for Cruise: @ViewBag.CruiseName</h3>
             <input type="hidden" id="CruiseID" value="@ViewBag.CruiseID" />
@@ -55,7 +55,7 @@
         </div>
         <br />
         <div class="row" style="overflow-y: scroll;height: 234px;border: 1px solid #B7B7B7;border-radius: 6px;">
-            <table border="1" id="TaskTable" style=" border-color: azure;">
+            <table border="1" id="TaskTable" style="border-color: azure;" class="table table-bordered table-condensed">
                 <tr>
                     <th>Task Name</th>
                     <th>Start Date</th>

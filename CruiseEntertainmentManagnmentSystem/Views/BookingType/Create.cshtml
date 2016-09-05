@@ -4,7 +4,10 @@
     ViewBag.Title = "Create";
 }
 
-<h3 class="title pad">Booking Type</h3>
+<div class="row">
+    <h4 class="page-heading text-center">Booking Type</h4>
+</div>
+
 
 @using (Html.BeginForm("Create","BookingType",FormMethod.Post,new{@class="uk-form"})) {
     @Html.AntiForgeryToken()

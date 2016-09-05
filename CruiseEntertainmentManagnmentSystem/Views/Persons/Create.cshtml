@@ -26,7 +26,9 @@
         height: 20px;
     }
 </style>*@
-    <h2 class="title pad">@ViewBag.Title</h2>
+<div class="row">
+    <h4 class="page-heading text-center">Persons</h4>
+</div>
 @using (Html.BeginForm("Create", "Persons", FormMethod.Post))
 {
     @Html.AntiForgeryToken()

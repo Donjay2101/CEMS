@@ -792,12 +792,12 @@ function manageOff(startDate,endDate) {
 
     //alert(endDate);
 
-    var htmlString = "<div class='row'>" 
+    var htmlString = "<div class='off-management'><div class='row'>"
         + "<div class='row text-right' style='margin-top:5px;cursor:pointer' id='closebtn'>"
         + "<span  style='font-size: 19px;border: 1px solid #BFBFBF;margin-right: 3px;color: #A7A7A7;font-weight: bold;cursor:pointer'>&nbsp;X&nbsp;</span>"
         + "</div>" 
         +"<div class='row'>"
-        + "<h3 class='popup-heading'>OFF Management</h3>"
+        + "<h3 class='popup-heading' style='margin-top: 0px;'>OFF Management</h3>"
         + "</div>"
            + "<input type='button' id='backbtn' value='Back' class='popup-btn'/>"
             + "<input type='Submit' value='submit' id='btnsubmitSchedule' name='submit Schedule' class='popup-btn'/>"
@@ -882,7 +882,7 @@ function manageOff(startDate,endDate) {
         ////        strDay
         ////}
     }
-    htmlString += "</table></div>";
+    htmlString += "</table></div></div>";
     $('#overLay').css('display', 'none');
     $('#overLay1').css('display', 'block');
     $('#Datacontainer1').html("");
@@ -1969,7 +1969,7 @@ $(document).on('click', '#closebtn', function () {
                         
                         htmlString += "</div>";
                         htmlString += "<div class='row'>";
-                        htmlString += "<div class='col-md-8'><input type='button'  value='Save' id='btnSaveNotes'/></div></div>";
+                        htmlString += "<div class='col-md-8'><input type='button'  value='Save' id='btnSaveNotes' class='popup-btn'/></div></div>";
                         $('#overLay').css('display', 'block');
                         $('#Datacontainer').html(htmlString);
                     }
