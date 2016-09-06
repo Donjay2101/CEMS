@@ -576,5 +576,11 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers.User
 
             return PartialView("_ContactNCL", data);
         }
+
+
+        public ActionResult GetPDF()
+        {
+            return View("NewVendor_pdf");
+        }
     }
 }
