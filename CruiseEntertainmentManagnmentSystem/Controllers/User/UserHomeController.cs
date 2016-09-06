@@ -558,7 +558,7 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers.User
 
         public ActionResult GetPDF()
         {
-            return View("CrewData_pdf");
+            return View("FastPay_pdf");
         }
     }
 }
