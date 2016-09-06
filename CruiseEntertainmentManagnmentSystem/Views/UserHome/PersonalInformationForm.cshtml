@@ -11,7 +11,8 @@
         @using (Html.BeginForm())
         {
             @Html.AntiForgeryToken()
-
+            @Html.HiddenFor(model=>model.ID)
+            @Html.HiddenFor(model => model.PersonID)
             <div class="form-horizontal">
 
                 <hr />
@@ -25,7 +26,9 @@
                                 @Html.ValidationMessageFor(model => model.CurrentAddressStay, "", new { @class = "text-danger" })
                             </div>
                         </div>
-
+                        <div class="row">
+                            If you have second passport:
+                        </div>
                         <div class="formGroup row">
                             @Html.LabelFor(model => model.SecondaryPassportNumber, htmlAttributes: new { @class = "control-label col-md-6" })
                             <div class="col-md-6">
@@ -199,7 +202,9 @@
                     <div class="col-md-6">
                         <div class="formGroup row">
                             <div class="col-md-6 col-md-offset-6">
-                                <input type="submit" value="Create" class="btn btn-default" />
+                                <input type="submit" value="Save" class="btn btn-default" />
+                                <input type="button" id="btnPrint" value="Print" class="btn btn-default" />
+                                <input type="button" id="btnDownload" value="Download" class="btn btn-default" />
                             </div>
                         </div>
                     </div>                 
@@ -210,4 +215,14 @@
 </div>
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+        $(document).on('click', '#btnPrint', function () {                        
+            window.open('/UserHome/PersonalInformationFormPDF?option=1', '_blank');            
+        });
+
+        $(document).on('click', '#btnDownload', function () {
+            window.open('/UserHome/PersonalInformationFormPDF?option=2', '_blank');
+        });
+    </script>
 }

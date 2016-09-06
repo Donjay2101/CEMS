@@ -17,9 +17,9 @@ namespace CruiseEntertainmentManagnmentSystem.Models
         [DisplayName("Issuing Country")]
         public string SecondaryIssueCountry { get; set;}
         [DisplayName("Issue Date")]
-        public string SecondaryIssueDate { get; set; }
+        public Nullable<DateTime> SecondaryIssueDate { get; set; }
         [DisplayName("Expire Date")]
-        public string SecondaryExpireDate { get; set; }
+        public Nullable<DateTime> SecondaryExpireDate { get; set; }
 
         [DisplayName("Are you a US Citizen?")]
         public bool IsUsCitizen{ get; set; }

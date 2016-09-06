@@ -27,7 +27,12 @@ namespace CruiseEntertainmentManagnmentSystem.Models
             {
                 return HttpContext.Current.Session[sessionname] as T;
             }
-            return null;
+            else
+            {
+                HttpContext.Current.Response.Redirect("/Account/Login");
+                return null;
+            }
+            //return null;
         }
 
 

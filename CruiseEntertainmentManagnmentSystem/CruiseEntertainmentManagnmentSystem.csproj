@@ -320,6 +320,7 @@
     <Compile Include="ViewModel\NewDate.cs" />
     <Compile Include="ViewModel\PerformerViewmodel.cs" />
     <Compile Include="ViewModel\PersonsViewModel.cs" />
+    <Compile Include="ViewModel\PIFViewModel.cs" />
     <Compile Include="ViewModel\ProfileViewModel.cs" />
     <Compile Include="ViewModel\PositionViewModel.cs" />
     <Compile Include="ViewModel\ShowsViewModel.cs" />
@@ -574,7 +575,7 @@
     <Content Include="Views\UserHome\NewVendor.cshtml" />
     <Content Include="Views\UserHome\VendorPayment.cshtml" />
     <Content Include="Views\UserHome\_CrewDataForm.cshtml" />
-    <Content Include="Views\UserHome\Personalnfo.cshtml" />
+    <Content Include="Views\UserHome\_Personalnfo.cshtml" />
     <Content Include="Views\UserHome\CrewData_pdf.cshtml" />
     <Content Include="Views\UserHome\FastPay_pdf.cshtml" />
     <Content Include="Views\UserHome\NewVendor_pdf.cshtml" />

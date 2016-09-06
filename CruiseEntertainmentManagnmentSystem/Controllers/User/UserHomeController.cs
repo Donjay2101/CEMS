@@ -207,13 +207,73 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers.User
             return RedirectToAction("CrewDataForm");
         }
 
-        public ActionResult PersonalInformationForm()
+
+        #region PersonalInformation
+        [AllowAnonymous]
+        public ActionResult PersonalInformationForm(int option=0,int personID=0)
         {
+            Persons person;
+            if(personID<=0)
+            {
+                person = SessionContext<Persons>.Instance.GetSession("User");
+                personID = person.ID;
+            }
+            
+           
+            var data=db.Database.SqlQuery<>
+
+            if(option==1)
+            {
+                return View("_Personalnfo",data);
+            }
+            else if(option==2)
+            {
+                return View("_Personalnfo");
+            }
+            ViewBag.Positions = new SelectList(ShrdMaster.Instance.GetPostionsforPIF(personID), "ID", "Name");
+            ViewBag.Ships = new SelectList(ShrdMaster.Instance.getShipsForPIF("Regent", "Oceania"), "ID", "Name");
+            return View(data);
+        }
+
+        [HttpPost]
+        public ActionResult PersonalInformationForm(PersonalInformationForm model)
+        {
+            var person = SessionContext<Persons>.Instance.GetSession("User");
+
+            if (ModelState.IsValid)
+            {
+                if (model.ID > 0)
+                {
+                    db.Entry(model).State = EntityState.Modified;
+                }
+                else
+                {
+                    model.PersonID = person.ID;
+                    db.PersonalInformationForms.Add(model);
+                }
+                db.SaveChanges();
+            }
+            ViewBag.Positions = new SelectList(ShrdMaster.Instance.GetPostionsforPIF(person.ID), "ID", "Name");
+            ViewBag.Ships = new SelectList(ShrdMaster.Instance.getShipsForPIF("Regent", "Oceania"), "ID", "Name");
+            return View(model);
+
+        }
+
+        public void PersonalInformationFormPDF(int option=0)
+        {
+            string url;
             var person = SessionContext<Persons>.Instance.GetSession("User");
             ViewBag.Positions = new SelectList(ShrdMaster.Instance.GetPostionsforPIF(person.ID), "ID", "Name");
             ViewBag.Ships = new SelectList(ShrdMaster.Instance.getShipsForPIF("Regent", "Oceania"), "ID", "Name");
-            return View();
+            //string url = "http://cems.infodatixhosting.com/UserHome/W9?option=1&personID=" + person.ID;
+            url = "http://localhost:64819/UserHome/PersonalInformationForm?option="+option+"&personID=" + person.ID;
+            string fileName = "PersonalInformationForm_" + person.ID+".pdf";
+            string path=Server.MapPath("~/PDF");
+            path = Path.Combine(path, fileName);
+            GeneratePDF(url,path,fileName);            
         }
+
+        #endregion PersonalInformation
 
 
         public ActionResult ShipsAndShows()
@@ -229,27 +289,7 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers.User
             return Json(data, JsonRequestBehavior.AllowGet);
         }
 
-        [HttpPost]
-        public ActionResult PersonalInformationForm(PersonalInformationForm model)
-        {
-            var person = SessionContext<Persons>.Instance.GetSession("User");
-
-            if(ModelState.IsValid)
-            {
-                if(model.ID>0)
-                {
-                    db.Entry(model).State = EntityState.Modified;
-                }
-                else
-                {
-                    db.PersonalInformationForms.Add(model);
-                }
-                db.SaveChanges();
-            }
-
-            return View(model);
-
-        }
+       
 
         public ActionResult TravelRequestForm()
         {
