@@ -574,6 +574,7 @@
     <Content Include="Views\UserHome\VendorPayment.cshtml" />
     <Content Include="Views\UserHome\_CrewDataForm.cshtml" />
     <Content Include="Views\UserHome\Personalnfo.cshtml" />
+    <Content Include="Views\UserHome\CrewData_pdf.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
