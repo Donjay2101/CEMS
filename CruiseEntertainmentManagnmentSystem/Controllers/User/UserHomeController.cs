@@ -394,31 +394,34 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers.User
             }
             
             WNineViewModel list = null;
-            list = db.WNines.Where(x => x.Person == person.ID).Select(x => new WNineViewModel
-            {
+
+            list = db.Database.SqlQuery<WNineViewModel>("exec sp_GetPersonsWithInformation @personID",new SqlParameter("@personID",person.ID)).FirstOrDefault();
+            //list = db.WNines.Where(x => x.Person == person.ID).Select(x => new WNineViewModel
+            //{
                 
-                ID= x.ID,
-                CCorporation=x.CCorporation,
-                SCorporation=x.SCorporation,
-                SoleProprietor=x.SoleProprietor,
-                Trust=x.Trust,
-                TaxClassification=x.TaxClassification,
-                Other=x.Other,
-                OtherText=x.OtherText,
-                PartnerShip=x.PartnerShip,
-                RequestorName=x.RequestorName,
-                EmployerIdentificationNumber=x.EmployerIdentificationNumber,
-                ExemptPayeeCode=x.ExemptPayeeCode,
-                FATCACode=x.FATCACode ,
-                BusinessName=x.BusinessName,
-                AccountNumber=x.AccountNumber
-            }).SingleOrDefault();
+            //    ID= x.ID,
+            //    CCorporation=x.CCorporation,
+            //    SCorporation=x.SCorporation,
+            //    SoleProprietor=x.SoleProprietor,
+            //    Trust=x.Trust,
+            //    TaxClassification=x.TaxClassification,
+            //    Other=x.Other,
+            //    OtherText=x.OtherText,
+            //    PartnerShip=x.PartnerShip,
+            //    RequestorName=x.RequestorName,
+            //    EmployerIdentificationNumber=x.EmployerIdentificationNumber,
+            //    ExemptPayeeCode=x.ExemptPayeeCode,
+            //    FATCACode=x.FATCACode ,
+            //    BusinessName=x.BusinessName,
+            //    AccountNumber=x.AccountNumber,
+            //    Person=x.Person
+            //}).FirstOrDefault();
             if (list == null)
             {
                 list = new WNineViewModel();
             }
             
-            list.Name = person.FirstName+" "+person.LastName;
+          //  list.Name = person.FirstName+" "+person.LastName;
             //list.Address = person.Address;
             //list.City = person.City;
             //list.State = person.State;
@@ -428,6 +431,10 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers.User
             if(option==1)
             {
                 return View("w9pdf",list);
+            }
+            else if(option==2)
+            {
+                return View("w9pdf");
             }
             return View(list);
         }
@@ -448,23 +455,12 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers.User
             }
             db.SaveChanges();
             
-            return RedirectToAction("w9");
+            return Json("1",JsonRequestBehavior.AllowGet);
         }
 
-
-       
-        public void GenerateW9PDF()
+        public void GeneratePDF(string url,string path,string filename)
         {
-            Persons person;
-            person = GetPerson();
-            Logger.Instance.Log("Entered in ok part......2");
-            /// convert to PDF
             HtmlToPdf Convertor = new HtmlToPdf();
-            Logger.Instance.Log("Entered in ok part......2.1");
-            //// create a new pdf document converting an url
-            string url = "http://localhost:60291/UserHome/W9?option=1&personID=" + person.ID;
-            //string url = "http://cems.infodatixhosting.com/UserHome/W9?option=1&personID=" + person.ID;
-
             Logger.Instance.Log("Entered in ok part......2.3");
 
             Logger.Instance.Log("Entered in ok part......3");
@@ -481,29 +477,47 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers.User
             Logger.Instance.Log("Entered in ok part......5");
 
 
-          
+
             Convertor.Options.MarginTop = 20;
             Convertor.Options.MarginBottom = 20;
-            Convertor.Options.MarginLeft= 20;
+            Convertor.Options.MarginLeft = 20;
             Convertor.Options.MarginRight = 20;
             // Convertor.Options.WebPageHeight = 1000;
             PdfDocument doc = Convertor.ConvertHtmlString(htmlCode);
-            string path = Server.MapPath("/PDF//");
-            path +=  person.ID+"_W9Form.Pdf";
+           
             doc.Save(path);
             Logger.Instance.Log("Entered in ok part......1");
             // close pdf document
             doc.Close();
             MemoryStream Stream = new MemoryStream();
             Response.Buffer = true;
-            Response.AddHeader("Content-Disposition", "attachment; filename= " + Server.HtmlEncode(person.ID + "_W9Form.Pdf"));
+            Response.AddHeader("Content-Disposition", "attachment; filename= " + Server.HtmlEncode(filename));
             Response.ContentType = "APPLICATION/pdf";
             Stream writeToServer = new FileStream(path, FileMode.OpenOrCreate);
             Stream.WriteTo(writeToServer);
-            Stream.Close();            
+            Stream.Close();
             writeToServer.Close();
-            Response.WriteFile(path,false);
-          //  return File(path,"application/PDF");
+            Response.WriteFile(path, false);
+        }
+       
+        public void GenerateW9PDF(int option)
+        {
+            Persons person;
+            person = SessionContext<Persons>.Instance.GetSession("User");
+            Logger.Instance.Log("Entered in ok part......2");
+            /// convert to PDF
+          
+            Logger.Instance.Log("Entered in ok part......2.1");
+            //// create a new pdf document converting an url
+            string url;
+            url = "http://localhost:64819/UserHome/W9?option=" + option + "&personID=" + person.ID;
+            //string url = "http://cems.infodatixhosting.com/UserHome/W9?option=1&personID=" + person.ID;
+            string filename = person.ID + "_W9Form.Pdf";
+            string path = Server.MapPath("/PDF//");
+            path += filename;
+
+            GeneratePDF(url, path, filename);
+            //  return File(path,"application/PDF");
         }
         #endregion W9
 
@@ -512,8 +526,16 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers.User
         #region FASTPAY
         public ActionResult FastPay()
         {
+            Persons person;
+            person = SessionContext<Persons>.Instance.GetSession("User");
+            
+
             return View();
         }
+
+       
+
+
         #endregion FASTPAY
     
         #region NEWVENDOR

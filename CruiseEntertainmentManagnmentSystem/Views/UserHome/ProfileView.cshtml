@@ -41,7 +41,7 @@
                 <label class="user-name">@ViewBag.FullName</label>
             </div>
             <div class="col-md-5">
-             <input type="submit" value="Create" class="btn btn-default pull-right" />
+             <input type="submit" value="Save" class="btn btn-default pull-right" />
                 @Html.HiddenFor(model=>model.ImagePath)
             </div>
         </div>
@@ -132,33 +132,11 @@
        
         <div class="formGroup row">
             @Html.LabelFor(model => model.Sex, htmlAttributes: new { @class = "control-label col-md-4" })
-            <div class="col-md-8">
-                @if (Model.IsFemale)
-                {
-                    <div>
-                        <div class="col-md-4">@Html.RadioButtonFor(model => model.Sex, "1")<span class="gendername">Male</span></div>
-                        <div class="col-md-4">@Html.RadioButtonFor(model => model.Sex, "0", new { @checked = "checked" })<span class="gendername">Female</span></div>
-                    </div>
-
-                }
-                else
-                {
-                    <div>
-                        <div class="col-md-4">
-                            @Html.RadioButtonFor(model => model.Sex, "1", new { @checked = "checked" })<span class="gendername">Male</span>
-                        </div>
-                        <div class="col-md-4">
-                            @Html.RadioButtonFor(model => model.Sex, "0")<span class="gendername">Female</span>
-                        </div>
-                    </div>
-
-                }
-
-                @*<input type="radio" name="Sex" value="1" /><span>Male</span>
-                <input type="radio" name="Sex" value="0" /><span>Female</span>*@
-                @*@Html.EditorFor(model => model.Sex, new { htmlAttributes = new { @class = "form-control" } })*@
+            @*<div class="col-md-8">@Html.RadioButtonFor(model => model.Sex, "0")<span class="gendername">Male</span></div>*@
+            @Html.RadioButtonFor(model => model.Sex, "1")<span>Male</span>
+            @Html.RadioButtonFor(model => model.Sex, "0")<span>Female</span>               
                 @Html.ValidationMessageFor(model => model.Sex, "", new { @class = "text-danger" })
-            </div>
+            
         </div>
 
         <div class="formGroup row">
@@ -277,17 +255,11 @@
             @Html.LabelFor(model => model.MaritalStatus, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
 
-                @Html.RadioButtonFor(model => model.MaritalStatus,Model.MaritalStatus,new { @value="0"})<span>single</span>
-                @Html.RadioButtonFor(model => model.MaritalStatus, Model.MaritalStatus, new { @value = "1" })<span>married</span>
-                @Html.RadioButtonFor(model => model.MaritalStatus, Model.MaritalStatus,new { @value = "2" })<span>divorced</span>
-                @Html.RadioButtonFor(model => model.MaritalStatus, Model.MaritalStatus, new { @value = "3" })<span>widowed</span>
-                @Html.RadioButtonFor(model => model.MaritalStatus, Model.MaritalStatus, new { @value = "4" })<span>seprated</span>
-                @*< input type="radio" name="MaritalStatus" value="0" />
-                <input type="radio" name="MaritalStatus" value="1" />
-                <input type="radio" name="MaritalStatus" value="2" />
-                <input type="radio" name="MaritalStatus" value="3" />
-                <input type="radio" name="MaritalStatus" value="4" />*@
-                @*@Html.EditorFor(model => model.MaritalStatus, new { htmlAttributes = new { @class = "form-control" } })*@
+                @Html.RadioButtonFor(model => model.MaritalStatus,"0")<span>single</span>
+                @Html.RadioButtonFor(model => model.MaritalStatus, "1")<span>married</span>
+                @Html.RadioButtonFor(model => model.MaritalStatus, "2")<span>divorced</span>
+                @Html.RadioButtonFor(model => model.MaritalStatus, "3")<span>widowed</span>
+                @Html.RadioButtonFor(model => model.MaritalStatus, "4")<span>seprated</span>               
                 @Html.ValidationMessageFor(model => model.MaritalStatus, "", new { @class = "text-danger" })
             </div>
         </div>

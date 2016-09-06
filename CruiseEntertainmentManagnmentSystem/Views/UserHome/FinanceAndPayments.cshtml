@@ -8,7 +8,7 @@
 <div>
     <!-- Nav tabs -->
     <ul class="nav nav-tabs" role="tablist" id="FNPmenu" >
-        <li role="presentation" class="active"><a aria-controls="W9" role="tab" data-toggle="tab" style="cursor:pointer" value="W9">W9</a></li>
+        <li role="presentation"><a aria-controls="W9" role="tab" data-toggle="tab" style="cursor:pointer" value="W9">W9</a></li>
         <li role="presentation"><a  aria-controls="Fast Pay" role="tab" data-toggle="tab"  style="cursor:pointer" value="FASTPAY">Fast Pay</a></li>
         <li role="presentation"><a  aria-controls="New Vendor" role="tab" data-toggle="tab" style="cursor:pointer" value="NEWVENDOR">New Vendor</a></li>
         <li role="presentation"><a  aria-controls="Vendor Payment" role="tab" data-toggle="tab" style="cursor:pointer" value="VENODRPAYMENT">Vendor Payment</a></li>
@@ -16,9 +16,9 @@
 
     <div class="row">
         <div class="col-md-6 col-md-offset-6 text-right print">
-            <a href="#"><span class="glyphicon glyphicon-print" aria-hidden="true"></span>Print</a>
+            <a href="#" id="btnPrint"><span class="glyphicon glyphicon-print" aria-hidden="true"></span>Print</a>
             <a href="#" id="btndownload"><span class="glyphicon glyphicon-download-alt"  aria-hidden="true"></span>Download</a>
-            <a href="#"><span class="glyphicon glyphicon-send" aria-hidden="true"></span>Submit</a>
+            <a href="#" id="btnSave"><span class="glyphicon glyphicon-send" aria-hidden="true"></span>Submit</a>
         </div>
     </div>
     <!-- Tab panes -->
@@ -27,41 +27,99 @@
 </div>
 <script>
     $(document).on('click', '#FNPmenu>li', function () {
-
+        debugger;
         var value = $(this).find('a').attr('value');
-        $('#loadingDiv').css('display', 'block');
+        showLoadingDiv();
+        $('#FNPmenu>li').removeClass('active');
+        //console.log($(this).parent().html());
+        $(this).addClass('active');
         switch(value.toUpperCase())
         {
             case "W9":
+
+                
                 $('#dataContainer').load('/UserHome/w9', function () {
-                    $('#loadingDiv').css('display', 'none');
+                    hideLoadingDiv();
                 });
 
-                $('#btndownload').attr('onclick', 'getw9PDF()');
+                $('#btndownload').attr('onclick', 'getW9PDF(2)');
+                $('#btnPrint').attr('onclick', 'getW9PDF(1)');
+                $('#btnSave').attr('onclick', 'saveW9()');
 
                 break;
             case "FASTPAY":
                 $('#dataContainer').load('/UserHome/FastPay', function () {
 
-                    $('#loadingDiv').css('display', 'none');
+                    hideLoadingDiv();
                 });
                 break;
             case "NEWVENDOR":
                 $('#dataContainer').load('/UserHome/NewVendor', function () {
-                    $('#loadingDiv').css('display', 'none');
+                    hideLoadingDiv();
                 });
                 break;
             case "VENDORPAYMENT":
                 //$('#dataContainer').load('/UserHome/VendorPayment', function () {
                 //    $('#loadingDiv').css('display', 'none');
                 //});
+                hideLoadingDiv();
                 break;
         }
 
     });
 
-    function getW9PDF()
+    function getW9PDF(option)
     {
-        window.open('/UserHome/GenerateW9PDF', '_blank');
+        window.open('/UserHome/GenerateW9PDF?option='+option, '_blank');
     }
+
+
+    function saveW9() {
+        showLoadingDiv();
+        var obj = {};
+        obj.SoleProprietor = $('#SoleProprietor').is(':checked');
+        obj.CCorporation = $('#CCorporation').is(':checked');
+        obj.SCorporation = $('#SCorporation').is(':checked');
+        obj.PartnerShip = $('#PartnerShip').is(':checked');
+        obj.Trust = $('#Trust').is(':checked');
+        obj.LLC = $('#LLC').is(":checked");
+        obj.TaxClassification = $('#TaxClassification').val();
+        obj.Other = $('#Other').is(':checked');
+        obj.OtherText = $('#OtherText').val();
+        obj.RequestorName = $('#RequestorName').val();
+        obj.EmployerIdentificationNumber = $('#EmployerIdentificationNumber').val();
+        obj.ExemptPayeeCode = $('#ExemptPayeeCode').val();
+        obj.FATCACode = $('#FATCACode').val();
+        obj.BusinessName = $('#BusinessName').val();
+        obj.AccountNumber = $('#AccountNumber').val();
+        obj.ID = $('#ID').val();
+        obj.Person = $('#Person').val();
+
+        $.ajax({
+            url: "/Userhome/w9",
+            type: "POST",
+            data: { model: obj },
+            success: function (data) {
+                alert('form saved successfully.');
+                hideLoadingDiv();
+            },
+            error: function (err) {
+                hideLoadingDiv();
+                alert(err.statusText);
+                
+            }            
+        });
+    }
+
+    function showLoadingDiv()
+    {
+        $('#loadingDiv').css('display', 'block');
+    }
+
+
+    function hideLoadingDiv() {
+        $('#loadingDiv').css('display', 'none');
+    }
+
+
 </script>

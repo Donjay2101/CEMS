@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using SelectPdf;
 using static System.Web.HttpContext;
 using System.Web;
+using System.Data.SqlClient;
 
 namespace CruiseEntertainmentManagnmentSystem.Models
 {
@@ -351,7 +352,8 @@ namespace CruiseEntertainmentManagnmentSystem.Models
 
         public PersonalInformation GetInformation(int ID)
         {
-            return db.PersonalInformations.FirstOrDefault(x => x.PersonID == ID);
+            var data = db.Database.SqlQuery<PersonalInformation>("exec sp_GetpersonalInformationByPersonID @personID", new SqlParameter("@personID", ID)).FirstOrDefault();
+            return data;//db.PersonalInformations.FirstOrDefault(x => x.PersonID == ID);
         }
     }
 

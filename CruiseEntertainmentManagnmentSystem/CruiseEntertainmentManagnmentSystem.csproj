@@ -341,6 +341,7 @@
     <Content Include="Content\jquery.editable-select.min.css" />
     <Content Include="Content\menustyles.css" />
     <Content Include="Content\user-custom.css" />
+    <Content Include="Data\Error.txt" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\Site.css" />

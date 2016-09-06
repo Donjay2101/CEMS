@@ -4,7 +4,8 @@
     Layout ="";
 }
 <div id="w9">
-    
+    @Html.HiddenFor(model=>model.ID)
+    @Html.HiddenFor(model => model.Person)
     <form action="w9" method="Post">
         <div class="row rowborderbottom">
             <div class="col-md-2 top-left-w9">

@@ -28,6 +28,10 @@ namespace CruiseEntertainmentManagnmentSystem.Models
         public string Country { get; set; }
         [Display(Name = "Address")]
         public string Address { get; set; }
+        public string City { get; set; }
+        public string State { get; set; }
+        public string Zip{ get; set; }
+
         [Display(Name = "Pay Rate")]
         public string PayRate { get; set; }
         [Display(Name = "DOB")]
