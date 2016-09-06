@@ -169,12 +169,11 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers.User
             
             person = SessionContext<Persons>.Instance.GetSession("User");
             information = SessionContext<PersonalInformation>.Instance.GetSession("PersonalInformation");
-            if(person!=null)
-            {
-                ViewBag.SSN = information.SSN;
-               
+            if(person==null)
+            {                               
                 return RedirectToAction("Login", "Account");
             }
+            ViewBag.SSN = information.SSN;
             ViewBag.Ships = new SelectList(ShrdMaster.Instance.GetShips("Norwegian"), "ID", "Name");
 
             ViewBag.Department = new SelectList(ShrdMaster.Instance.GetDepartmentforCrewDataForm(), "ID", "Name");
