@@ -1,0 +1,406 @@
+﻿
+@{
+    ViewBag.Title = "NewVendor_pdf";
+    Layout = null;
+}
+
+<div class="container" id="NewVendor" style="border:1px solid #cad4e2;margin-top: 10px;padding-top: 10px;padding-bottom: 10px;">
+    <div  class="row" style="display:flex;">
+        <div class="col-md-12" style="padding-left:15px;padding-right:15px;width:100%" >
+            <label class="pull-right" style="text-decoration:underline; float:right !important;font-weight:700;">(Internal Use Only)</label>
+        </div>
+    </div>
+    <div  class="row" style="display:flex;">
+        <div class="col-md-12" style="padding-left:15px;padding-right:15px;width:100%">
+            <h4 class="text-center fastpay-header" style="color:black;font-weight: 700;text-align:center;">NEW VENDOR REQUEST / VENDOR INFORMATION CHANGE</h4>
+            <p class="bold-para" style="border: 1px solid black;padding: 10px;font-weight: 600;">
+                This form is to be used when an employee, with purchasing capacity and authority, has identified
+                a New Vendor for the best of Norwegian Cruise Line Holdings Inc.  New Vendor Request and Vendor
+                Information Change require approval of Accounts Payable Department. Please contact the Accounts
+                Payable Department if you require assistance with this form.
+            </p>
+        </div>
+    </div>
+    <div  class="row" style="margin-right:30px;">
+        <div class="col-md-12" style="padding-left:15px;padding-right:15px;width:100%;">
+            <h5 class="info" style="border: 1px solid black;background: #b5e4f1;padding: 2px;padding-left: 20px;font-weight: 600;">GENERAL INFORMATION</h5>
+            <div  class="row" style="display:flex;">
+                <div class="col-md-3 col-md-offset-1" style="width:25%;padding-left:15px;padding-right:15px;margin-left: 8.33333333%;">
+                    <input type="checkbox" value="newVendor" name="vendor"/>
+                    <label>New Vendor</label>
+                </div>
+                <div class="col-md-3" style="width:25%;padding-left:15px;padding-right:15px;">
+                    <input type="checkbox" value="newVendor" name="vendor" />
+                    <label>Existing Vendor</label>
+                </div>
+                <div class="col-md-5"  style="width: 41.66666667%;padding-left:15px;padding-right:15px;">
+                    <div  class="row" style="display:flex;">
+                        <label class="col-md-4" style="width:33.33333333%;">Date Of Request</label>
+                        <div class="col-md-8" style="width:66.66666667%;">
+                            <input type="text" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div  class="row"  style="margin-right:30px;">
+        <div class="col-md-12" style="padding-left:15px;padding-right:15px;width:100%">
+            <h5 class="info" style="border: 1px solid black;background: #b5e4f1;padding: 2px;padding-left:20px;font-weight:600;">VENDOR INFORMATION</h5>
+        </div>
+        <div  class="row" style="display:flex;">
+            <div class="col-md-6"  style="padding-left:15px;padding-right:15px;width:50%">
+                <div  class="row" style="display:flex;">
+                    <div class="col-md-4" style="padding-left:15px;padding-right:15px;width:33.33333333%;"><label>Company Name</label></div>
+                    <div class="col-md-8" style="padding-left:15px;padding-right:15px;width:66.66666667%;"><input type="text" /></div>
+                </div>
+                <div  class="row" style="display:flex;">
+                    <div class="col-md-4" style="padding-left:15px;padding-right:15px;width:33.33333333%;"><label>Tax ID Number</label></div>
+                    <div class="col-md-8" style="padding-left:15px;padding-right:15px;width:66.66666667%;"><input type="text" /></div>
+                </div>
+                <div  class="row" style="display:flex;">
+                    <div class="col-md-4" style="padding-left:15px;padding-right:15px;width:33.33333333%;"><label>Contact Name</label></div>
+                    <div class="col-md-8" style="padding-left:15px;padding-right:15px;width:66.66666667%;"><input type="text" /></div>
+                </div>
+                <div  class="row" style="display:flex;">
+                    <div class="col-md-4" style="padding-left:15px;padding-right:15px;width:33.33333333%;"><label>Contact Title</label></div>
+                    <div class="col-md-8" style="padding-left:15px;padding-right:15px;width:66.66666667%;"><input type="text" /></div>
+                </div>
+                <div  class="row" style="display:flex;">
+                    <div class="col-md-4" style="padding-left:15px;padding-right:15px;width:33.33333333%;"><label>E-mail</label></div>
+                    <div class="col-md-8" style="padding-left:15px;padding-right:15px;width:66.66666667%;"><input type="text" /></div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div  class="row" style="display:flex;">
+                    <div class="col-md-4" style="padding-left:15px;padding-right:15px;width:33.33333333%;"><label>Address</label></div>
+                    <div class="col-md-8" style="padding-left:15px;padding-right:15px;width:66.66666667%;"><input type="text" /></div>
+                </div>
+                <div  class="row" style="display:flex;">
+                    <div class="col-md-4" style="padding-left:15px;padding-right:15px;width:33.33333333%;"><label>Phone Number</label></div>
+                    <div class="col-md-8" style="padding-left:15px;padding-right:15px;width:66.66666667%;"><input type="text" /></div>
+                </div>
+                <div  class="row" style="display:flex;">
+                    <div class="col-md-4" style="padding-left:15px;padding-right:15px;width:33.33333333%;"><label>Website</label></div>
+                    <div class="col-md-8" style="padding-left:15px;padding-right:15px;width:66.66666667%;"><input type="text" /></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div  class="row"  style="margin-right:30px;">
+        <div class="col-md-12" style="padding-left:15px;padding-right:15px;width:100%">
+            <h5 class="info" style="border: 1px solid black;background: #b5e4f1;padding: 2px;padding-left: 20px;font-weight: 600;">BUSINESS PURPOSE</h5>
+            <div  class="row" style="display:flex;">
+                <div class="col-md-3" style="padding-left:15px;padding-right:15px;width:25%;"><label>Payment Terms</label></div>
+                <div class="col-md-9" style="padding-left:15px;padding-right:15px; width: 75%;"><input type="text" /></div>
+            </div>
+            <div  class="row" style="display:flex;">
+                <div class="col-md-3"  style="padding-left:15px;padding-right:15px;width:25%;"><label>Requested method of payment</label></div>
+                <div class="col-md-3"  style="padding-left:15px;padding-right:15px;width:25%;">
+                    <input type="checkbox" value="newVendor" name="vendor" />
+                    <label>Check</label>
+                </div>
+                <div class="col-md-3"  style="padding-left:15px;padding-right:15px;width:25%;">
+                    <input type="checkbox" value="newVendor" name="vendor" />
+                    <label>ACH</label>
+                </div>
+                <div class="col-md-3"  style="padding-left:15px;padding-right:15px;width:25%;">
+                    <input type="checkbox" value="newVendor" name="vendor" />
+                    <label>Wire Transfer(Foreign Corps. Only)</label>
+                </div>
+            </div>
+            <div  class="row">
+                <div class="col-md-12" style="padding-left:15px;padding-right:15px;width:100%">
+                    <label>If requested method of payment is by ACH or wire transfer, please provide following:</label>
+                    <div  class="row" style="display:flex;">
+                        <div class="col-md-6"  style="padding-left:15px;padding-right:15px;width:50%">
+                            <div  class="row" style="display:flex;">
+                                <div class="col-md-4"  style="padding-left:15px;padding-right:15px;width:33.33333333%;"><label>Bank Name</label></div>
+                                <div class="col-md-8" style="padding-left:15px;padding-right:15px;width:66.66666667%;"><input type="text" /></div>
+                            </div>
+                            <div  class="row" style="display:flex;">
+                                <div class="col-md-4"  style="padding-left:15px;padding-right:15px;width:33.33333333%;"><label>Bank ABA Number (if U.S. Bank)</label></div>
+                                <div class="col-md-8"  style="padding-left:15px;padding-right:15px;width:66.66666667%;"><input type="text" /></div>
+                            </div>
+                        </div>
+                        <div class="col-md-6"  style="padding-left:15px;padding-right:15px;width:50%">
+                            <div  class="row" style="display:flex;">
+                                <div class="col-md-4"  style="padding-left:15px;padding-right:15px;width:33.33333333%;"><label>Bank Account Number</label></div>
+                                <div class="col-md-8"  style="padding-left:15px;padding-right:15px;width:66.66666667%;"><input type="text" /></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div  class="row">
+                <div class="col-md-12" style="padding-left:15px;padding-right:15px;width:100%">
+                    <label>If requested method of payment is by wire transfer, please provide following in additiona to above information:</label>
+                    <div  class="row" style="display:flex;">
+                        <div class="col-md-6" style="padding-left:15px;padding-right:15px;width:50%">
+                            <div  class="row" style="display:flex;">
+                                <div class="col-md-4"  style="padding-left:15px;padding-right:15px;width:33.33333333%;"><label>Swift Code</label></div>
+                                <div class="col-md-8"  style="padding-left:15px;padding-right:15px;width:66.66666667%;"><input type="text" /></div>
+                            </div>
+                        </div>
+                        <div class="col-md-6" style="padding-left:15px;padding-right:15px;width:50%">
+                            <div  class="row" style="display:flex;">
+                                <div class="col-md-4"  style="padding-left:15px;padding-right:15px;width:33.33333333%;"><label>IBAN Number (when applicable)</label></div>
+                                <div class="col-md-8"  style="padding-left:15px;padding-right:15px;width:66.66666667%;"><input type="text" /></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div  class="row">
+                <div class="col-md-12" style="padding-left:15px;padding-right:15px;width:100%">
+                    <label>If method of payment is to be made by ACH or wire transfer, have payment instructions been received including applicable banking information on the vendor’s company letterhead?</label>
+                    <div  class="row" style="display:flex;">
+                        <div class="col-md-4"  style="padding-left:15px;padding-right:15px;width:33.33333333%;">
+                            <label>(signed by an approved officer of the vendor's company)</label>
+                        </div>
+                        <div class="col-md-3"  style="padding-left:15px;padding-right:15px;width:25%;">
+                            <div  class="row" style="display:flex;">
+                                <input type="checkbox" value="newVendor" name="vendor" />
+                                <label>Yes</label>
+                            </div>
+                        </div>
+                        <div class="col-md-3"  style="padding-left:15px;padding-right:15px;width:25%;">
+                            <div  class="row" style="display:flex;">
+                                <input type="checkbox" value="newVendor" name="vendor" />
+                                <label>No</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div  class="row"  style="margin-right:30px;">
+                <div class="col-md-12" style="padding-left:15px;padding-right:15px;width:100%">
+                    <label class="for-vendor" style="font-size: 13px;font-weight: 900;">For U.S. vendors only</label>
+                    <div  class="row" style="display:flex;">
+                        <div class="col-md-4" style="padding-left:15px;padding-right:15px;width:33.33333333%;"><label>Is IRS Form W-9 attached?</label></div>
+                        <div class="col-md-3" style="padding-left:15px;padding-right:15px;width:25%;">
+                            <div  class="row" style="display:flex;">
+                                <input type="checkbox" value="newVendor" name="vendor" />
+                                <label>Yes</label>
+                            </div>
+                        </div>
+                        <div class="col-md-3" style="padding-left:15px;padding-right:15px;width:25%;">
+                            <div  class="row" style="display:flex;">
+                                <input type="checkbox" value="newVendor" name="vendor" />
+                                <label>No</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div  class="row" style="display:flex;">
+                        <div class="col-md-5 col-md-offset-2" style="padding-left:15px;padding-right:15px;width:41.66666667%;">
+                            <div  class="row" style="display:flex;">
+                                <div class="col-md-4" style="padding-left:15px;padding-right:15px;width:33.33333333%;"><label>Prepared by:</label></div>
+                                <div class="col-md-8" style="padding-left:15px;padding-right:15px;width:66.66666667%;"><input type="text" class="blue-textbox" /></div>
+                            </div>
+                        </div>
+                        <div class="col-md-5" style="padding-left:15px;padding-right:15px;width:40.66666667%;">
+                            <div  class="row" style="display:flex;">
+                                <div class="col-md-4" style="padding-left:15px;padding-right:15px;width:33.33333333%;"><label>Department:</label></div>
+                                <div class="col-md-8" style="padding-left:15px;padding-right:15px;width:66.66666667%;"><input type="text" class="blue-textbox" /></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div  class="row">
+                <div class="col-md-12" style="padding-left:15px;padding-right:15px;width:100%">
+                    <label>I hereby certify that, to the best of my knowledge, the above information is accurate and request that New Vendor or Change of Existing Vendor Information be approved.</label>
+                    <div  class="row" style="display:flex;">
+                        <div class="col-md-6 col-md-offset-2" style="padding-left:15px;padding-right:15px;width:50%;">
+                            <div  class="row" style="display:flex;">
+                                <div class="col-md-4" style="padding-left:15px;padding-right:15px;width:33.33333333%;"><label>Approved by:</label></div>
+                                <div class="col-md-8" style="padding-left:15px;padding-right:15px;width:66.66666667%;"><input type="text" class="blue-textbox" /></div>
+                            </div>
+                        </div>
+                        <div class="col-md-6" style="padding-left:15px;padding-right:15px;width:50%;">
+                            <div  class="row" style="display:flex;">
+                                <div class="col-md-4" style="padding-left:15px;padding-right:15px;width:33.33333333%;"><label>Date:</label></div>
+                                <div class="col-md-8" style="padding-left:15px;padding-right:15px;width:66.66666667%;"><input type="text" class="blue-textbox" /></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div  class="row" style="display:flex;">
+
+                        <div class="col-md-2 col-md-offset-2"  style="padding-left:15px;padding-right:15px;width: 16.66666667%;">
+                            <label>Signature:</label>
+                        </div>
+                        <div class="col-md-8" style="padding-left:15px;padding-right:15px;width:66.66666667%;">
+                            <input type="text" style="margin-left: -15px;"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div  class="row">
+                <div class="col-md-12" style="padding-left:15px;padding-right:15px;width:100%">
+                    <label>Fill out form online, print and return it with all corresponding documents to Accounts Payable Department. Please contact Accounts Payable Department if you require assistance with this form.</label>
+                </div>
+            </div>
+            <div  class="row"  style="margin-right:30px;">
+                <div class="col-md-12" style="padding-left:15px;padding-right:15px;width:100%">
+                    <h4 class="reserved" style="border-top: 2px solid;padding-top: 10px;text-align: center;font-size: 13px;font-weight: 800;">RESERVED FOR ACCOUNT PAYABLE SUPERVISOR AND AUTHORIZED TREASURY ONLY</h4>
+                </div>
+                <div  class="row" style="display:flex;">
+                    <label>Was vendor name checked prior to setting up the new vendor to ensure that an active vendor account does not already exist?</label>
+                    <div  class="row" style="display:flex;">
+                        <div class="col-md-2 col-md-offset-2"  style="padding-left:15px;padding-right:15px;width: 16.66666667%;margin-left: 16.66666667%;">
+                            <div  class="row" style="display:flex;">
+                                <input type="checkbox" value="newVendor" name="vendor" />
+                                <label>Yes</label>
+                            </div>
+                        </div>
+                        <div class="col-md-2"  style="padding-left:15px;padding-right:15px;width: 16.66666667%;">
+                            <div  class="row" style="display:flex;">
+                                <input type="checkbox" value="newVendor" name="vendor" />
+                                <label>No</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6"  style="padding-left:15px;padding-right:15px;width:50%;">
+                            <label>A 'Yes' answer is required prior to sign-off by A/P Supervisor.</label>
+                        </div>
+                    </div>
+                </div>
+                <div  class="row">
+                    <label>For non employee vendors, was vendor address checked against employee master file to ensure payment is not routed to an employee residential address?</label>
+                    <div  class="row" style="display:flex;">
+                        <div class="col-md-2 col-md-offset-2" style="padding-left:15px;padding-right:15px;width: 16.66666667%;">
+                            <div  class="row" style="display:flex;">
+                                <input type="checkbox" value="newVendor" name="vendor" />
+                                <label>Yes</label>
+                            </div>
+                        </div>
+                        <div class="col-md-2"  style="padding-left:15px;padding-right:15px;width: 16.66666667%;">
+                            <div  class="row" style="display:flex;">
+                                <input type="checkbox" value="newVendor" name="vendor" />
+                                <label>No</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6"  style="padding-left:15px;padding-right:15px;width:50%;">
+                            <label>A 'Yes' answer is required prior to sign-off by A/P Supervisor.</label>
+                        </div>
+                    </div>
+                </div>
+                <div  class="row">
+                    <div class="col-md-12" style="padding-left:15px;padding-right:15px;width:100%">
+                        <div  class="row" style="display:flex;">
+                            <div class="col-md-6 col-md-offset-1" style="padding-left:15px;padding-right:15px;width:50%;">
+                                <div  class="row" style="display:flex;">
+                                    <div class="col-md-6"style="padding-left:15px;padding-right:15px;width:50%;"><label>Reviewed by (A/P Supervisor):</label></div>
+                                    <div class="col-md-6"style="padding-left:15px;padding-right:15px;width:50%;"><input type="text" class="yellow-textbox" /></div>
+                                </div>
+                            </div>
+                            <div class="col-md-5" style="padding-left:15px;padding-right:15px; width: 41.66666667%;">
+                                <div  class="row" style="display:flex;">
+                                    <div class="col-md-2" style="padding-left:15px;padding-right:15px;width:50%;"><label>Date:</label></div>
+                                    <div class="col-md-8"  style="padding-left:15px;padding-right:15px;width:66.66666667%;"><input type="text" class="yellow-textbox" /></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div  class="row" style="display:flex;">
+                            <div class="col-md-6 col-md-offset-1" style="padding-left:15px;padding-right:15px;width:50%;">
+                                <div class="row" style="display:flex;">
+                                    <div class="col-md-6" style="padding-left:15px;padding-right:15px;width:50%;"><label><label>Signature:</label></label></div>
+                                    <div class="col-md-6" style="padding-left:15px;padding-right:15px;width:50%;"><input type="text" class="yellow-textbox" /></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div  class="row">
+                    <div class="col-md-12" style="padding-left:15px;padding-right:15px;width:100%">
+                        <label>Was new vendor created in People Soft?</label>
+                    </div>
+                    <div  class="row" style="display:flex;">
+                        <div class="col-md-2 col-md-offset-2" style="padding-left:15px;padding-right:15px;width:16.66666667%;">
+                            <div  class="row" style="display:flex;">
+                                <input type="checkbox" value="newVendor" name="vendor" />
+                                <label>Yes</label>
+                            </div>
+                        </div>
+                        <div class="col-md-2" style="padding-left:15px;padding-right:15px;width: 16.66666667%;">
+                            <div  class="row" style="display:flex;">
+                                <input type="checkbox" value="newVendor" name="vendor" />
+                                <label>No</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6" style="padding-left:15px;padding-right:15px;width:50%;">
+                            <label>A 'Yes' answer is required prior to final sign-off by A/P Supervisor.</label>
+                        </div>
+                    </div>
+                </div>
+                <div  class="row">
+                    <div class="col-md-12" style="padding-left:15px;padding-right:15px;width:100%">
+
+                        <div  class="row" style="display:flex;">
+                            <div class="col-md-6 col-md-offset-1" style="padding-left:15px;padding-right:15px;width:50%;">
+                                <div  class="row" style="display:flex;">
+                                    <div class="col-md-6" style="padding-left:15px;padding-right:15px;width:50%;"><label>Reviewed by (A/P Supervisor):</label></div>
+                                    <div class="col-md-6" style="padding-left:15px;padding-right:15px;width:50%;"><input type="text" class="yellow-textbox" /></div>
+                                </div>
+                            </div>
+                            <div class="col-md-5" style="padding-left:15px;padding-right:15px; width: 41.66666667%;">
+                                <div  class="row" style="display:flex;">
+                                    <div class="col-md-2" style="padding-left:15px;padding-right:15px;width: 16.66666667%;"><label>Date:</label></div>
+                                    <div class="col-md-8"><input type="text" class="yellow-textbox" /></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div  class="row" style="display:flex;">
+                            <div class="col-md-6 col-md-offset-1" style="padding-left:15px;padding-right:15px;width:50%;">
+                                <div class="row" style="display:flex;">
+                                    <div class="col-md-6" style="padding-left:15px;padding-right:15px;width:50%;"><label>Signature:</label></div>
+                                    <div class="col-md-6" style="padding-left:15px;padding-right:15px;width:50%;"><input type="text" /></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div  class="row" style="margin-top:10px;">
+                    <div class="col-md-12" style="padding-left:15px;padding-right:15px;width:100%">
+
+                        <div  class="row" style="display:flex;">
+                            <div class="col-md-6 col-md-offset-1" style="padding-left:15px;padding-right:15px;width:50%;">
+                                <div  class="row" style="display:flex;">
+                                    <div class="col-md-6" style="padding-left:15px;padding-right:15px;width:50%;"><label>Reviewed by (Authorized Treasury):</label></div>
+                                    <div class="col-md-6" style="padding-left:15px;padding-right:15px;width:50%;"><input type="text" class="yellow-textbox" /></div>
+                                </div>
+                            </div>
+                            <div class="col-md-5" style="padding-left:15px;padding-right:15px; width: 41.66666667%;">
+                                <div  class="row" style="display:flex;">
+                                    <div class="col-md-2" style="padding-left:15px;padding-right:15px;width: 16.66666667%;"><label>Date:</label></div>
+                                    <div class="col-md-8"  style="padding-left:15px;padding-right:15px;width:66.66666667%;"><input type="text" class="yellow-textbox" /></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div  class="row" style="display:flex;">
+                            <div class="col-md-6 col-md-offset-1" style="padding-left:15px;padding-right:15px;width:50%;">
+                                <div class="row" style="display:flex;">
+                                    <div class="col-md-6" style="padding-left:15px;padding-right:15px;width:50%;"><label>Signature:</label></div>
+                                    <div class="col-md-6" style="padding-left:15px;padding-right:15px;width:50%;"><input type="text" /></div>
+                                </div>
+                            </div>
+                            @*<div class="col-md-2 col-md-offset-2" style="padding-left:15px;padding-right:15px;width:16.66666667%;">
+                              
+                            </div>
+                            <div class="col-md-8" style="padding-left:15px;padding-right:15px;width:66.66666667%;">
+                                <input type="text"/>
+                            </div>*@
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
