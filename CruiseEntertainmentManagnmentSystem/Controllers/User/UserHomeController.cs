@@ -34,14 +34,11 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers.User
         public Persons GetPerson()
         {
             Persons person;
-            if (Session["Person"] != null)
+
+            person = SessionContext<Persons>.Instance.GetSession("User");
+            if(person==null)
             {
-                person = Session["Person"] as Persons;
-            }
-            else
-            {
-                person = ShrdMaster.Instance.GetPersonByUserName(User.Identity.Name);
-                Session["Person"] = person;
+                Response.Redirect("/account/login");
             }
             return person;
         }
@@ -97,7 +94,7 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers.User
         [HttpPost]
         public ActionResult ProfileView(PersonalInformation model)
         {
-            Persons person= SessionContext<Persons>.Instance.GetSession("User"); 
+            Persons person = GetPerson();
             if (ModelState.IsValid)
             {
                 
@@ -136,7 +133,7 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers.User
                 if (Request.Files.Count > 0)
                 {
                     var file = Request.Files[0];
-                    var person = SessionContext<Persons>.Instance.GetSession("User");
+                    var person = GetPerson();
                     string Filename = file.FileName;
                     string ext = Filename.Substring(Filename.LastIndexOf('.'), (Filename.Length - Filename.LastIndexOf('.')));
                     Filename = person.ID + ext;
@@ -170,11 +167,11 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers.User
 
             Persons person=null;            
             
-            information = SessionContext<PersonalInformation>.Instance.GetSession("PersonalInformation");
+            //information = SessionContext<PersonalInformation>.Instance.GetSession("PersonalInformation");
            
             if(personID<=0)
             {
-                person = SessionContext<Persons>.Instance.GetSession("User");
+                person = GetPerson();
                 personID = person.ID ;
             }
            
@@ -186,11 +183,11 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers.User
             var CrewDataFormInfo = db.Database.SqlQuery<CrewDataFormViewModel>("exec sp_getCrewDataFormsByPersonID @personID", new SqlParameter("@personID", personID)).FirstOrDefault();
             if(option==1)
             {
-                return View("_CrewDataForm", CrewDataFormInfo);
+                return PartialView("_CrewDataForm", CrewDataFormInfo);
             }
             else if(option==2)
             {
-                return View("_CrewDataForm");
+                return PartialView("_CrewDataForm");
             }
             
             return View(CrewDataFormInfo);
@@ -200,7 +197,7 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers.User
         public ActionResult CrewDataForm(CrewDataForm model)
         {
             Persons person;
-            person = SessionContext<Persons>.Instance.GetSession("User");
+            person = GetPerson();
             model.PersonID = person.ID;
             if (ModelState.IsValid)
             {
@@ -226,7 +223,7 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers.User
         public void CrewDataFormPDF(int option=0)
         {
             string url;
-            var person = SessionContext<Persons>.Instance.GetSession("User");
+            var person = GetPerson();
             ViewBag.Positions = new SelectList(ShrdMaster.Instance.GetPostionsforPIF(person.ID), "ID", "Name");
             ViewBag.Ships = new SelectList(ShrdMaster.Instance.getShipsForPIF("Regent", "Oceania"), "ID", "Name");
             //string url = "http://cems.infodatixhosting.com/UserHome/W9?option=1&personID=" + person.ID;
@@ -245,7 +242,7 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers.User
             Persons person;
             if(personID<=0)
             {
-                person = SessionContext<Persons>.Instance.GetSession("User");
+                person = GetPerson();
                 personID = person.ID;
             }
 
@@ -258,11 +255,11 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers.User
             if (option==1)
             {
                 data.Ships = ShrdMaster.Instance.getShipsForPIF("Regent", "Oceania");
-                return View("_Personalnfo",data);
+                return PartialView("_Personalnfo",data);
             }
             else if(option==2)
             {
-                return View("_Personalnfo");
+                return PartialView("_Personalnfo");
             }
             //data.Ships = ShrdMaster.Instance.getShipsForPIF("Regent", "Oceania");
           
@@ -272,7 +269,7 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers.User
         [HttpPost]
         public ActionResult PersonalInformationForm(PersonalInformationForm model)
         {
-            var person = SessionContext<Persons>.Instance.GetSession("User");
+            var person = GetPerson();
 
             if (ModelState.IsValid)
             {
@@ -296,7 +293,7 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers.User
         public void PersonalInformationFormPDF(int option=0)
         {
             string url;
-            var person = SessionContext<Persons>.Instance.GetSession("User");
+            var person = GetPerson();
             ViewBag.Positions = new SelectList(ShrdMaster.Instance.GetPostionsforPIF(person.ID), "ID", "Name");
             ViewBag.Ships = new SelectList(ShrdMaster.Instance.getShipsForPIF("Regent", "Oceania"), "ID", "Name");
             //string url = "http://cems.infodatixhosting.com/UserHome/W9?option=1&personID=" + person.ID;
@@ -334,7 +331,7 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers.User
         public ActionResult GetAllTRF()
         {
             Persons person;
-            person = SessionContext<Persons>.Instance.GetSession("User"); 
+            person = GetPerson();
             List<TRFModel> list=new List<TRFModel>();
             if (person != null)
             {
@@ -437,7 +434,7 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers.User
             Persons person;
             if(ModelState.IsValid)
             {
-                person = SessionContext<Persons>.Instance.GetSession("User");
+                person = GetPerson();
                 model.Person = person.ID;
                 db.TRFs.Add(model);
                 db.SaveChanges();
@@ -577,7 +574,7 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers.User
         public void GenerateW9PDF(int option)
         {
             Persons person;
-            person = SessionContext<Persons>.Instance.GetSession("User");
+            person = GetPerson();
             Logger.Instance.Log("Entered in ok part......2");
             /// convert to PDF
           
@@ -601,7 +598,7 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers.User
         public ActionResult FastPay()
         {
             Persons person;
-            person = SessionContext<Persons>.Instance.GetSession("User");
+            person = GetPerson();
             
 
             return View();

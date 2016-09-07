@@ -1,26 +1,26 @@
-﻿@model CruiseEntertainmentManagnmentSystem.ViewModel.CrewDataFormViewModel
-    @{
-    ViewBag.Title = "CrewData_pdf";
+﻿@{
     Layout = "";
 }
+@model CruiseEntertainmentManagnmentSystem.ViewModel.CrewDataFormViewModel
+
 <div style="width:99%;border:1px solid black;padding:10px;">
     <h4 style="font-weight:800;">Norwegian Cruise Line - Crew Data Form</h4>
     <div class="row" id="First">
         <div>
-        <label>Hire Date</label>
-  
-        @Html.DisplayFor(model=>model.HireDate)
-        <br />
-        <span style="padding-left: 80px;">(month)</span><span style="padding-left: 40px;">(day)</span><span  style="padding-left: 40px;">(year)</span>
+            <label>Hire Date</label>
+
+            @Html.DisplayFor(model => model.HireDate)
+            <br />
+            <span style="padding-left: 80px;">(month)</span><span style="padding-left: 40px;">(day)</span><span style="padding-left: 40px;">(year)</span>
             <div style="float:right;margin-top:-25px;">
-                <label>MAPSID</label>   
+                <label>MAPSID</label>
                 @Html.DisplayFor(model => model.MapsID)
             </div>
         </div>
     </div>
     <div class="row" id="second" style="display:flex;">
         <div style="width:60%">
-            <label>Name</label>  
+            <label>Name</label>
             @Html.DisplayFor(model => model.FullName)
             <br />
             <span style="padding-left: 80px;">(last)</span><span style="padding-left: 40px;">(First)</span><span style="padding-left: 40px;">(middle)</span>
@@ -49,7 +49,7 @@
             </div>
             <div>
                 <label>Zip</label>
-               @Html.DisplayFor(model => model.Zip)
+                @Html.DisplayFor(model => model.Zip)
             </div>
         </div>
         <div id="country">
@@ -67,7 +67,7 @@
     <div id="fifth">
         <label>Email</label>
         @Html.DisplayFor(model => model.EMail)
-        @*<input type="text" style="width: 241px;margin-left: 24px;margin-top: 10px;" />*@    
+        @*<input type="text" style="width: 241px;margin-left: 24px;margin-top: 10px;" />*@
     </div>
     <div id="six">
         <label>SS#(US Only)</label>
@@ -75,7 +75,7 @@
         @*<input type="text" style="width: 188px;margin-left: 24px;margin-top: 10px;" />*@
     </div>
     <div id="seven">
-        <label>ARC#</label>   
+        <label>ARC#</label>
         @Html.DisplayFor(model => model.ARC)
         @*<input type="text" style="width: 241px;margin-left: 24px;margin-top: 10px;" />*@
     </div>
@@ -87,10 +87,10 @@
             @*<input type="text" style="width:80px;margin-left: 42px;" /><input type="text" style="width:80px;" />*@
             <br />
             <div style="display:flex;margin-left: 70px;">
-                </div>
-            </div>  
+            </div>
+        </div>
         <div id="status" style="width:60%">
-            
+
             <br />
             <div style="display:flex">
                 @Html.RadioButtonFor(model => model.MaritalStatus, "0")<span style="width:80px;text-align:center;display: block;">single</span>
@@ -98,26 +98,26 @@
                 @Html.RadioButtonFor(model => model.MaritalStatus, "2")<span style="width:80px;text-align:center;display: block;">divorced</span>
                 @Html.RadioButtonFor(model => model.MaritalStatus, "3")<span style="width:80px;text-align:center;display: block;">widowed</span>
                 @Html.RadioButtonFor(model => model.MaritalStatus, "4")<span style="width:80px;text-align:center;display: block;">separated</span>
-            </div>          
-        </div>    
+            </div>
+        </div>
     </div>
     <div id="nine" style="display:flex">
         <div id="dob" style="width:50%">
-                <label>D.O.B</label>
-                @Html.DisplayFor(model=>model.Dob)
-                
-                <br />
-                <span style="padding-left: 80px;">(month)</span><span style="padding-left: 40px;">(day)</span><span style="padding-left: 40px;">(year)</span>
-       </div>
-        <div id="body-features" style="width:50%">
-           @*<input type="text" style="width:80px;" /><input type="text" style="width:80px;" /><input type="text" style="width:80px;" /><input type="text" style="width:80px;" />*@
+            <label>D.O.B</label>
+            @Html.DisplayFor(model => model.Dob)
+
             <br />
-            <div style="display:flex">           
+            <span style="padding-left: 80px;">(month)</span><span style="padding-left: 40px;">(day)</span><span style="padding-left: 40px;">(year)</span>
+        </div>
+        <div id="body-features" style="width:50%">
+            @*<input type="text" style="width:80px;" /><input type="text" style="width:80px;" /><input type="text" style="width:80px;" /><input type="text" style="width:80px;" />*@
+            <br />
+            <div style="display:flex">
                 @Html.DisplayFor(model => model.Hair)<span style="width:80px;text-align:center;display: block;">(hair)</span>
                 @Html.DisplayFor(model => model.Eye)<span style="width:80px;text-align:center;display: block;">(eyes)</span>
                 @Html.DisplayFor(model => model.Height)<span style="width:80px;text-align:center;display: block;">(height)</span>
                 @Html.DisplayFor(model => model.Weight)<span style="width:80px;text-align:center;display: block;">(weight)</span>
-            </div>    
+            </div>
         </div>
     </div>
     <div id="ten" style="display:flex;margin-top:10px;">
@@ -176,7 +176,7 @@
     </div>
     <div id="fifteen">
         <label>Date of last physical exam</label>
-            @Html.DisplayFor(model => model.LastPhyscialExamDate)
+        @Html.DisplayFor(model => model.LastPhyscialExamDate)
         <br />
         <span style="padding-left: 80px;margin-left: 110px;">(month)</span><span style="padding-left: 40px;">(day)</span><span style="padding-left: 40px;">(year)</span>
     </div>
@@ -200,43 +200,43 @@
                 @Html.DisplayFor(model => model.EmergencyAddress)
             </div>
             @*<div class="row">
-                <label></label>
-                <input type="text" style="margin-left:85px;"/>
-            </div>
-            <div class="row" style="margin-top:10px">
-                <label>City/State</label>
-                <input type="text" style="margin-left:18px;"/>
-            </div>
-            <div class="row">
-                <label>Country</label>
-                <input type="text" style="margin-left:30px;"/>
-            </div>*@
+                    <label></label>
+                    <input type="text" style="margin-left:85px;"/>
+                </div>
+                <div class="row" style="margin-top:10px">
+                    <label>City/State</label>
+                    <input type="text" style="margin-left:18px;"/>
+                </div>
+                <div class="row">
+                    <label>Country</label>
+                    <input type="text" style="margin-left:30px;"/>
+                </div>*@
             <div class="row">
                 <label>Phone#</label>
                 @Html.DisplayFor(model => model.EmergencyPhone)
             </div>
             @*<div class="row">
-                <label>Other# ie:</label>
-                <input type="text" style="margin-left:18px;"/>
-            </div>
-            <div class="row">
-                <label>Fax/Cell</label>
-                <input type="text" style="margin-left:27px;"/>
-            </div>*@
+                    <label>Other# ie:</label>
+                    <input type="text" style="margin-left:18px;"/>
+                </div>
+                <div class="row">
+                    <label>Fax/Cell</label>
+                    <input type="text" style="margin-left:27px;"/>
+                </div>*@
         </div>
         <div id="depantant-information" style="width:60%;">
             <h4 style="font-weight:800;text-decoration:underline">Depandent Information</h4>
             <div class="row" style="margin-top:10px">
                 <label>Name</label>
-               @Html.DisplayFor(model => model.DependentName1)
+                @Html.DisplayFor(model => model.DependentName1)
                 <label>Date Of Birth</label>
-               @Html.DisplayFor(model => model.DependentDob1)
+                @Html.DisplayFor(model => model.DependentDob1)
             </div>
             <div class="row" style="margin-top:10px">
                 <label>Name</label>
                 @Html.DisplayFor(model => model.DependentName2)
                 <label>Date Of Birth</label>
-               @Html.DisplayFor(model => model.DependentDob2)
+                @Html.DisplayFor(model => model.DependentDob2)
             </div>
             <div class="row" style="margin-top:10px">
                 <label>Name</label>
@@ -255,7 +255,7 @@
     <div id="eighteen" style="display:flex;margin-top:10px;">
         <div id="sign-off" style="width:50%">
             <label>Sign Off Date</label>
-            @Html.DisplayFor(model=>model.SignOffDate)
+            @Html.DisplayFor(model => model.SignOffDate)
         </div>
         <div id="signature" style="width:50%;">
             <label>Signature</label>
@@ -263,4 +263,3 @@
         </div>
     </div>
 </div>
-
