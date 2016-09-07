@@ -92,10 +92,15 @@ namespace CruiseEntertainmentManagnmentSystem.Models
         //[Display(Name = "Booking Date")]
         public string ImagePath { get; set; }
         public int CategoryID { get; set; }
+
+        public string Nationality { get; set; }
+
         [NotMapped]
         public string PositionList { get; set; }
         [NotMapped]
         public bool IsFemale { get; set; }
+
+        
 
         
         

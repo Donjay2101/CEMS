@@ -34,7 +34,7 @@ namespace CruiseEntertainmentManagnmentSystem.Models
         [DisplayName("Have you ever been dismissed from a cruise vessel?")]
         public bool IsDismissed { get; set; }
         [DisplayName("If yes, please provide a brief explanation and dates")]
-        public string DismissCruiseExplaination { get; set;}
+        public string DismissCruiseExplaination { get; set;}        
         [DisplayName("Is your visa assigned to another cruise line?")]
         public bool IsVisaAssignToOther { get; set; }
         [DisplayName("If so, to whom?")]
@@ -49,5 +49,10 @@ namespace CruiseEntertainmentManagnmentSystem.Models
         public string IssuingAuthority { get; set; }
         [DisplayName("Seaman’s Expiry Date")]
         public DateTime SeamanExpiryDate { get; set; }
+
+        [DisplayName("Alien card number")]
+        public string ARC { get; set; }
+
+
     }
 }

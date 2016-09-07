@@ -50,5 +50,12 @@ namespace CruiseEntertainmentManagnmentSystem.Models
         public Nullable<DateTime> DependentDob5 { get; set; }
         [DisplayName("Sign off Date")]
         public Nullable<DateTime> SignOffDate { get; set; }
+
+        public int position { get; set; }
+
+        public Nullable<DateTime> LastPhyscialExamDate { get; set; }
+        public string Languages { get; set; }
+
+        public string HomeAirPort { get; set; }
     }    
 }

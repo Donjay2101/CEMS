@@ -1,4 +1,4 @@
-﻿@model CruiseEntertainmentManagnmentSystem.Models.PersonalInformationForm
+﻿@model CruiseEntertainmentManagnmentSystem.ViewModel.PIFViewModel
 
 @{
     ViewBag.Title = "PersonalInformationForm";
@@ -77,6 +77,15 @@
                                 <div class="checkbox">
                                     @Html.EditorFor(model => model.IsUsResident)
                                     @Html.ValidationMessageFor(model => model.IsUsResident, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="formGroup row form-group">
+                            @Html.LabelFor(model => model.ARC, htmlAttributes: new { @class = "control-label col-md-6" })
+                            <div class="col-md-6">
+                                <div class="checkbox">
+                                    @Html.EditorFor(model => model.ARC)
+                                    @Html.ValidationMessageFor(model => model.ARC, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                         </div>

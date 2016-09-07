@@ -161,24 +161,39 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers.User
 
             
         }
-        
 
-        public ActionResult CrewDataForm()
+
+        #region CrewData
+        [AllowAnonymous]
+        public ActionResult CrewDataForm(int option=0,int personID=0)
         {
-            Persons person;
+
+            Persons person=null;            
             
-            person = SessionContext<Persons>.Instance.GetSession("User");
             information = SessionContext<PersonalInformation>.Instance.GetSession("PersonalInformation");
-            if(person==null)
-            {                               
-                return RedirectToAction("Login", "Account");
+           
+            if(personID<=0)
+            {
+                person = SessionContext<Persons>.Instance.GetSession("User");
+                personID = person.ID ;
             }
-            ViewBag.SSN = information.SSN;
+           
+            //ViewBag.SSN = information.SSN;
             ViewBag.Ships = new SelectList(ShrdMaster.Instance.GetShips("Norwegian"), "ID", "Name");
 
             ViewBag.Department = new SelectList(ShrdMaster.Instance.GetDepartmentforCrewDataForm(), "ID", "Name");
+            ViewBag.Positions = new SelectList(ShrdMaster.Instance.GetPostionsforPIF(personID), "ID", "Name");
+            var CrewDataFormInfo = db.Database.SqlQuery<CrewDataFormViewModel>("exec sp_getCrewDataFormsByPersonID @personID", new SqlParameter("@personID", personID)).FirstOrDefault();
+            if(option==1)
+            {
+                return View("_CrewDataForm", CrewDataFormInfo);
+            }
+            else if(option==2)
+            {
+                return View("_CrewDataForm");
+            }
             
-            return View();
+            return View(CrewDataFormInfo);
         }
 
         [HttpPost]
@@ -186,6 +201,7 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers.User
         {
             Persons person;
             person = SessionContext<Persons>.Instance.GetSession("User");
+            model.PersonID = person.ID;
             if (ModelState.IsValid)
             {
                 if (model.ID > 0)
@@ -207,6 +223,20 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers.User
             return RedirectToAction("CrewDataForm");
         }
 
+        public void CrewDataFormPDF(int option=0)
+        {
+            string url;
+            var person = SessionContext<Persons>.Instance.GetSession("User");
+            ViewBag.Positions = new SelectList(ShrdMaster.Instance.GetPostionsforPIF(person.ID), "ID", "Name");
+            ViewBag.Ships = new SelectList(ShrdMaster.Instance.getShipsForPIF("Regent", "Oceania"), "ID", "Name");
+            //string url = "http://cems.infodatixhosting.com/UserHome/W9?option=1&personID=" + person.ID;
+            url = "http://localhost:64819/UserHome/CrewDataForm?option=" + option + "&personID=" + person.ID;
+            string fileName = "CrewDataForm_" + person.ID + ".pdf";
+            string path = Server.MapPath("~/PDF");
+            path = Path.Combine(path, fileName);
+            GeneratePDF(url, path, fileName);
+        }
+        #endregion CrewData
 
         #region PersonalInformation
         [AllowAnonymous]
@@ -218,20 +248,24 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers.User
                 person = SessionContext<Persons>.Instance.GetSession("User");
                 personID = person.ID;
             }
-            
-           
-            var data=db.Database.SqlQuery<>
 
-            if(option==1)
+
+            var data = db.Database.SqlQuery<PIFViewModel>("exec sp_getPersonalInformationFormsByPersonID @personID", new SqlParameter("@personID", personID)).FirstOrDefault();
+            ViewBag.Positions = new SelectList(ShrdMaster.Instance.GetPostionsforPIF(personID), "ID", "Name");
+            
+                ViewBag.Ships = new SelectList(ShrdMaster.Instance.getShipsForPIF("Regent", "Oceania"), "ID", "Name");
+            
+            if (option==1)
             {
+                data.Ships = ShrdMaster.Instance.getShipsForPIF("Regent", "Oceania");
                 return View("_Personalnfo",data);
             }
             else if(option==2)
             {
                 return View("_Personalnfo");
             }
-            ViewBag.Positions = new SelectList(ShrdMaster.Instance.GetPostionsforPIF(personID), "ID", "Name");
-            ViewBag.Ships = new SelectList(ShrdMaster.Instance.getShipsForPIF("Regent", "Oceania"), "ID", "Name");
+            //data.Ships = ShrdMaster.Instance.getShipsForPIF("Regent", "Oceania");
+          
             return View(data);
         }
 
@@ -255,7 +289,7 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers.User
             }
             ViewBag.Positions = new SelectList(ShrdMaster.Instance.GetPostionsforPIF(person.ID), "ID", "Name");
             ViewBag.Ships = new SelectList(ShrdMaster.Instance.getShipsForPIF("Regent", "Oceania"), "ID", "Name");
-            return View(model);
+            return RedirectToAction("PersonalInformationForm");
 
         }
 

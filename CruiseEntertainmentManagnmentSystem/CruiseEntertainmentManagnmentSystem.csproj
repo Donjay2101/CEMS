@@ -316,6 +316,7 @@
     <Compile Include="ViewModel\CabinsViewModel.cs" />
     <Compile Include="ViewModel\CalendarViewmodel.cs" />
     <Compile Include="ViewModel\ContractorViewModel.cs" />
+    <Compile Include="ViewModel\CrewDataFormViewModel.cs" />
     <Compile Include="ViewModel\CruiseScheduleViewModel.cs" />
     <Compile Include="ViewModel\NewDate.cs" />
     <Compile Include="ViewModel\PerformerViewmodel.cs" />
@@ -574,9 +575,8 @@
     <Content Include="Views\UserHome\FastPay.cshtml" />
     <Content Include="Views\UserHome\NewVendor.cshtml" />
     <Content Include="Views\UserHome\VendorPayment.cshtml" />
-    <Content Include="Views\UserHome\_CrewDataForm.cshtml" />
     <Content Include="Views\UserHome\_Personalnfo.cshtml" />
-    <Content Include="Views\UserHome\CrewData_pdf.cshtml" />
+    <Content Include="Views\UserHome\_CrewDataForm.cshtml" />
     <Content Include="Views\UserHome\FastPay_pdf.cshtml" />
     <Content Include="Views\UserHome\NewVendor_pdf.cshtml" />
   </ItemGroup>

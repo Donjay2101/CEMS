@@ -1,1 +1,266 @@
-﻿
+﻿@model CruiseEntertainmentManagnmentSystem.ViewModel.CrewDataFormViewModel
+    @{
+    ViewBag.Title = "CrewData_pdf";
+    Layout = "";
+}
+<div style="width:99%;border:1px solid black;padding:10px;">
+    <h4 style="font-weight:800;">Norwegian Cruise Line - Crew Data Form</h4>
+    <div class="row" id="First">
+        <div>
+        <label>Hire Date</label>
+  
+        @Html.DisplayFor(model=>model.HireDate)
+        <br />
+        <span style="padding-left: 80px;">(month)</span><span style="padding-left: 40px;">(day)</span><span  style="padding-left: 40px;">(year)</span>
+            <div style="float:right;margin-top:-25px;">
+                <label>MAPSID</label>   
+                @Html.DisplayFor(model => model.MapsID)
+            </div>
+        </div>
+    </div>
+    <div class="row" id="second" style="display:flex;">
+        <div style="width:60%">
+            <label>Name</label>  
+            @Html.DisplayFor(model => model.FullName)
+            <br />
+            <span style="padding-left: 80px;">(last)</span><span style="padding-left: 40px;">(First)</span><span style="padding-left: 40px;">(middle)</span>
+        </div>
+        <div style="width:40%;text-align:right;">
+            <label style="float:left;">Dept</label>
+            @Html.DisplayFor(model => model.Department)
+            <br />
+            <label style="float:left;">Position</label>
+            @Html.DisplayFor(model => model.PositionName)
+            <br />
+            <label style="float:left;">Onboard/Ship</label>
+            @Html.DisplayFor(model => model.ShipName)
+        </div>
+    </div>
+    <div class="row" id="third">
+        <label>Address</label>
+
+        @Html.DisplayFor(model => model.Address)
+        <br />
+        <input type="text" style="margin-left: 66px;width: 241px;" />
+        <div id="address" style="display:flex">
+            <div>
+                <label>City</label>
+                @Html.DisplayFor(model => model.City)
+            </div>
+            <div>
+                <label>Zip</label>
+               @Html.DisplayFor(model => model.Zip)
+            </div>
+        </div>
+        <div id="country">
+            <label>Country</label>
+            @Html.DisplayFor(model => model.Country)
+        </div>
+    </div>
+    <div id="fourth">
+        <label>Phone#</label>
+
+        @Html.DisplayFor(model => model.Phone)
+        <br />
+        @*<span style="margin-left: 80px;">(country code), (city code), #</span>*@
+    </div>
+    <div id="fifth">
+        <label>Email</label>
+        @Html.DisplayFor(model => model.EMail)
+        @*<input type="text" style="width: 241px;margin-left: 24px;margin-top: 10px;" />*@    
+    </div>
+    <div id="six">
+        <label>SS#(US Only)</label>
+        @Html.DisplayFor(model => model.SSN)
+        @*<input type="text" style="width: 188px;margin-left: 24px;margin-top: 10px;" />*@
+    </div>
+    <div id="seven">
+        <label>ARC#</label>   
+        @Html.DisplayFor(model => model.ARC)
+        @*<input type="text" style="width: 241px;margin-left: 24px;margin-top: 10px;" />*@
+    </div>
+    <div id="eight" style="display:flex;margin-top: 10px;">
+        <div id="gender" style="width:40%">
+            <label>Sex</label>
+            @Html.RadioButtonFor(model => model.Sex, "1")<span style="width:80px;text-align:center;display: block;">male</span>
+            @Html.RadioButtonFor(model => model.Sex, "0")<span style="width:80px;text-align:center;display: block;">female</span>
+            @*<input type="text" style="width:80px;margin-left: 42px;" /><input type="text" style="width:80px;" />*@
+            <br />
+            <div style="display:flex;margin-left: 70px;">
+                </div>
+            </div>  
+        <div id="status" style="width:60%">
+            
+            <br />
+            <div style="display:flex">
+                @Html.RadioButtonFor(model => model.MaritalStatus, "0")<span style="width:80px;text-align:center;display: block;">single</span>
+                @Html.RadioButtonFor(model => model.MaritalStatus, "1")<span style="width:80px;text-align:center;display: block;">maried</span>
+                @Html.RadioButtonFor(model => model.MaritalStatus, "2")<span style="width:80px;text-align:center;display: block;">divorced</span>
+                @Html.RadioButtonFor(model => model.MaritalStatus, "3")<span style="width:80px;text-align:center;display: block;">widowed</span>
+                @Html.RadioButtonFor(model => model.MaritalStatus, "4")<span style="width:80px;text-align:center;display: block;">separated</span>
+            </div>          
+        </div>    
+    </div>
+    <div id="nine" style="display:flex">
+        <div id="dob" style="width:50%">
+                <label>D.O.B</label>
+                @Html.DisplayFor(model=>model.Dob)
+                
+                <br />
+                <span style="padding-left: 80px;">(month)</span><span style="padding-left: 40px;">(day)</span><span style="padding-left: 40px;">(year)</span>
+       </div>
+        <div id="body-features" style="width:50%">
+           @*<input type="text" style="width:80px;" /><input type="text" style="width:80px;" /><input type="text" style="width:80px;" /><input type="text" style="width:80px;" />*@
+            <br />
+            <div style="display:flex">           
+                @Html.DisplayFor(model => model.Hair)<span style="width:80px;text-align:center;display: block;">(hair)</span>
+                @Html.DisplayFor(model => model.Eye)<span style="width:80px;text-align:center;display: block;">(eyes)</span>
+                @Html.DisplayFor(model => model.Height)<span style="width:80px;text-align:center;display: block;">(height)</span>
+                @Html.DisplayFor(model => model.Weight)<span style="width:80px;text-align:center;display: block;">(weight)</span>
+            </div>    
+        </div>
+    </div>
+    <div id="ten" style="display:flex;margin-top:10px;">
+        <div id="birthplace" style="width:50%">
+            <label>Birthplace</label>
+
+            @Html.DisplayFor(model => model.BirthPlace)
+        </div>
+        <div id="homeairport" style="width:50%">
+            <label>Home Airport</label>
+
+            @Html.DisplayFor(model => model.HomeAirPort)
+        </div>
+    </div>
+    <div id="eleven" style="margin-top:10px;">
+        <div id="citizen" style="width:50%">
+            <label>Citizenship/Country</label>
+            @Html.DisplayFor(model => model.Country)
+        </div>
+    </div>
+    <div id="twelve" style="display:flex;margin-top:10px;">
+        <div id="passport" style="width:50%">
+            <label>Passport #</label>
+            @Html.DisplayFor(model => model.PassportNumber)
+        </div>
+        <div id="p_date" style="width:50%">
+            <label>Passport Issue Date</label>
+            @Html.DisplayFor(model => model.IssueDate)
+            <br />
+            <span style="padding-left:20px;margin-left:140px;">(month)</span><span style="padding-left: 20px;">(day)</span><span style="padding-left: 20px;">(year)</span>
+        </div>
+    </div>
+    <div id="thirteen" style="display:flex">
+        <div id="country-issue" style="width:50%">
+            <label>Country / City of issue:</label>
+            @Html.DisplayFor(model => model.IssueCountry)
+        </div>
+        <div id="i-date" style="width:50%">
+            <label>Passport Expire Date</label>
+            @Html.DisplayFor(model => model.ExpireDate)
+            <br />
+            <span style="padding-left:20px;margin-left:140px;">(month)</span><span style="padding-left: 20px;">(day)</span><span style="padding-left: 20px;">(year)</span>
+        </div>
+    </div>
+    <div id="fortheen" style="display:flex">
+        <div id="visa" style="width:50%">
+            <label>Visa #</label>
+            @Html.DisplayFor(model => model.VisaNumber)
+        </div>
+        <div id="v_date" style="width:50%">
+            <label>C-1/D visa expires</label>
+            @Html.DisplayFor(model => model.VisaExpireDate)
+            <br />
+            <span style="padding-left:20px;margin-left:140px;">(month)</span><span style="padding-left: 20px;">(day)</span><span style="padding-left: 20px;">(year)</span>
+        </div>
+    </div>
+    <div id="fifteen">
+        <label>Date of last physical exam</label>
+            @Html.DisplayFor(model => model.LastPhyscialExamDate)
+        <br />
+        <span style="padding-left: 80px;margin-left: 110px;">(month)</span><span style="padding-left: 40px;">(day)</span><span style="padding-left: 40px;">(year)</span>
+    </div>
+    <div id="sixteen">
+        <label>Languages (other than English)</label>
+        @Html.DisplayFor(model => model.Languages)
+    </div>
+    <div id="seventeen" style="display:flex">
+        <div id="emergency-contact" style="width:40%;">
+            <h4 style="font-weight:800;text-decoration:underline">Emergency Contact</h4>
+            <div class="row" style="margin-top:10px">
+                <label>Name</label>
+                @Html.DisplayFor(model => model.EmergencyContactName)
+            </div>
+            <div class="row" style="margin-top:10px">
+                <label>Relationship</label>
+                @Html.DisplayFor(model => model.EmergencyRelation)
+            </div>
+            <div class="row" style="margin-top:10px">
+                <label>Address</label>
+                @Html.DisplayFor(model => model.EmergencyAddress)
+            </div>
+            @*<div class="row">
+                <label></label>
+                <input type="text" style="margin-left:85px;"/>
+            </div>
+            <div class="row" style="margin-top:10px">
+                <label>City/State</label>
+                <input type="text" style="margin-left:18px;"/>
+            </div>
+            <div class="row">
+                <label>Country</label>
+                <input type="text" style="margin-left:30px;"/>
+            </div>*@
+            <div class="row">
+                <label>Phone#</label>
+                @Html.DisplayFor(model => model.EmergencyPhone)
+            </div>
+            @*<div class="row">
+                <label>Other# ie:</label>
+                <input type="text" style="margin-left:18px;"/>
+            </div>
+            <div class="row">
+                <label>Fax/Cell</label>
+                <input type="text" style="margin-left:27px;"/>
+            </div>*@
+        </div>
+        <div id="depantant-information" style="width:60%;">
+            <h4 style="font-weight:800;text-decoration:underline">Depandent Information</h4>
+            <div class="row" style="margin-top:10px">
+                <label>Name</label>
+               @Html.DisplayFor(model => model.DependentName1)
+                <label>Date Of Birth</label>
+               @Html.DisplayFor(model => model.DependentDob1)
+            </div>
+            <div class="row" style="margin-top:10px">
+                <label>Name</label>
+                @Html.DisplayFor(model => model.DependentName2)
+                <label>Date Of Birth</label>
+               @Html.DisplayFor(model => model.DependentDob2)
+            </div>
+            <div class="row" style="margin-top:10px">
+                <label>Name</label>
+                @Html.DisplayFor(model => model.DependentName3)
+                <label>Date Of Birth</label>
+                @Html.DisplayFor(model => model.DependentDob3)
+            </div>
+            <div class="row" style="margin-top:10px">
+                <label>Name</label>
+                @Html.DisplayFor(model => model.DependentName4)
+                <label>Date Of Birth</label>
+                @Html.DisplayFor(model => model.DependentDob4)
+            </div>
+        </div>
+    </div>
+    <div id="eighteen" style="display:flex;margin-top:10px;">
+        <div id="sign-off" style="width:50%">
+            <label>Sign Off Date</label>
+            @Html.DisplayFor(model=>model.SignOffDate)
+        </div>
+        <div id="signature" style="width:50%;">
+            <label>Signature</label>
+            <input type="text" style="border:none;border-bottom:1px solid black; width:240px;" />
+        </div>
+    </div>
+</div>
+
