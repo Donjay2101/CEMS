@@ -549,10 +549,10 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers.User
 
 
 
-            Convertor.Options.MarginTop = 20;
-            Convertor.Options.MarginBottom = 20;
-            Convertor.Options.MarginLeft = 20;
-            Convertor.Options.MarginRight = 20;
+            Convertor.Options.MarginTop = 10;
+            Convertor.Options.MarginBottom = 10;
+            Convertor.Options.MarginLeft = 5;
+            Convertor.Options.MarginRight = 5;
             // Convertor.Options.WebPageHeight = 1000;
             PdfDocument doc = Convertor.ConvertHtmlString(htmlCode);
            
