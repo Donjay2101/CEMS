@@ -290,6 +290,7 @@
     <Compile Include="Models\CruiseTask.cs" />
     <Compile Include="Models\CSVReadWrite.cs" />
     <Compile Include="Models\DBRole.cs" />
+    <Compile Include="Models\FastPayForm.cs" />
     <Compile Include="Models\Groups.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\JavaScriptSerializer.cs" />
@@ -318,6 +319,7 @@
     <Compile Include="ViewModel\ContractorViewModel.cs" />
     <Compile Include="ViewModel\CrewDataFormViewModel.cs" />
     <Compile Include="ViewModel\CruiseScheduleViewModel.cs" />
+    <Compile Include="ViewModel\FastPayFormViewModel.cs" />
     <Compile Include="ViewModel\NewDate.cs" />
     <Compile Include="ViewModel\PerformerViewmodel.cs" />
     <Compile Include="ViewModel\PersonsViewModel.cs" />
@@ -577,7 +579,7 @@
     <Content Include="Views\UserHome\VendorPayment.cshtml" />
     <Content Include="Views\UserHome\_Personalnfo.cshtml" />
     <Content Include="Views\UserHome\_CrewDataForm.cshtml" />
-    <Content Include="Views\UserHome\FastPay_pdf.cshtml" />
+    <Content Include="Views\UserHome\_FastPaypdf.cshtml" />
     <Content Include="Views\UserHome\NewVendor_pdf.cshtml" />
   </ItemGroup>
   <ItemGroup>

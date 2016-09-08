@@ -320,8 +320,8 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers.User
             return Json(data, JsonRequestBehavior.AllowGet);
         }
 
-       
 
+        #region TravelREquestForm
         public ActionResult TravelRequestForm()
         {
             ViewBag.Cruises = new SelectList(db.cruises.OrderBy(x => x.Name).ToList(), "ID", "Name");
@@ -443,7 +443,7 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers.User
             return RedirectToAction("TravelRequestForm",model);
             
         }
-
+        #endregion TravelREquestForm
 
         public ActionResult FinanceAndPayments()
         {
@@ -595,13 +595,70 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers.User
 
 
         #region FASTPAY
-        public ActionResult FastPay()
+        [AllowAnonymous]
+        public ActionResult FastPay(int option = 0,int personID=0)
+        {
+            Persons person;
+                   
+            if(personID <= 0)
+            {
+                person = GetPerson();
+                personID = person.ID;
+            }
+
+            var data = db.Database.SqlQuery<FastPayFormViewModel>("exec sp_GetFastPayFormByPersonID @personID", new SqlParameter("@personID", personID)).FirstOrDefault();
+            if(option==1)
+            {
+                return View("_FastPaypdf",data);
+            }
+            else if(option==2)
+            {
+                return View("_FastPaypdf");
+            }
+            return View(data);
+        }
+
+        [HttpPost]
+        public ActionResult FastPay(FastPayForm model)
         {
             Persons person;
             person = GetPerson();
-            
+            if(ModelState.IsValid)
+            {
+                if(model.ID>0)
+                {
+                    db.Entry(model).State = EntityState.Modified;
+                }
+                else
+                {
+                    model.PersonID = person.ID;
+                    db.FastPayForms.Add(model);
+                }
+                
+                db.SaveChanges();
+                return Json("1", JsonRequestBehavior.AllowGet);
+            }
 
-            return View();
+            return Json("-1", JsonRequestBehavior.AllowGet);
+        }
+
+        public void FastPayFormPDF(int option)
+        {
+            Persons person;
+            person = GetPerson();
+            Logger.Instance.Log("Entered in ok part......2");
+            /// convert to PDF
+
+            Logger.Instance.Log("Entered in ok part......2.1");
+            //// create a new pdf document converting an url
+            string url;
+            url = "http://localhost:64819/UserHome/FastPay?option=" + option + "&personID=" + person.ID;
+            //string url = "http://cems.infodatixhosting.com/UserHome/W9?option=1&personID=" + person.ID;
+            string filename = person.ID + "_FastPayForm.Pdf";
+            string path = Server.MapPath("/PDF/");
+            path += filename;
+
+            GeneratePDF(url, path,filename);
         }
 
        

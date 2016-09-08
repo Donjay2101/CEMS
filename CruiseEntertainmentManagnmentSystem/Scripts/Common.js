@@ -1,5 +1,12 @@
 ﻿// Function To Delete values
+function showLoadingDiv() {
+    $('#loadingDiv').css('display', 'block');
+}
 
+
+function hideLoadingDiv() {
+    $('#loadingDiv').css('display', 'none');
+}
 
 function finalDelete(id,name,url,option)
 {

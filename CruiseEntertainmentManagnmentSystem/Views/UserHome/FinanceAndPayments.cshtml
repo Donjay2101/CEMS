@@ -25,7 +25,10 @@
     <div id="dataContainer">
     </div>
 </div>
+
+<script src="~/Scripts/Common.js"></script>
 <script>
+
     $(document).on('click', '#FNPmenu>li', function () {
         debugger;
         var value = $(this).find('a').attr('value');
@@ -49,7 +52,6 @@
                 break;
             case "FASTPAY":
                 $('#dataContainer').load('/UserHome/FastPay', function () {
-
                     hideLoadingDiv();
                 });
                 break;
@@ -111,15 +113,7 @@
         });
     }
 
-    function showLoadingDiv()
-    {
-        $('#loadingDiv').css('display', 'block');
-    }
-
-
-    function hideLoadingDiv() {
-        $('#loadingDiv').css('display', 'none');
-    }
+    
 
 
 </script>

@@ -1,7 +1,11 @@
-﻿@{
+﻿@model CruiseEntertainmentManagnmentSystem.ViewModel.FastPayFormViewModel
+@{
   Layout="";
 }
+
 <div class="container" id="FasTPay">
+    @Html.HiddenFor(model=>model.PersonID)
+    @Html.HiddenFor(model => model.ID)
     <div class="row">
         <div class="col-md-3"><img src="~/Images/User/NCL-1.jpg" alt="" class="fastpay-img"/></div>
         <div class="col-md-3 col-md-offset-6 text-right"><img src="~/Images/User/NCL-2.jpg" alt="" class="fastpay-img"/></div>
@@ -25,98 +29,112 @@
                     <div class="row form-group">
                         <label class="control-label col-md-3 text-left">Vendor Name:</label>
                         <div class="col-md-8">
-                            <input type="text" class="form-control"/>
+                            @Html.TextBoxFor(model=>model.FullName,new { @class= "form-control" })
+                            @*<input type="text" class="form-control"/>*@
                         </div>
                     </div>
          
                     <div class="row form-group">
                         <label class="control-label col-md-3 text-left">Vendor Address:</label>
                         <div class="col-md-8">
-                            <input type="text" class="form-control" />
+                            @Html.TextBoxFor(model=>model.Address,new { @class="form-control"})
+                            @*<input type="text" class="form-control" />*@
                         </div>
                     </div>
     
                     <div class="row form-group">
                         <label class="control-label col-md-3 text-left">Vendor City/ST/Zip:</label>
                         <div class="col-md-8">
-                            <input type="text" class="form-control" />
+                            @Html.TextBoxFor(model => model.CityState, new { @class = "form-control" })
+                            @*<input type="text" class="form-control" />*@
                         </div>
                     </div>
             
                     <div class="row form-group">
                         <label class="control-label col-md-3 text-left">Vendor Country (if not USA):</label>
                         <div class="col-md-8">
-                            <input type="text" class="form-control" />
+                            @Html.TextBoxFor(model => model.Country, new { @class = "form-control" })
+                            @*<input type="text" class="form-control" />*@
                         </div>
                     </div>
          
                     <div class="row form-group">
                         <label class="control-label col-md-3 text-left">Vendor Phone #:</label>
                         <div class="col-md-8">
-                            <input type="text" class="form-control" />
+                            @Html.TextBoxFor(model => model.Phone, new { @class = "form-control" })
+                            @*<input type="text" class="form-control" />*@
                         </div>
                     </div>
          
                     <div class="row form-group">
                         <label class="control-label col-md-3 text-left">Contact Name:</label>
                         <div class="col-md-8">
-                            <input type="text" class="form-control" />
+                            @Html.TextBoxFor(model => model.ContactName, new { @class = "form-control" })
+                            @*<input type="text" class="form-control" />*@
                         </div>
                     </div>
           
                     <div class="row form-group">
                         <label class="control-label col-md-3 text-left">Bank Name:</label>
                         <div class="col-md-8">
-                            <input type="text" class="form-control" />
+                            @Html.TextBoxFor(model => model.BankName, new { @class = "form-control" })
+                            @*<input type="text" class="form-control" />*@
                         </div>
                     </div>
         
                     <div class="row form-group">
                         <label class="control-label col-md-3 text-left">Bank Address/City/ST/Zip:</label>
                         <div class="col-md-8">
-                            <input type="text" class="form-control" />
+                            @Html.TextBoxFor(model => model.BankAddress, new { @class = "form-control" })
+                            @*<input type="text" class="form-control" />*@
                         </div>
                     </div>
            
                     <div class="row form-group">
                         <label class="control-label col-md-3 text-left">Bank Phone number:</label>
                         <div class="col-md-8">
-                            <input type="text" class="form-control" />
+                            @Html.TextBoxFor(model => model.BankPhoneNumber, new { @class = "form-control" })
+                            @*<input type="text" class="form-control" />*@
                         </div>
                     </div>
              
                     <div class="row form-group">
                         <label class="control-label col-md-3 text-left">Bank Account #:</label>
                         <div class="col-md-8">
-                            <input type="text" class="form-control" />
+                            @Html.TextBoxFor(model => model.BankAccount, new { @class = "form-control" })
+                            @*<input type="text" class="form-control" />*@
                         </div>
                     </div>
      
                     <div class="row form-group">
                         <label class="control-label col-md-3 text-left">Bank Routing #:</label>
                         <div class="col-md-8">
-                            <input type="text" class="form-control" />
+                            @Html.TextBoxFor(model => model.BankRouting, new { @class = "form-control" })
+                            @*<input type="text" class="form-control" />*@
                         </div>
                     </div>
        
                     <div class="row form-group">
                         <label class="control-label col-md-3 text-left">Name as it appears on Bank Account:</label>
                         <div class="col-md-8">
-                            <input type="text" class="form-control" />
+                            @Html.TextBoxFor(model => model.NameInBank, new { @class = "form-control" })
+                            @*<input type="text" class="form-control" />*@
                         </div>
                     </div>
         
                     <div class="row form-group">
                         <label class="control-label col-md-3 text-left">Email address to confirm  transfer of funds:</label>
                         <div class="col-md-8">
-                            <input type="text" class="form-control" />
+                            @Html.TextBoxFor(model => model.Email, new { @class = "form-control" })
+                            @*<input type="text" class="form-control" />*@
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6">
                            
                             <label>Printed Name</label>
-                            <input type="text" />
+                            @Html.TextBoxFor(model => model.PrintedName, new { @class = "form-control" })
+                            @*<input type="text" />*@
                         </div>
                         <div class="col-md-6">
                            
@@ -130,6 +148,50 @@
     </div>
 </div>
 
+
+<script src="~/Scripts/Common.js"></script>
+<script>
+    $(document).on('click', '#btnPrint', function () {        
+        //showLoadingDiv();
+        window.open('/UserHome/FastPayFormPDF?option=1','_blank');
+    });
+
+    $(document).on('click', '#btndownload', function () {
+        window.open('/UserHome/FastPayFormPDF?option=2', '_blank');
+    });
+
+    $(document).on('click', '#btnSave', function () {
+
+        showLoadingDiv();
+        var obj = {};
+        obj.BankName = $('#BankName').val();
+        obj.BankAddress = $('#BankAddress').val();
+        obj.CityState = $('#CityState').val();
+        obj.ContactName = $('#ContactName').val();
+        obj.BankPhoneNumber = $('#BankPhoneNumber').val();
+        obj.BankAccount = $('#BankAccount').val();
+        obj.BankRouting = $('#BankRouting').val();
+        obj.NameInBank = $('#NameInBank').val();
+        obj.Email = $('#Email').val();
+        obj.PrintedName = $('#PrintedName').val();
+        obj.ID = $('#ID').val();
+        obj.PersonID = $('#PersonID').val();
+
+        $.ajax({
+            url: '/UserHome/FastPay',
+            type: 'POST',
+            data: { model: obj },
+            success: function (data) {
+                alert('data saved successfully.');
+                hideLoadingDiv();
+            },
+            erro: function (err) {
+                alert('error:'+err.statusText);
+            }
+        });
+
+    });
+</script>
 
 
 
