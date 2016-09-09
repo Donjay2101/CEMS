@@ -412,132 +412,18 @@
             });
         });
 
-        $(document).on('click', '#btnPrint', function () {
+        //$(document).on('click', '#btnPrint', function () {
 
-            window.open("/userhome/NewVendorFormPDF?option=1", "_blank");
-        });
+        //    window.open("/userhome/NewVendorFormPDF?option=1", "_blank");
+        //});
 
-        $(document).on('click', '#btnDownload', function () {
-            window.open("/userhome/NewVendorFormPDF?option=2", "_blank");
-        });
+        //$(document).on('click', '#btndownload', function () {
+           
+        //});
 
-        $(document).on('click', '#btnSave', function () {
-            debugger
-            var obj = {};
-            if ($('#ID').val() != undefined)
-            {
-                obj.ID = $('#ID').val();
-            }
-            else
-            {
-                obj.ID = 0;
-            }
-            console.log($('[name="IsNewVendor"]'));
-            $('[name="IsNewVendor"]').each(function (idx, ele) {
-                debugger;
-                if(ele.checked)
-                {
-                    obj.IsNewVendor = ele.getAttribute('value');
-                }
-            });
-              
-            obj.DateOfRequest = $('#DateOfRequest').val();
-            obj.CompanyName = $('#CompanyName').val();
-            obj.Address = $('#Address').val();
-            obj.TaxIdNumber = $('#TaxIdNumber').val();
-            obj.PhoneNumber = $('#PhoneNumber').val();
-            obj.ContactName = $('#ContactName').val();
-            obj.ContactTitle = $('#ContactTitle').val();
-            obj.Website = $('#Website').val();
-            obj.Email = $('#Email').val();
-            obj.PaymentTerms = $('#PaymentTerms').val();
-            obj.RequestMode = $('#RequestMode').val();
-            obj.BankName = $('#BankName').val();
-            obj.BankAccountNumber = $('#BankAccountNumber').val();
-            obj.ABANumber = $('#ABANumber').val();
-            obj.SwiftCode = $('#SwiftCode').val();
-            obj.IBANNumber = $('#IBANNumber').val();
-            //$('[name="IBANNumber"]').each(function (idx,ele) {
-            //    debugger;
-            //    if(ele.checked)
-            //    {
-            //        obj.IBANNumber = ele.getAttribute('value');
-            //    }
-            //});
+        //$(document).on('click', '#btnSave', function () {
             
-            $('[name="IsSignedOff"]').each(function (idx, ele) {
-                if (ele.checked) {
-                    obj.IsSignedOff = ele.getAttribute('value');
-                }
-
-            });
-            //obj.IsSignedOff = $('#IsSignedOff').val();
-            $('[name="IsIRSW9Attached"]').each(function (idx, ele) {
-                if (ele.checked) {
-                    obj.IsIRSW9Attached = ele.getAttribute('value');
-                }
-
-            });
-            
-            obj.PreparedBy = $('#PreparedBy').val();
-            obj.Department = $('#Department').val();
-            obj.ApprovedBy = $('#ApprovedBy').val();
-            obj.Date = $('#Date').val();
-            obj.Signature = $('#Signature').val();
-            $('[name="IsVendorNameChecked"]').each(function (idx, ele) {
-                if (ele.checked) {
-                    obj.IsVendorNameChecked = ele.getAttribute('value');
-                }
-
-            });
-            $('[name="IsVendorAddressChecked"]').each(function (idx, ele) {
-                if (ele.checked) {
-                    obj.IsVendorAddressChecked = ele.getAttribute('value');
-                }
-
-            });
-              
-              
-            obj.ReviewedByForName = $('#ReviewedByForName').val();
-            obj.DateForName = $('#DateForName').val();
-            obj.ForNameSignature = $('#ForNameSignature').val();
-            $('[name="IsCreatedinPplSoft"]').each(function (idx, ele) {
-                if (ele.checked) {
-                    obj.IsCreatedinPplSoft = ele.getAttribute('value');
-                }
-
-            });                          
-            obj.ReviewedByforPPlsoft = $('#ReviewedByforPPlsoft').val();
-            obj.ReviewDateforPPlsoft = $('#ReviewDateforPPlsoft').val();
-            obj.ForPPLSoftSignature = $('#ForPPLSoftSignature').val();
-            obj.ReviewedByForAuthT = $('#ReviewedByForAuthT').val();
-            obj.DateForAuthT = $('#DateForAuthT').val();
-            obj.ForAuthTsignature = $('#ForAuthTsignature').val();
-
-
-            $.ajax({
-                url: '/UserHome/NewVendor',
-                type: 'POST',
-                data: { model: obj },
-                success: function (data) {
-                    if(data=="1")
-                    {
-                        alert('data saved successfully.');
-                    }
-                    else if (data=="2")
-                    {
-                        alert('mendatory fields are not filled properly.');
-                    }
-                    else
-                    {
-                        alert(data);
-                    }
-                },
-                error: function (err) {
-                    alert('error:' + err.statusText);
-                }
-            });
-        });
+        //});
 
       
 

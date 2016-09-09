@@ -4,14 +4,14 @@
     Layout = null;
 }
 
-<div class="container" id="NewVendor" style="border:1px solid #cad4e2;margin-top: 10px;padding-top: 10px;padding-bottom: 10px;">
+<div class="container" id="NewVendor" style="border:1px solid #cad4e2;margin-top: 10px;padding-top: 10px;padding-bottom: 10px;width:90%;margin:0 auto;">
     <div  class="row" style="display:flex;">
-        <div class="col-md-12" style="padding-left:15px;padding-right:15px;width:100%" >
+        <div class="col-md-12" style="padding-left:15px;padding-right:15px;width:97%" >
             <label class="pull-right" style="text-decoration:underline; float:right !important;font-weight:700;">(Internal Use Only)</label>
         </div>
     </div>
     <div  class="row" style="display:flex;">
-        <div class="col-md-12" style="padding-left:15px;padding-right:15px;width:100%">
+        <div class="col-md-12" style="padding-left:15px;padding-right:15px;width:97%">
             <h4 class="text-center fastpay-header" style="color:black;font-weight: 700;text-align:center;">NEW VENDOR REQUEST / VENDOR INFORMATION CHANGE</h4>
             <p class="bold-para" style="border: 1px solid black;padding: 10px;font-weight: 600;">
                 This form is to be used when an employee, with purchasing capacity and authority, has identified
@@ -21,376 +21,279 @@
             </p>
         </div>
     </div>
-    <div  class="row" style="margin-right:30px;">
-        <div class="col-md-12" style="padding-left:15px;padding-right:15px;width:100%;">
-            <h5 class="info" style="border: 1px solid black;background: #b5e4f1;padding: 2px;padding-left: 20px;font-weight: 600;">GENERAL INFORMATION</h5>
+    <div  class="row" style="margin-right:30px;width:100%;height:60px;">
+        <div class="col-md-12" style="padding-left:15px;padding-right:15px;width:97%;"/>
+            <h5 class="info" style="border:1px solid black;background:#b5e4f1;padding:2px;padding-left:20px;font-weight:600;">GENERAL INFORMATION</h5>
             <div  class="row" style="display:flex;">
-                <div class="col-md-3 col-md-offset-1" style="width:25%;padding-left:15px;padding-right:15px;margin-left: 8.33333333%;">
-                    @Html.RadioButtonFor(model => model.IsNewVendor, "0")
-                    <label>New Vendor</label>
-                </div>
-                <div class="col-md-3" style="width:25%;padding-left:15px;padding-right:15px;">
-                    @Html.RadioButtonFor(model => model.IsNewVendor, "1")
-                    <label>Existing Vendor</label>
-                </div>
-                <div class="col-md-5"  style="width: 41.66666667%;padding-left:15px;padding-right:15px;">
-                    <div  class="row" style="display:flex;">
-                        <label class="col-md-4" style="width:33.33333333%;">Date Of Request</label>
-                        <div class="col-md-8" style="width:66.66666667%;">
-                            @Html.TextBoxFor(model => model.DateOfRequest,"{0:dd/MM/yyyy}",new { @class = "date" })
-                        </div>
-                    </div>
-                </div>
+                <table width="900" align="center" style="margin-left:50px">
+                    <tr>
+                        <td>@Html.RadioButtonFor(model => model.IsNewVendor, "0")</td>
+                        <td><label>New Vendor</label></td>
+                        <td>@Html.RadioButtonFor(model => model.IsNewVendor, "1")</td>
+                        <td><label>Existing Vendor</label></td>
+                        <td><label>Date Of Request</label></td>
+                        <td>@Html.TextBoxFor(model => model.DateOfRequest, "{0:dd/MM/yyyy}", new { @class = "date" })</td>
+                    </tr>
+                </table>
             </div>
         </div>
     </div>
-    <div  class="row"  style="margin-right:30px;">
+    <div class="row"  style="margin-right:30px;">
         <div class="col-md-12" style="padding-left:15px;padding-right:15px;width:100%">
             <h5 class="info" style="border: 1px solid black;background: #b5e4f1;padding: 2px;padding-left:20px;font-weight:600;">VENDOR INFORMATION</h5>
         </div>
-        <div  class="row" style="display:flex;">
-            <div class="col-md-6"  style="padding-left:15px;padding-right:15px;width:50%">
-                <div  class="row" style="display:flex;">
-                    <div class="col-md-4" style="padding-left:15px;padding-right:15px;width:33.33333333%;"><label>Company Name</label></div>
-                    <div class="col-md-8" style="padding-left:15px;padding-right:15px;width:66.66666667%;">@Html.TextBoxFor(model => model.CompanyName)</div>
-                </div>
-                <div  class="row" style="display:flex;">
-                    <div class="col-md-4" style="padding-left:15px;padding-right:15px;width:33.33333333%;"><label>Tax ID Number</label></div>
-                    <div class="col-md-8" style="padding-left:15px;padding-right:15px;width:66.66666667%;">@Html.TextBoxFor(model => model.TaxIdNumber)</div>
-                </div>
-                <div  class="row" style="display:flex;">
-                    <div class="col-md-4" style="padding-left:15px;padding-right:15px;width:33.33333333%;"><label>Contact Name</label></div>
-                    <div class="col-md-8" style="padding-left:15px;padding-right:15px;width:66.66666667%;">@Html.TextBoxFor(model => model.ContactName)</div>
-                </div>
-                <div  class="row" style="display:flex;">
-                    <div class="col-md-4" style="padding-left:15px;padding-right:15px;width:33.33333333%;"><label>Contact Title</label></div>
-                    <div class="col-md-8" style="padding-left:15px;padding-right:15px;width:66.66666667%;">@Html.TextBoxFor(model => model.ContactTitle)</div>
-                </div>
-                <div  class="row" style="display:flex;">
-                    <div class="col-md-4" style="padding-left:15px;padding-right:15px;width:33.33333333%;"><label>E-mail</label></div>
-                    <div class="col-md-8" style="padding-left:15px;padding-right:15px;width:66.66666667%;">@Html.TextBoxFor(model => model.Email)</div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div  class="row" style="display:flex;">
-                    <div class="col-md-4" style="padding-left:15px;padding-right:15px;width:33.33333333%;"><label>Address</label></div>
-                    <div class="col-md-8" style="padding-left:15px;padding-right:15px;width:66.66666667%;">@Html.TextBoxFor(model => model.Address)</div>
-                </div>
-                <div  class="row" style="display:flex;">
-                    <div class="col-md-4" style="padding-left:15px;padding-right:15px;width:33.33333333%;"><label>Phone Number</label></div>
-                    <div class="col-md-8" style="padding-left:15px;padding-right:15px;width:66.66666667%;">@Html.TextBoxFor(model => model.PhoneNumber)</div>
-                </div>
-                <div  class="row" style="display:flex;">
-                    <div class="col-md-4" style="padding-left:15px;padding-right:15px;width:33.33333333%;"><label>Website</label></div>
-                    <div class="col-md-8" style="padding-left:15px;padding-right:15px;width:66.66666667%;">@Html.TextBoxFor(model => model.Website)</div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div  class="row"  style="margin-right:30px;">
+        <table width="900" align="center" style="margin-left:50px">
+            <tr>
+                <td><label>Company Name</label></td>
+                <td>@Html.TextBoxFor(model => model.CompanyName)</td>
+                <td>Address</td>
+                <td>@Html.TextBoxFor(model => model.Address)</td>
+            </tr>
+            <tr>
+                <td>Tax ID Number</td>
+                <td>@Html.TextBoxFor(model => model.TaxIdNumber)</td>
+                <td>Phone Number</td>
+                <td>@Html.TextBoxFor(model => model.PhoneNumber)</td>
+            </tr>
+            <tr>
+                <td>Contact Name</td>
+                <td>@Html.TextBoxFor(model => model.ContactName)</td>
+                <td>Website</td>
+                <td>@Html.TextBoxFor(model => model.Website)</td>
+            </tr>
+            <tr>
+                <td>Contact Title</td>
+                <td>@Html.TextBoxFor(model => model.ContactTitle)</td >
+
+            </tr>
+            <tr>
+                <td>E-mail</td >
+                <td >@Html.TextBoxFor(model => model.Email)</td >
+            </tr >
+        </table >
+       
+    <div class="row"  style="margin-right:30px;">
         <div class="col-md-12" style="padding-left:15px;padding-right:15px;width:100%">
             <h5 class="info" style="border: 1px solid black;background: #b5e4f1;padding: 2px;padding-left: 20px;font-weight: 600;">BUSINESS PURPOSE</h5>
-            <div  class="row" style="display:flex;">
-                <div class="col-md-3" style="padding-left:15px;padding-right:15px;width:25%;"><label>Payment Terms</label></div>
-                <div class="col-md-9" style="padding-left:15px;padding-right:15px; width: 75%;">@Html.TextBoxFor(model => model.PaymentTerms)</div>
-            </div>
-            <div  class="row" style="display:flex;">
-                <div class="col-md-3"  style="padding-left:15px;padding-right:15px;width:25%;"><label>Requested method of payment</label></div>
-                <div class="col-md-3"  style="padding-left:15px;padding-right:15px;width:25%;">
-                    @Html.RadioButtonFor(model => model.RequestMode,"1")
-                    <label>Check</label>
-                </div>
-                <div class="col-md-3"  style="padding-left:15px;padding-right:15px;width:25%;">
-                    @Html.RadioButtonFor(model => model.RequestMode, "2")
-                    <label>ACH</label>
-                </div>
-                <div class="col-md-3"  style="padding-left:15px;padding-right:15px;width:25%;">
-                    @Html.RadioButtonFor(model => model.RequestMode, "3")
-                    <label>Wire Transfer(Foreign Corps. Only)</label>
-                </div>
-            </div>
-            <div  class="row">
+            <table  width="900" align="center" style="margin-left:50px">
+                <tr>
+                    <td><label>Payment Terms</label></td>
+                    <td colspan="3">@Html.TextBoxFor(model => model.PaymentTerms,new {@style="width:500px;" })</td>
+                </tr>
+                <tr>
+                    <td><label>Requested method of payment</label></td>
+                    <td>@Html.RadioButtonFor(model => model.RequestMode, "1")<label>Check</label></td>
+                    <td>@Html.RadioButtonFor(model => model.RequestMode, "2")<label>ACH</label></td>
+                    <td>@Html.RadioButtonFor(model => model.RequestMode, "3")<label>Wire Transfer(Foreign Corps. Only)</label></td>
+                </tr>
+            </table>
+            <div class="row">
                 <div class="col-md-12" style="padding-left:15px;padding-right:15px;width:100%">
                     <label>If requested method of payment is by ACH or wire transfer, please provide following:</label>
-                    <div  class="row" style="display:flex;">
-                        <div class="col-md-6"  style="padding-left:15px;padding-right:15px;width:50%">
-                            <div  class="row" style="display:flex;">
-                                <div class="col-md-4"  style="padding-left:15px;padding-right:15px;width:33.33333333%;"><label>Bank Name</label></div>
-                                <div class="col-md-8" style="padding-left:15px;padding-right:15px;width:66.66666667%;">@Html.TextBoxFor(model => model.BankName)</div>
-                            </div>
-                            <div  class="row" style="display:flex;">
-                                <div class="col-md-4"  style="padding-left:15px;padding-right:15px;width:33.33333333%;"><label>Bank ABA Number (if U.S. Bank)</label></div>
-                                <div class="col-md-8"  style="padding-left:15px;padding-right:15px;width:66.66666667%;">@Html.TextBoxFor(model => model.ABANumber)</div>
-                            </div>
-                        </div>
-                        <div class="col-md-6"  style="padding-left:15px;padding-right:15px;width:50%">
-                            <div  class="row" style="display:flex;">
-                                <div class="col-md-4"  style="padding-left:15px;padding-right:15px;width:33.33333333%;"><label>Bank Account Number</label></div>
-                                <div class="col-md-8"  style="padding-left:15px;padding-right:15px;width:66.66666667%;">@Html.TextBoxFor(model => model.BankAccountNumber)</div>
-                            </div>
-                        </div>
-                    </div>
+                    <table  width="900" align="center">
+                        <tr>
+                            <td><label>Bank Name</label></td>
+                            <td>@Html.TextBoxFor(model => model.BankName)</td>
+                            <td><label>Bank Account Number</label></td>
+                            <td>@Html.TextBoxFor(model => model.BankAccountNumber)</td>
+                        </tr>
+                        <tr>
+                            <td><label>Bank ABA Number(if U.S.Bank)</label></td>
+                            <td>@Html.TextBoxFor(model => model.ABANumber)</td>
+                        </tr>
+                    </table>
                 </div>
             </div>
-            <div  class="row">
+            <div class="row">
                 <div class="col-md-12" style="padding-left:15px;padding-right:15px;width:100%">
                     <label>If requested method of payment is by wire transfer, please provide following in additiona to above information:</label>
-                    <div  class="row" style="display:flex;">
-                        <div class="col-md-6" style="padding-left:15px;padding-right:15px;width:50%">
-                            <div  class="row" style="display:flex;">
-                                <div class="col-md-4"  style="padding-left:15px;padding-right:15px;width:33.33333333%;"><label>Swift Code</label></div>
-                                <div class="col-md-8"  style="padding-left:15px;padding-right:15px;width:66.66666667%;">@Html.TextBoxFor(model => model.SwiftCode)</div>
-                            </div>
-                        </div>
-                        <div class="col-md-6" style="padding-left:15px;padding-right:15px;width:50%">
-                            <div  class="row" style="display:flex;">
-                                <div class="col-md-4"  style="padding-left:15px;padding-right:15px;width:33.33333333%;"><label>IBAN Number (when applicable)</label></div>
-                                <div class="col-md-8"  style="padding-left:15px;padding-right:15px;width:66.66666667%;">@Html.TextBoxFor(model => model.IBANNumber)</div>
-                            </div>
-                        </div>
-                    </div>
+                    <table  width="900" align="center">
+                        <tr>
+                            <td><label>Swift Code</label></td>
+                            <td>@Html.TextBoxFor(model => model.SwiftCode)</td>
+                            <td><label>IBAN Number(when applicable)</label></td>
+                            <td>@Html.TextBoxFor(model => model.IBANNumber)</td>
+                        </tr>
+                    </table>
                 </div>
             </div>
-            <div  class="row">
+            <div class="row">
                 <div class="col-md-12" style="padding-left:15px;padding-right:15px;width:100%">
                     <label>If method of payment is to be made by ACH or wire transfer, have payment instructions been received including applicable banking information on the vendor’s company letterhead?</label>
-                    <div  class="row" style="display:flex;">
-                        <div class="col-md-4"  style="padding-left:15px;padding-right:15px;width:33.33333333%;">
-                            <label>(signed by an approved officer of the vendor's company)</label>
-                        </div>
-                        <div class="col-md-3"  style="padding-left:15px;padding-right:15px;width:25%;">
-                            <div  class="row" style="display:flex;">
-                                @Html.RadioButtonFor(model => model.IsSignedOff, "1")
-                                <label>Yes</label>
-                            </div>
-                        </div>
-                        <div class="col-md-3"  style="padding-left:15px;padding-right:15px;width:25%;">
-                            <div  class="row" style="display:flex;">
-                                @Html.RadioButtonFor(model => model.IsSignedOff, "0")
-                                <label>No</label>
-                            </div>
-                        </div>
-                    </div>
+                    <table   width="900" align="center">
+                         <tr>
+                             <td width="400px"><label>(signed by an approved officer of the vendor's company)</label></td>
+                             <td>@Html.RadioButtonFor(model => model.IsSignedOff, "1")  <label>Yes</label></td>
+                             <td>@Html.RadioButtonFor(model => model.IsSignedOff, "0")
+                            <label>No</label></td>                          
+                         </tr>
+                    </table>
                 </div>
             </div>
-            <div  class="row"  style="margin-right:30px;">
+            <div class="row"  style="margin-right:30px;">
                 <div class="col-md-12" style="padding-left:15px;padding-right:15px;width:100%">
-                    <label class="for-vendor" style="font-size: 13px;font-weight: 900;">For U.S. vendors only</label>
-                    <div  class="row" style="display:flex;">
-                        <div class="col-md-4" style="padding-left:15px;padding-right:15px;width:33.33333333%;"><label>Is IRS Form W-9 attached?</label></div>
-                        <div class="col-md-3" style="padding-left:15px;padding-right:15px;width:25%;">
-                            <div  class="row" style="display:flex;">
+                    <label class="for-vendor" style="font-size: 13px;font-weight: 900;">For U.S.vendors only</label>
+                    <table   width="900" align="center">
+                        <tr>
+                            <td width="300px">
+                                <label>Is IRS Form W-9 attached?</label>
+                            </td>
+                            <td>
                                 @Html.RadioButtonFor(model => model.IsIRSW9Attached, "1")
                                 <label>Yes</label>
-                            </div>
-                        </div>
-                        <div class="col-md-3" style="padding-left:15px;padding-right:15px;width:25%;">
-                            <div  class="row" style="display:flex;">
+                            </td>
+                            <td>
                                 @Html.RadioButtonFor(model => model.IsIRSW9Attached, "0")
                                 <label>No</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div  class="row" style="display:flex;">
-                        <div class="col-md-5 col-md-offset-2" style="padding-left:15px;padding-right:15px;width:41.66666667%;">
-                            <div  class="row" style="display:flex;">
-                                <div class="col-md-4" style="padding-left:15px;padding-right:15px;width:33.33333333%;"><label>Prepared by:</label></div>
-                                <div class="col-md-8" style="padding-left:15px;padding-right:15px;width:66.66666667%;">@Html.TextBoxFor(model => model.PreparedBy)</div>
-                            </div>
-                        </div>
-                        <div class="col-md-5" style="padding-left:15px;padding-right:15px;width:40.66666667%;">
-                            <div  class="row" style="display:flex;">
-                                <div class="col-md-4" style="padding-left:15px;padding-right:15px;width:33.33333333%;"><label>Department:</label></div>
-                                <div class="col-md-8" style="padding-left:15px;padding-right:15px;width:66.66666667%;">@Html.TextBoxFor(model => model.Department)</div>
-                            </div>
-                        </div>
-                    </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                <label>Prepared by:</label>
+                            </td>
+                           <td>
+                               @Html.TextBoxFor(model => model.PreparedBy)
+                           </td>
+                            <td><label>Department:</label></td>
+                            <td>@Html.TextBoxFor(model => model.Department)</td>
+                        </tr>
+                    </table>
                 </div>
             </div>
-            <div  class="row">
+            <div class="row">
                 <div class="col-md-12" style="padding-left:15px;padding-right:15px;width:100%">
                     <label>I hereby certify that, to the best of my knowledge, the above information is accurate and request that New Vendor or Change of Existing Vendor Information be approved.</label>
-                    <div  class="row" style="display:flex;">
-                        <div class="col-md-6 col-md-offset-2" style="padding-left:15px;padding-right:15px;width:50%;">
-                            <div  class="row" style="display:flex;">
-                                <div class="col-md-4" style="padding-left:15px;padding-right:15px;width:33.33333333%;"><label>Approved by:</label></div>
-                                <div class="col-md-8" style="padding-left:15px;padding-right:15px;width:66.66666667%;">@Html.TextBoxFor(model => model.ApprovedBy)</div>
-                            </div>
-                        </div>
-                        <div class="col-md-6" style="padding-left:15px;padding-right:15px;width:50%;">
-                            <div  class="row" style="display:flex;">
-                                <div class="col-md-4" style="padding-left:15px;padding-right:15px;width:33.33333333%;"><label>Date:</label></div>
-                                <div class="col-md-8" style="padding-left:15px;padding-right:15px;width:66.66666667%;">@Html.TextBoxFor(model => model.Date, "{0:dd/MM/yyyy}", new { @class = "date" })</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div  class="row" style="display:flex;">
-
-                        <div class="col-md-2 col-md-offset-2"  style="padding-left:15px;padding-right:15px;width: 16.66666667%;">
-                            <label>Signature:</label>
-                        </div>
-                        <div class="col-md-8" style="padding-left:15px;padding-right:15px;width:66.66666667%;">
-                            @Html.TextBoxFor(model => model.Signature)
-                        </div>
-                    </div>
-                </div>
+                    <table   width="900" align="center">
+                        <tr>
+                            <td><label>Approved by:</label></td>
+                            <td>@Html.TextBoxFor(model => model.ApprovedBy)</td>
+                            <td><label>Date:</label></td>
+                            <td>@Html.TextBoxFor(model => model.Date, "{0:dd/MM/yyyy}", new { @class = "date" })</td>
+                        </tr>
+                        <tr>
+                            <td><label>Signature:</label></td>
+                            <td colspan="3">@Html.TextBoxFor(model => model.Signature ,new {@style="width:500px;"})</td>
+                        </tr>
+                    </table>
             </div>
-            <div  class="row">
+            <div class="row">
                 <div class="col-md-12" style="padding-left:15px;padding-right:15px;width:100%">
-                    <label>Fill out form online, print and return it with all corresponding documents to Accounts Payable Department. Please contact Accounts Payable Department if you require assistance with this form.</label>
+                    <label>Fill out form online, print and return it with all corresponding documents to Accounts Payable Department.Please contact Accounts Payable Department if you require assistance with this form.</label>
                 </div>
             </div>
             <div  class="row"  style="margin-right:30px;">
                 <div class="col-md-12" style="padding-left:15px;padding-right:15px;width:100%">
                     <h4 class="reserved" style="border-top: 2px solid;padding-top: 10px;text-align: center;font-size: 13px;font-weight: 800;">RESERVED FOR ACCOUNT PAYABLE SUPERVISOR AND AUTHORIZED TREASURY ONLY</h4>
                 </div>
-                <div  class="row" style="display:flex;">
+                <div class="row" style="display:flex;">
                     <label>Was vendor name checked prior to setting up the new vendor to ensure that an active vendor account does not already exist?</label>
-                    <div  class="row" style="display:flex;">
-                        <div class="col-md-2 col-md-offset-2"  style="padding-left:15px;padding-right:15px;width: 16.66666667%;margin-left: 16.66666667%;">
-                            <div  class="row" style="display:flex;">
-                                @Html.RadioButtonFor(model => model.IsVendorNameChecked, "1")
-                                <label>Yes</label>
-                            </div>
-                        </div>
-                        <div class="col-md-2"  style="padding-left:15px;padding-right:15px;width: 16.66666667%;">
-                            <div  class="row" style="display:flex;">
+                    <table align="center" width="900">
+                        <tr>
+                            <td style="width:100px;"></td>
+                            <td>@Html.RadioButtonFor(model => model.IsVendorNameChecked, "1")
+                            <label>Yes</label></td>
+                            <td>
                                 @Html.RadioButtonFor(model => model.IsVendorNameChecked, "0")
                                 <label>No</label>
-                            </div>
-                        </div>
-                        <div class="col-md-6"  style="padding-left:15px;padding-right:15px;width:50%;">
-                            <label>A 'Yes' answer is required prior to sign-off by A/P Supervisor.</label>
-                        </div>
-                    </div>
+                            </td>
+                            <td><label>A 'Yes' answer is required prior to sign-off by A/P Supervisor.</label></td>
+                        </tr>
+                    </table>
                 </div>
                 <div  class="row">
                     <label>For non employee vendors, was vendor address checked against employee master file to ensure payment is not routed to an employee residential address?</label>
-                    <div  class="row" style="display:flex;">
-                        <div class="col-md-2 col-md-offset-2" style="padding-left:15px;padding-right:15px;width: 16.66666667%;">
-                            <div  class="row" style="display:flex;">
+                    <table align="center" width="900">
+                        <tr>
+                            <td style="width:100px;"></td>
+                            <td>
                                 @Html.RadioButtonFor(model => model.IsVendorAddressChecked, "1")
                                 <label>Yes</label>
-                            </div>
-                        </div>
-                        <div class="col-md-2"  style="padding-left:15px;padding-right:15px;width: 16.66666667%;">
-                            <div  class="row" style="display:flex;">
-                               @Html.RadioButtonFor(model => model.IsVendorAddressChecked, "0")
-                                <label>No</label>
-                            </div>
-                        </div>
-                        <div class="col-md-6"  style="padding-left:15px;padding-right:15px;width:50%;">
-                            <label>A 'Yes' answer is required prior to sign-off by A/P Supervisor.</label>
-                        </div>
-                    </div>
+                        </td>
+                        <td>
+                            @Html.RadioButtonFor(model => model.IsVendorAddressChecked, "0")
+                            <label>No</label>
+                        </td>
+                        <td><label>A 'Yes' answer is required prior to sign-off by A/P Supervisor.</label></td>
+                    </tr>
+                </table>
+                    <table align="center" width="900">
+                        <tr>
+                            <td style="width:100px;"></td>
+                            <td><label>Reviewed by(A/P Supervisor):</label></td>
+                            <td>
+                             @Html.TextBoxFor(model => model.ReviewedByForName, new { @class = "yellow-textbox" })
+                            </td>
+                            <td>
+                                Date:
+                            </td>
+                            <td>@Html.TextBoxFor(model => model.DateForName, "{0:dd/MM/yyyy}", new { @class = "yellow-textbox date" })</td>
+                        </tr>
+                        <tr>
+                            <td style="width:100px;"></td>
+                            <td>
+                                <label>Signature:</label>
+                            </td>
+                            <td>
+                               @Html.TextBoxFor(model => model.ForNameSignature)
+                            </td>
+                        </tr>
+                    </table>
                 </div>
-                <div  class="row">
-                    <div class="col-md-12" style="padding-left:15px;padding-right:15px;width:100%">
-                        <div  class="row" style="display:flex;">
-                            <div class="col-md-6 col-md-offset-1" style="padding-left:15px;padding-right:15px;width:50%;">
-                                <div  class="row" style="display:flex;">
-                                    <div class="col-md-6"style="padding-left:15px;padding-right:15px;width:50%;"><label>Reviewed by (A/P Supervisor):</label></div>
-                                    <div class="col-md-6"style="padding-left:15px;padding-right:15px;width:50%;">@Html.TextBoxFor(model => model.ReviewedByForName, new { @class = "yellow-textbox" })</div>
-                                </div>
-                            </div>
-                            <div class="col-md-5" style="padding-left:15px;padding-right:15px; width: 41.66666667%;">
-                                <div  class="row" style="display:flex;">
-                                    <div class="col-md-2" style="padding-left:15px;padding-right:15px;width:50%;"><label>Date:</label></div>
-                                    <div class="col-md-8"  style="padding-left:15px;padding-right:15px;width:66.66666667%;">@Html.TextBoxFor(model => model.DateForName, "{0:dd/MM/yyyy}", new { @class = "yellow-textbox date" })</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div  class="row" style="display:flex;">
-                            <div class="col-md-6 col-md-offset-1" style="padding-left:15px;padding-right:15px;width:50%;">
-                                <div class="row" style="display:flex;">
-                                    <div class="col-md-6" style="padding-left:15px;padding-right:15px;width:50%;"><label><label>Signature:</label></label></div>
-                                    <div class="col-md-6" style="padding-left:15px;padding-right:15px;width:50%;">@Html.TextBoxFor(model => model.ForNameSignature)</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div  class="row">
+                <div class="row">
                     <div class="col-md-12" style="padding-left:15px;padding-right:15px;width:100%">
                         <label>Was new vendor created in People Soft?</label>
                     </div>
-                    <div  class="row" style="display:flex;">
-                        <div class="col-md-2 col-md-offset-2" style="padding-left:15px;padding-right:15px;width:16.66666667%;">
-                            <div  class="row" style="display:flex;">
-                             @Html.RadioButtonFor(model => model.IsCreatedinPplSoft, "1")
+                    <table align="center" width="900">
+                        <tr>
+                            <td style="width:100px;"></td>
+                            <td>
+                                @Html.RadioButtonFor(model => model.IsCreatedinPplSoft, "1")
                                 <label>Yes</label>
-                            </div>
-                        </div>
-                        <div class="col-md-2" style="padding-left:15px;padding-right:15px;width: 16.66666667%;">
-                            <div  class="row" style="display:flex;">
+                            </td>
+                            <td>
                                 @Html.RadioButtonFor(model => model.IsCreatedinPplSoft, "0")
                                 <label>No</label>
-                            </div>
-                        </div>
-                        <div class="col-md-6" style="padding-left:15px;padding-right:15px;width:50%;">
-                            <label>A 'Yes' answer is required prior to final sign-off by A/P Supervisor.</label>
-                        </div>
-                    </div>
-                </div>
-                <div  class="row">
-                    <div class="col-md-12" style="padding-left:15px;padding-right:15px;width:100%">
-
-                        <div  class="row" style="display:flex;">
-                            <div class="col-md-6 col-md-offset-1" style="padding-left:15px;padding-right:15px;width:50%;">
-                                <div  class="row" style="display:flex;">
-                                    <div class="col-md-6" style="padding-left:15px;padding-right:15px;width:50%;"><label>Reviewed by (A/P Supervisor):</label></div>
-                                    <div class="col-md-6" style="padding-left:15px;padding-right:15px;width:50%;">@Html.TextBoxFor(model => model.ReviewedByforPPlsoft, new { @class = "yellow-textbox" })</div>
-                                </div>
-                            </div>
-                            <div class="col-md-5" style="padding-left:15px;padding-right:15px; width: 41.66666667%;">
-                                <div  class="row" style="display:flex;">
-                                    <div class="col-md-2" style="padding-left:15px;padding-right:15px;width: 16.66666667%;"><label>Date:</label></div>
-                                    <div class="col-md-8">@Html.TextBoxFor(model => model.ReviewDateforPPlsoft, "{0:dd/MM/yyyy}", new { @class = "yellow-textbox date" })</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div  class="row" style="display:flex;">
-                            <div class="col-md-6 col-md-offset-1" style="padding-left:15px;padding-right:15px;width:50%;">
-                                <div class="row" style="display:flex;">
-                                    <div class="col-md-6" style="padding-left:15px;padding-right:15px;width:50%;"><label>Signature:</label></div>
-                                    <div class="col-md-6" style="padding-left:15px;padding-right:15px;width:50%;">@Html.TextBoxFor(model => model.ForPPLSoftSignature)</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div  class="row" style="margin-top:10px;">
-                    <div class="col-md-12" style="padding-left:15px;padding-right:15px;width:100%">
-
-                        <div  class="row" style="display:flex;">
-                            <div class="col-md-6 col-md-offset-1" style="padding-left:15px;padding-right:15px;width:50%;">
-                                <div  class="row" style="display:flex;">
-                                    <div class="col-md-6" style="padding-left:15px;padding-right:15px;width:50%;"><label>Reviewed by (Authorized Treasury):</label></div>
-                                    <div class="col-md-6" style="padding-left:15px;padding-right:15px;width:50%;">@Html.TextBoxFor(model => model.ReviewedByForAuthT, new { @class = "yellow-textbox" })</div>
-                                </div>
-                            </div>
-                            <div class="col-md-5" style="padding-left:15px;padding-right:15px; width: 41.66666667%;">
-                                <div  class="row" style="display:flex;">
-                                    <div class="col-md-2" style="padding-left:15px;padding-right:15px;width: 16.66666667%;"><label>Date:</label></div>
-                                    <div class="col-md-8"  style="padding-left:15px;padding-right:15px;width:66.66666667%;">@Html.TextBoxFor(model => model.DateForAuthT, "{0:dd/MM/yyyy}", new { @class = "yellow-textbox date" })</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div  class="row" style="display:flex;">
-                            <div class="col-md-6 col-md-offset-1" style="padding-left:15px;padding-right:15px;width:50%;">
-                                <div class="row" style="display:flex;">
-                                    <div class="col-md-6" style="padding-left:15px;padding-right:15px;width:50%;"><label>Signature:</label></div>
-                                    <div class="col-md-6" style="padding-left:15px;padding-right:15px;width:50%;">@Html.TextBoxFor(model => model.ForAuthTsignature)</div>
-                                </div>
-                            </div>
-                            @*<div class="col-md-2 col-md-offset-2" style="padding-left:15px;padding-right:15px;width:16.66666667%;">
-                              
-                            </div>
-                            <div class="col-md-8" style="padding-left:15px;padding-right:15px;width:66.66666667%;">
-                                <input type="text"/>
-                            </div>*@
-                        </div>
-                    </div>
+                            </td>
+                            <td><label>A 'Yes' answer is required prior to final sign-off by A/P Supervisor.</label></td>
+                        </tr>
+                    </table>
+                    <table align="center" width="900">
+                        <tr>
+                            <td style="width:100px;"></td>
+                            <td><label>Reviewed by(A/P Supervisor):</label></td>
+                            <td>
+                             @Html.TextBoxFor(model => model.ReviewedByforPPlsoft, new { @class = "yellow-textbox" })
+                            </td>
+                            <td>
+                                Date:
+                            </td>
+                            <td>@Html.TextBoxFor(model => model.ReviewDateforPPlsoft, "{0:dd/MM/yyyy}", new { @class = "yellow-textbox date" })</td>
+                        </tr>
+                        <tr>
+                            <td style="width:100px;"></td>
+                            <td>
+                                <label>Signature:</label>
+                            </td>
+                            <td>
+                               @Html.TextBoxFor(model => model.ForPPLSoftSignature)
+                            </td>
+                        </tr>
+                    </table>
+                    <table align="center" width="900">
+                        <tr>
+                            <td style="width:100px;"></td>
+                            <td><label>Reviewed by(Authorized Treasury):</label></td>
+                            <td>@Html.TextBoxFor(model => model.ReviewedByForAuthT, new { @class = "yellow-textbox" })</td>
+                            <td><label>Date:</label></td>
+                            <td>@Html.TextBoxFor(model => model.DateForAuthT, "{0:dd/MM/yyyy}", new { @class = "yellow-textbox date" })</td>
+                        </tr>
+                  <tr>
+                      <td style="width:100px;"></td>
+                      <td><label>Signature:</label></td>
+                      <td>@Html.TextBoxFor(model => model.ForAuthTsignature)</td>
+                  </tr>
+                    </table>
                 </div>
             </div>
         </div>
