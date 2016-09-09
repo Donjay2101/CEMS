@@ -661,15 +661,85 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers.User
             GeneratePDF(url, path,filename);
         }
 
-       
+
 
 
         #endregion FASTPAY
-    
+
         #region NEWVENDOR
-        public ActionResult NewVendor()
+        [AllowAnonymous]
+        public ActionResult NewVendor(int option=0,int personID=0)
         {
-            return View();
+            Persons person;
+            if(personID<=0)
+            {
+                person = GetPerson();
+                personID = person.ID;
+            }
+            var data = db.Database.SqlQuery<NewVendorViewModel>("exec sp_GetNewVendorFormsByPersonID @personID ",new SqlParameter("@personID",personID)).FirstOrDefault();
+
+            if(option == 1)
+            {
+                return View("_NewVendorpdf", data);
+            }
+            else if(option==2)
+            {
+                return View("_NewVendorpdf");
+            }
+
+            return View(data);
+        }
+
+        [HttpPost]
+       
+        public ActionResult NewVendor(NewVendorForm model)
+        {
+            Persons person;
+            person = GetPerson();
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    if (model.ID > 0)
+                    {
+                        db.Entry(model).State = EntityState.Modified;
+                    }
+                    else
+                    {
+                        model.PersonID = person.ID;
+                        db.NewVendorForms.Add(model);
+
+                    }
+                    db.SaveChanges();
+                    return Json("1", JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch(Exception ex)
+            {
+                return Json(ex.InnerException.Message, JsonRequestBehavior.AllowGet);
+            }
+            return Json("-1", JsonRequestBehavior.AllowGet);
+        }
+
+
+
+        public void NewVendorFormPDF(int option)
+        {
+            Persons person;
+            person = GetPerson();
+            Logger.Instance.Log("Entered in ok part......2");
+            /// convert to PDF
+
+            Logger.Instance.Log("Entered in ok part......2.1");
+            //// create a new pdf document converting an url
+            string url;
+            url = "http://localhost:64819/UserHome/NewVendor?option=" + option + "&personID=" + person.ID;
+            //string url = "http://cems.infodatixhosting.com/UserHome/W9?option=1&personID=" + person.ID;
+            string filename = person.ID + "_NewVendorForm.Pdf";
+            string path = Server.MapPath("/PDF/");
+            path += filename;
+
+            GeneratePDF(url, path, filename);
         }
         #endregion NEWVENDOR
 

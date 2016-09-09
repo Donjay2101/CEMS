@@ -1,6 +1,6 @@
-﻿
+﻿@model CruiseEntertainmentManagnmentSystem.ViewModel.NewVendorViewModel
 @{
-    ViewBag.Title = "NewVendor_pdf";
+   
     Layout = null;
 }
 
@@ -26,18 +26,18 @@
             <h5 class="info" style="border: 1px solid black;background: #b5e4f1;padding: 2px;padding-left: 20px;font-weight: 600;">GENERAL INFORMATION</h5>
             <div  class="row" style="display:flex;">
                 <div class="col-md-3 col-md-offset-1" style="width:25%;padding-left:15px;padding-right:15px;margin-left: 8.33333333%;">
-                    <input type="checkbox" value="newVendor" name="vendor"/>
+                    @Html.RadioButtonFor(model => model.IsNewVendor, "0")
                     <label>New Vendor</label>
                 </div>
                 <div class="col-md-3" style="width:25%;padding-left:15px;padding-right:15px;">
-                    <input type="checkbox" value="newVendor" name="vendor" />
+                    @Html.RadioButtonFor(model => model.IsNewVendor, "1")
                     <label>Existing Vendor</label>
                 </div>
                 <div class="col-md-5"  style="width: 41.66666667%;padding-left:15px;padding-right:15px;">
                     <div  class="row" style="display:flex;">
                         <label class="col-md-4" style="width:33.33333333%;">Date Of Request</label>
                         <div class="col-md-8" style="width:66.66666667%;">
-                            <input type="text" />
+                            @Html.TextBoxFor(model => model.DateOfRequest,"{0:dd/MM/yyyy}",new { @class = "date" })
                         </div>
                     </div>
                 </div>
@@ -52,37 +52,37 @@
             <div class="col-md-6"  style="padding-left:15px;padding-right:15px;width:50%">
                 <div  class="row" style="display:flex;">
                     <div class="col-md-4" style="padding-left:15px;padding-right:15px;width:33.33333333%;"><label>Company Name</label></div>
-                    <div class="col-md-8" style="padding-left:15px;padding-right:15px;width:66.66666667%;"><input type="text" /></div>
+                    <div class="col-md-8" style="padding-left:15px;padding-right:15px;width:66.66666667%;">@Html.TextBoxFor(model => model.CompanyName)</div>
                 </div>
                 <div  class="row" style="display:flex;">
                     <div class="col-md-4" style="padding-left:15px;padding-right:15px;width:33.33333333%;"><label>Tax ID Number</label></div>
-                    <div class="col-md-8" style="padding-left:15px;padding-right:15px;width:66.66666667%;"><input type="text" /></div>
+                    <div class="col-md-8" style="padding-left:15px;padding-right:15px;width:66.66666667%;">@Html.TextBoxFor(model => model.TaxIdNumber)</div>
                 </div>
                 <div  class="row" style="display:flex;">
                     <div class="col-md-4" style="padding-left:15px;padding-right:15px;width:33.33333333%;"><label>Contact Name</label></div>
-                    <div class="col-md-8" style="padding-left:15px;padding-right:15px;width:66.66666667%;"><input type="text" /></div>
+                    <div class="col-md-8" style="padding-left:15px;padding-right:15px;width:66.66666667%;">@Html.TextBoxFor(model => model.ContactName)</div>
                 </div>
                 <div  class="row" style="display:flex;">
                     <div class="col-md-4" style="padding-left:15px;padding-right:15px;width:33.33333333%;"><label>Contact Title</label></div>
-                    <div class="col-md-8" style="padding-left:15px;padding-right:15px;width:66.66666667%;"><input type="text" /></div>
+                    <div class="col-md-8" style="padding-left:15px;padding-right:15px;width:66.66666667%;">@Html.TextBoxFor(model => model.ContactTitle)</div>
                 </div>
                 <div  class="row" style="display:flex;">
                     <div class="col-md-4" style="padding-left:15px;padding-right:15px;width:33.33333333%;"><label>E-mail</label></div>
-                    <div class="col-md-8" style="padding-left:15px;padding-right:15px;width:66.66666667%;"><input type="text" /></div>
+                    <div class="col-md-8" style="padding-left:15px;padding-right:15px;width:66.66666667%;">@Html.TextBoxFor(model => model.Email)</div>
                 </div>
             </div>
             <div class="col-md-6">
                 <div  class="row" style="display:flex;">
                     <div class="col-md-4" style="padding-left:15px;padding-right:15px;width:33.33333333%;"><label>Address</label></div>
-                    <div class="col-md-8" style="padding-left:15px;padding-right:15px;width:66.66666667%;"><input type="text" /></div>
+                    <div class="col-md-8" style="padding-left:15px;padding-right:15px;width:66.66666667%;">@Html.TextBoxFor(model => model.Address)</div>
                 </div>
                 <div  class="row" style="display:flex;">
                     <div class="col-md-4" style="padding-left:15px;padding-right:15px;width:33.33333333%;"><label>Phone Number</label></div>
-                    <div class="col-md-8" style="padding-left:15px;padding-right:15px;width:66.66666667%;"><input type="text" /></div>
+                    <div class="col-md-8" style="padding-left:15px;padding-right:15px;width:66.66666667%;">@Html.TextBoxFor(model => model.PhoneNumber)</div>
                 </div>
                 <div  class="row" style="display:flex;">
                     <div class="col-md-4" style="padding-left:15px;padding-right:15px;width:33.33333333%;"><label>Website</label></div>
-                    <div class="col-md-8" style="padding-left:15px;padding-right:15px;width:66.66666667%;"><input type="text" /></div>
+                    <div class="col-md-8" style="padding-left:15px;padding-right:15px;width:66.66666667%;">@Html.TextBoxFor(model => model.Website)</div>
                 </div>
             </div>
         </div>
@@ -92,20 +92,20 @@
             <h5 class="info" style="border: 1px solid black;background: #b5e4f1;padding: 2px;padding-left: 20px;font-weight: 600;">BUSINESS PURPOSE</h5>
             <div  class="row" style="display:flex;">
                 <div class="col-md-3" style="padding-left:15px;padding-right:15px;width:25%;"><label>Payment Terms</label></div>
-                <div class="col-md-9" style="padding-left:15px;padding-right:15px; width: 75%;"><input type="text" /></div>
+                <div class="col-md-9" style="padding-left:15px;padding-right:15px; width: 75%;">@Html.TextBoxFor(model => model.PaymentTerms)</div>
             </div>
             <div  class="row" style="display:flex;">
                 <div class="col-md-3"  style="padding-left:15px;padding-right:15px;width:25%;"><label>Requested method of payment</label></div>
                 <div class="col-md-3"  style="padding-left:15px;padding-right:15px;width:25%;">
-                    <input type="checkbox" value="newVendor" name="vendor" />
+                    @Html.RadioButtonFor(model => model.RequestMode,"1")
                     <label>Check</label>
                 </div>
                 <div class="col-md-3"  style="padding-left:15px;padding-right:15px;width:25%;">
-                    <input type="checkbox" value="newVendor" name="vendor" />
+                    @Html.RadioButtonFor(model => model.RequestMode, "2")
                     <label>ACH</label>
                 </div>
                 <div class="col-md-3"  style="padding-left:15px;padding-right:15px;width:25%;">
-                    <input type="checkbox" value="newVendor" name="vendor" />
+                    @Html.RadioButtonFor(model => model.RequestMode, "3")
                     <label>Wire Transfer(Foreign Corps. Only)</label>
                 </div>
             </div>
@@ -116,17 +116,17 @@
                         <div class="col-md-6"  style="padding-left:15px;padding-right:15px;width:50%">
                             <div  class="row" style="display:flex;">
                                 <div class="col-md-4"  style="padding-left:15px;padding-right:15px;width:33.33333333%;"><label>Bank Name</label></div>
-                                <div class="col-md-8" style="padding-left:15px;padding-right:15px;width:66.66666667%;"><input type="text" /></div>
+                                <div class="col-md-8" style="padding-left:15px;padding-right:15px;width:66.66666667%;">@Html.TextBoxFor(model => model.BankName)</div>
                             </div>
                             <div  class="row" style="display:flex;">
                                 <div class="col-md-4"  style="padding-left:15px;padding-right:15px;width:33.33333333%;"><label>Bank ABA Number (if U.S. Bank)</label></div>
-                                <div class="col-md-8"  style="padding-left:15px;padding-right:15px;width:66.66666667%;"><input type="text" /></div>
+                                <div class="col-md-8"  style="padding-left:15px;padding-right:15px;width:66.66666667%;">@Html.TextBoxFor(model => model.ABANumber)</div>
                             </div>
                         </div>
                         <div class="col-md-6"  style="padding-left:15px;padding-right:15px;width:50%">
                             <div  class="row" style="display:flex;">
                                 <div class="col-md-4"  style="padding-left:15px;padding-right:15px;width:33.33333333%;"><label>Bank Account Number</label></div>
-                                <div class="col-md-8"  style="padding-left:15px;padding-right:15px;width:66.66666667%;"><input type="text" /></div>
+                                <div class="col-md-8"  style="padding-left:15px;padding-right:15px;width:66.66666667%;">@Html.TextBoxFor(model => model.BankAccountNumber)</div>
                             </div>
                         </div>
                     </div>
@@ -139,13 +139,13 @@
                         <div class="col-md-6" style="padding-left:15px;padding-right:15px;width:50%">
                             <div  class="row" style="display:flex;">
                                 <div class="col-md-4"  style="padding-left:15px;padding-right:15px;width:33.33333333%;"><label>Swift Code</label></div>
-                                <div class="col-md-8"  style="padding-left:15px;padding-right:15px;width:66.66666667%;"><input type="text" /></div>
+                                <div class="col-md-8"  style="padding-left:15px;padding-right:15px;width:66.66666667%;">@Html.TextBoxFor(model => model.SwiftCode)</div>
                             </div>
                         </div>
                         <div class="col-md-6" style="padding-left:15px;padding-right:15px;width:50%">
                             <div  class="row" style="display:flex;">
                                 <div class="col-md-4"  style="padding-left:15px;padding-right:15px;width:33.33333333%;"><label>IBAN Number (when applicable)</label></div>
-                                <div class="col-md-8"  style="padding-left:15px;padding-right:15px;width:66.66666667%;"><input type="text" /></div>
+                                <div class="col-md-8"  style="padding-left:15px;padding-right:15px;width:66.66666667%;">@Html.TextBoxFor(model => model.IBANNumber)</div>
                             </div>
                         </div>
                     </div>
@@ -160,13 +160,13 @@
                         </div>
                         <div class="col-md-3"  style="padding-left:15px;padding-right:15px;width:25%;">
                             <div  class="row" style="display:flex;">
-                                <input type="checkbox" value="newVendor" name="vendor" />
+                                @Html.RadioButtonFor(model => model.IsSignedOff, "1")
                                 <label>Yes</label>
                             </div>
                         </div>
                         <div class="col-md-3"  style="padding-left:15px;padding-right:15px;width:25%;">
                             <div  class="row" style="display:flex;">
-                                <input type="checkbox" value="newVendor" name="vendor" />
+                                @Html.RadioButtonFor(model => model.IsSignedOff, "0")
                                 <label>No</label>
                             </div>
                         </div>
@@ -180,13 +180,13 @@
                         <div class="col-md-4" style="padding-left:15px;padding-right:15px;width:33.33333333%;"><label>Is IRS Form W-9 attached?</label></div>
                         <div class="col-md-3" style="padding-left:15px;padding-right:15px;width:25%;">
                             <div  class="row" style="display:flex;">
-                                <input type="checkbox" value="newVendor" name="vendor" />
+                                @Html.RadioButtonFor(model => model.IsIRSW9Attached, "1")
                                 <label>Yes</label>
                             </div>
                         </div>
                         <div class="col-md-3" style="padding-left:15px;padding-right:15px;width:25%;">
                             <div  class="row" style="display:flex;">
-                                <input type="checkbox" value="newVendor" name="vendor" />
+                                @Html.RadioButtonFor(model => model.IsIRSW9Attached, "0")
                                 <label>No</label>
                             </div>
                         </div>
@@ -195,13 +195,13 @@
                         <div class="col-md-5 col-md-offset-2" style="padding-left:15px;padding-right:15px;width:41.66666667%;">
                             <div  class="row" style="display:flex;">
                                 <div class="col-md-4" style="padding-left:15px;padding-right:15px;width:33.33333333%;"><label>Prepared by:</label></div>
-                                <div class="col-md-8" style="padding-left:15px;padding-right:15px;width:66.66666667%;"><input type="text" class="blue-textbox" /></div>
+                                <div class="col-md-8" style="padding-left:15px;padding-right:15px;width:66.66666667%;">@Html.TextBoxFor(model => model.PreparedBy)</div>
                             </div>
                         </div>
                         <div class="col-md-5" style="padding-left:15px;padding-right:15px;width:40.66666667%;">
                             <div  class="row" style="display:flex;">
                                 <div class="col-md-4" style="padding-left:15px;padding-right:15px;width:33.33333333%;"><label>Department:</label></div>
-                                <div class="col-md-8" style="padding-left:15px;padding-right:15px;width:66.66666667%;"><input type="text" class="blue-textbox" /></div>
+                                <div class="col-md-8" style="padding-left:15px;padding-right:15px;width:66.66666667%;">@Html.TextBoxFor(model => model.Department)</div>
                             </div>
                         </div>
                     </div>
@@ -214,13 +214,13 @@
                         <div class="col-md-6 col-md-offset-2" style="padding-left:15px;padding-right:15px;width:50%;">
                             <div  class="row" style="display:flex;">
                                 <div class="col-md-4" style="padding-left:15px;padding-right:15px;width:33.33333333%;"><label>Approved by:</label></div>
-                                <div class="col-md-8" style="padding-left:15px;padding-right:15px;width:66.66666667%;"><input type="text" class="blue-textbox" /></div>
+                                <div class="col-md-8" style="padding-left:15px;padding-right:15px;width:66.66666667%;">@Html.TextBoxFor(model => model.ApprovedBy)</div>
                             </div>
                         </div>
                         <div class="col-md-6" style="padding-left:15px;padding-right:15px;width:50%;">
                             <div  class="row" style="display:flex;">
                                 <div class="col-md-4" style="padding-left:15px;padding-right:15px;width:33.33333333%;"><label>Date:</label></div>
-                                <div class="col-md-8" style="padding-left:15px;padding-right:15px;width:66.66666667%;"><input type="text" class="blue-textbox" /></div>
+                                <div class="col-md-8" style="padding-left:15px;padding-right:15px;width:66.66666667%;">@Html.TextBoxFor(model => model.Date, "{0:dd/MM/yyyy}", new { @class = "date" })</div>
                             </div>
                         </div>
                     </div>
@@ -230,7 +230,7 @@
                             <label>Signature:</label>
                         </div>
                         <div class="col-md-8" style="padding-left:15px;padding-right:15px;width:66.66666667%;">
-                            <input type="text" style="margin-left: -15px;"/>
+                            @Html.TextBoxFor(model => model.Signature)
                         </div>
                     </div>
                 </div>
@@ -249,13 +249,13 @@
                     <div  class="row" style="display:flex;">
                         <div class="col-md-2 col-md-offset-2"  style="padding-left:15px;padding-right:15px;width: 16.66666667%;margin-left: 16.66666667%;">
                             <div  class="row" style="display:flex;">
-                                <input type="checkbox" value="newVendor" name="vendor" />
+                                @Html.RadioButtonFor(model => model.IsVendorNameChecked, "1")
                                 <label>Yes</label>
                             </div>
                         </div>
                         <div class="col-md-2"  style="padding-left:15px;padding-right:15px;width: 16.66666667%;">
                             <div  class="row" style="display:flex;">
-                                <input type="checkbox" value="newVendor" name="vendor" />
+                                @Html.RadioButtonFor(model => model.IsVendorNameChecked, "0")
                                 <label>No</label>
                             </div>
                         </div>
@@ -269,13 +269,13 @@
                     <div  class="row" style="display:flex;">
                         <div class="col-md-2 col-md-offset-2" style="padding-left:15px;padding-right:15px;width: 16.66666667%;">
                             <div  class="row" style="display:flex;">
-                                <input type="checkbox" value="newVendor" name="vendor" />
+                                @Html.RadioButtonFor(model => model.IsVendorAddressChecked, "1")
                                 <label>Yes</label>
                             </div>
                         </div>
                         <div class="col-md-2"  style="padding-left:15px;padding-right:15px;width: 16.66666667%;">
                             <div  class="row" style="display:flex;">
-                                <input type="checkbox" value="newVendor" name="vendor" />
+                               @Html.RadioButtonFor(model => model.IsVendorAddressChecked, "0")
                                 <label>No</label>
                             </div>
                         </div>
@@ -290,13 +290,13 @@
                             <div class="col-md-6 col-md-offset-1" style="padding-left:15px;padding-right:15px;width:50%;">
                                 <div  class="row" style="display:flex;">
                                     <div class="col-md-6"style="padding-left:15px;padding-right:15px;width:50%;"><label>Reviewed by (A/P Supervisor):</label></div>
-                                    <div class="col-md-6"style="padding-left:15px;padding-right:15px;width:50%;"><input type="text" class="yellow-textbox" /></div>
+                                    <div class="col-md-6"style="padding-left:15px;padding-right:15px;width:50%;">@Html.TextBoxFor(model => model.ReviewedByForName, new { @class = "yellow-textbox" })</div>
                                 </div>
                             </div>
                             <div class="col-md-5" style="padding-left:15px;padding-right:15px; width: 41.66666667%;">
                                 <div  class="row" style="display:flex;">
                                     <div class="col-md-2" style="padding-left:15px;padding-right:15px;width:50%;"><label>Date:</label></div>
-                                    <div class="col-md-8"  style="padding-left:15px;padding-right:15px;width:66.66666667%;"><input type="text" class="yellow-textbox" /></div>
+                                    <div class="col-md-8"  style="padding-left:15px;padding-right:15px;width:66.66666667%;">@Html.TextBoxFor(model => model.DateForName, "{0:dd/MM/yyyy}", new { @class = "yellow-textbox date" })</div>
                                 </div>
                             </div>
                         </div>
@@ -304,7 +304,7 @@
                             <div class="col-md-6 col-md-offset-1" style="padding-left:15px;padding-right:15px;width:50%;">
                                 <div class="row" style="display:flex;">
                                     <div class="col-md-6" style="padding-left:15px;padding-right:15px;width:50%;"><label><label>Signature:</label></label></div>
-                                    <div class="col-md-6" style="padding-left:15px;padding-right:15px;width:50%;"><input type="text" class="yellow-textbox" /></div>
+                                    <div class="col-md-6" style="padding-left:15px;padding-right:15px;width:50%;">@Html.TextBoxFor(model => model.ForNameSignature)</div>
                                 </div>
                             </div>
                         </div>
@@ -317,13 +317,13 @@
                     <div  class="row" style="display:flex;">
                         <div class="col-md-2 col-md-offset-2" style="padding-left:15px;padding-right:15px;width:16.66666667%;">
                             <div  class="row" style="display:flex;">
-                                <input type="checkbox" value="newVendor" name="vendor" />
+                             @Html.RadioButtonFor(model => model.IsCreatedinPplSoft, "1")
                                 <label>Yes</label>
                             </div>
                         </div>
                         <div class="col-md-2" style="padding-left:15px;padding-right:15px;width: 16.66666667%;">
                             <div  class="row" style="display:flex;">
-                                <input type="checkbox" value="newVendor" name="vendor" />
+                                @Html.RadioButtonFor(model => model.IsCreatedinPplSoft, "0")
                                 <label>No</label>
                             </div>
                         </div>
@@ -339,13 +339,13 @@
                             <div class="col-md-6 col-md-offset-1" style="padding-left:15px;padding-right:15px;width:50%;">
                                 <div  class="row" style="display:flex;">
                                     <div class="col-md-6" style="padding-left:15px;padding-right:15px;width:50%;"><label>Reviewed by (A/P Supervisor):</label></div>
-                                    <div class="col-md-6" style="padding-left:15px;padding-right:15px;width:50%;"><input type="text" class="yellow-textbox" /></div>
+                                    <div class="col-md-6" style="padding-left:15px;padding-right:15px;width:50%;">@Html.TextBoxFor(model => model.ReviewedByforPPlsoft, new { @class = "yellow-textbox" })</div>
                                 </div>
                             </div>
                             <div class="col-md-5" style="padding-left:15px;padding-right:15px; width: 41.66666667%;">
                                 <div  class="row" style="display:flex;">
                                     <div class="col-md-2" style="padding-left:15px;padding-right:15px;width: 16.66666667%;"><label>Date:</label></div>
-                                    <div class="col-md-8"><input type="text" class="yellow-textbox" /></div>
+                                    <div class="col-md-8">@Html.TextBoxFor(model => model.ReviewDateforPPlsoft, "{0:dd/MM/yyyy}", new { @class = "yellow-textbox date" })</div>
                                 </div>
                             </div>
                         </div>
@@ -353,7 +353,7 @@
                             <div class="col-md-6 col-md-offset-1" style="padding-left:15px;padding-right:15px;width:50%;">
                                 <div class="row" style="display:flex;">
                                     <div class="col-md-6" style="padding-left:15px;padding-right:15px;width:50%;"><label>Signature:</label></div>
-                                    <div class="col-md-6" style="padding-left:15px;padding-right:15px;width:50%;"><input type="text" /></div>
+                                    <div class="col-md-6" style="padding-left:15px;padding-right:15px;width:50%;">@Html.TextBoxFor(model => model.ForPPLSoftSignature)</div>
                                 </div>
                             </div>
                         </div>
@@ -366,13 +366,13 @@
                             <div class="col-md-6 col-md-offset-1" style="padding-left:15px;padding-right:15px;width:50%;">
                                 <div  class="row" style="display:flex;">
                                     <div class="col-md-6" style="padding-left:15px;padding-right:15px;width:50%;"><label>Reviewed by (Authorized Treasury):</label></div>
-                                    <div class="col-md-6" style="padding-left:15px;padding-right:15px;width:50%;"><input type="text" class="yellow-textbox" /></div>
+                                    <div class="col-md-6" style="padding-left:15px;padding-right:15px;width:50%;">@Html.TextBoxFor(model => model.ReviewedByForAuthT, new { @class = "yellow-textbox" })</div>
                                 </div>
                             </div>
                             <div class="col-md-5" style="padding-left:15px;padding-right:15px; width: 41.66666667%;">
                                 <div  class="row" style="display:flex;">
                                     <div class="col-md-2" style="padding-left:15px;padding-right:15px;width: 16.66666667%;"><label>Date:</label></div>
-                                    <div class="col-md-8"  style="padding-left:15px;padding-right:15px;width:66.66666667%;"><input type="text" class="yellow-textbox" /></div>
+                                    <div class="col-md-8"  style="padding-left:15px;padding-right:15px;width:66.66666667%;">@Html.TextBoxFor(model => model.DateForAuthT, "{0:dd/MM/yyyy}", new { @class = "yellow-textbox date" })</div>
                                 </div>
                             </div>
                         </div>
@@ -380,7 +380,7 @@
                             <div class="col-md-6 col-md-offset-1" style="padding-left:15px;padding-right:15px;width:50%;">
                                 <div class="row" style="display:flex;">
                                     <div class="col-md-6" style="padding-left:15px;padding-right:15px;width:50%;"><label>Signature:</label></div>
-                                    <div class="col-md-6" style="padding-left:15px;padding-right:15px;width:50%;"><input type="text" /></div>
+                                    <div class="col-md-6" style="padding-left:15px;padding-right:15px;width:50%;">@Html.TextBoxFor(model => model.ForAuthTsignature)</div>
                                 </div>
                             </div>
                             @*<div class="col-md-2 col-md-offset-2" style="padding-left:15px;padding-right:15px;width:16.66666667%;">

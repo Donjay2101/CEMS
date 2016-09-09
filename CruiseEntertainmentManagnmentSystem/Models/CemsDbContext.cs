@@ -42,7 +42,7 @@ namespace CruiseEntertainmentManagnmentSystem.Models
         public DbSet<PersonalInformationForm> PersonalInformationForms { get; set; }
         public DbSet<ContactList> ContactLists { get; set; }
         public DbSet<FastPayForm> FastPayForms{ get; set; }
-
+        public DbSet<NewVendorForm> NewVendorForms { get; set; }
         
     }
 }

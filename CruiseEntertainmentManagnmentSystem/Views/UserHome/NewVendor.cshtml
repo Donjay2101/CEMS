@@ -1,7 +1,20 @@
-﻿@{ 
+﻿@model CruiseEntertainmentManagnmentSystem.ViewModel.NewVendorViewModel
+@{ 
     Layout = "";
     }
+<style>
+    input[type=radio]
+    {
+        width:15%!important;
+    } 
+</style>
 <div class="container" id="NewVendor">
+    @if (Model != null)
+    {
+        @Html.HiddenFor(model=>model.ID)
+        @Html.HiddenFor(model => model.PersonID)
+    }
+    
     <div class="row">
         <div class="col-md-12">
          <label class="pull-right" style="text-decoration:underline">(Internal Use Only)</label>
@@ -23,19 +36,19 @@
             <h5 class="info">GENERAL INFORMATION</h5>
             <div class="row">
                 <div class="col-md-3 col-md-offset-1">
-                    @Html.RadioButtonFor(model=>model)
-                    <input type="checkbox" value="newVendor" name="vendor"/>
+                    @Html.RadioButtonFor(model=>model.IsNewVendor,"0")
+                    @*<input type="checkbox" value="newVendor" name="vendor"/>*@
                     <label>New Vendor</label>
                 </div>
                 <div class="col-md-3">
-                    <input type="checkbox" value="newVendor" name="vendor" />
+                    @Html.RadioButtonFor(model => model.IsNewVendor, "1")
                     <label>Existing Vendor</label>
                 </div>
                 <div class="col-md-5">
                     <div class="row">
                         <label class="col-md-4">Date Of Request</label>
                         <div class="col-md-8">
-                            <input type="text" />
+                            @Html.TextBoxFor(model=>model.DateOfRequest,new { @class="date"})
                         </div>                      
                     </div>               
                 </div>
@@ -50,37 +63,37 @@
             <div class="col-md-6">
                 <div class="row">
                     <div class="col-md-4"><label>Company Name</label></div>
-                    <div class="col-md-8"><input type="text" /></div>
+                    <div class="col-md-8">@Html.TextBoxFor(model=>model.CompanyName)</div>
                 </div>
                 <div class="row">
                     <div class="col-md-4"><label>Tax ID Number</label></div>
-                    <div class="col-md-8"><input type="text" /></div>
+                    <div class="col-md-8">@Html.TextBoxFor(model=>model.TaxIdNumber)</div>
                 </div>
                 <div class="row">
                     <div class="col-md-4"><label>Contact Name</label></div>
-                    <div class="col-md-8"><input type="text" /></div>
+                    <div class="col-md-8">@Html.TextBoxFor(model=>model.ContactName)</div>
                 </div>
                 <div class="row">
                     <div class="col-md-4"><label>Contact Title</label></div>
-                    <div class="col-md-8"><input type="text" /></div>
+                    <div class="col-md-8">@Html.TextBoxFor(model=>model.ContactTitle)</div>
                 </div>
                 <div class="row">
                     <div class="col-md-4"><label>E-mail</label></div>
-                    <div class="col-md-8"><input type="text" /></div>
+                    <div class="col-md-8">@Html.TextBoxFor(model=>model.Email)</div>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="row">
                     <div class="col-md-4"><label>Address</label></div>
-                    <div class="col-md-8"><input type="text" /></div>
+                    <div class="col-md-8">@Html.TextBoxFor(model=>model.Address)</div>
                 </div>
                 <div class="row">
                     <div class="col-md-4"><label>Phone Number</label></div>
-                    <div class="col-md-8"><input type="text" /></div>
+                    <div class="col-md-8">@Html.TextBoxFor(model=>model.PhoneNumber)</div>
                 </div>
                 <div class="row">
                     <div class="col-md-4"><label>Website</label></div>
-                    <div class="col-md-8"><input type="text" /></div>
+                    <div class="col-md-8">@Html.TextBoxFor(model=>model.Website)</div>
                 </div>
             </div>
         </div>
@@ -90,20 +103,20 @@
             <h5 class="info">BUSINESS PURPOSE</h5>
             <div class="row">
                 <div class="col-md-3"><label>Payment Terms</label></div>
-                <div class="col-md-9"><input type="text"/></div>
+                <div class="col-md-9">@Html.TextBoxFor(model=>model.PaymentTerms)</div>
             </div>
             <div class="row">
                 <div class="col-md-3"><label>Requested method of payment</label></div>
                 <div class="col-md-3">
-                    <input type="checkbox" value="newVendor" name="vendor" />
+                    @Html.RadioButtonFor(model=>model.RequestMode,"1")
                     <label>Check</label>
                 </div>
                 <div class="col-md-3">
-                    <input type="checkbox" value="newVendor" name="vendor" />
+                    @Html.RadioButtonFor(model => model.RequestMode, "2")
                     <label>ACH</label>
                 </div>
                 <div class="col-md-3">
-                    <input type="checkbox" value="newVendor" name="vendor" />
+                    @Html.RadioButtonFor(model => model.RequestMode, "3")
                     <label>Wire Transfer(Foreign Corps. Only)</label>
                 </div>
             </div>
@@ -114,17 +127,17 @@
                         <div class="col-md-6">
                             <div class="row">
                                 <div class="col-md-4"><label>Bank Name</label></div>
-                                <div class="col-md-8"><input type="text" /></div>
+                                <div class="col-md-8">@Html.TextBoxFor(model=>model.BankName)</div>
                             </div>
                             <div class="row">
                                 <div class="col-md-4"><label>Bank ABA Number (if U.S. Bank)</label></div>
-                                <div class="col-md-8"><input type="text" /></div>
+                                <div class="col-md-8">@Html.TextBoxFor(model=>model.ABANumber)</div>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="row">
                                 <div class="col-md-4"><label>Bank Account Number</label></div>
-                                <div class="col-md-8"><input type="text" /></div>
+                                <div class="col-md-8">@Html.TextBoxFor(model=>model.BankAccountNumber)</div>
                             </div>                          
                         </div>
                     </div>
@@ -137,13 +150,13 @@
                         <div class="col-md-6">
                             <div class="row">
                                 <div class="col-md-4"><label>Swift Code</label></div>
-                                <div class="col-md-8"><input type="text" /></div>
+                                <div class="col-md-8">@Html.TextBoxFor(model => model.SwiftCode)</div>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="row">
                                 <div class="col-md-4"><label>IBAN Number (when applicable)</label></div>
-                                <div class="col-md-8"><input type="text" /></div>
+                                <div class="col-md-8">@Html.TextBoxFor(model => model.IBANNumber)</div>
                             </div>
                         </div>
                     </div>
@@ -158,13 +171,13 @@
                         </div>
                         <div class="col-md-3">
                             <div class="row">
-                                <input type="checkbox" value="newVendor" name="vendor" />
+                                @Html.RadioButtonFor(model => model.IsSignedOff,"1")
                              <label>Yes</label>                            
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="row">
-                                <input type="checkbox" value="newVendor" name="vendor" />
+                                @Html.RadioButtonFor(model => model.IsSignedOff, "0")
                               <label>No</label>                             
                             </div>
                         </div>
@@ -178,13 +191,13 @@
                         <div class="col-md-4"><label>Is IRS Form W-9 attached?</label></div>
                         <div class="col-md-3">
                             <div class="row">
-                                <input type="checkbox" value="newVendor" name="vendor" />
+                                @Html.RadioButtonFor(model => model.IsIRSW9Attached, "1")
                                <label>Yes</label>
                             </div>
                         </div>
                         <div class="col-md-3">
                               <div class="row">
-                                <input type="checkbox" value="newVendor" name="vendor" />
+                                @Html.RadioButtonFor(model => model.IsIRSW9Attached, "0")
                               <label>No</label>                        
                             </div>
                         </div>
@@ -193,13 +206,13 @@
                         <div class="col-md-5 col-md-offset-2">
                             <div class="row">
                                 <div class="col-md-4"><label>Prepared by:</label></div>
-                                <div class="col-md-8"><input type="text" class="blue-textbox" /></div>
+                                <div class="col-md-8">@Html.TextBoxFor(model=>model.PreparedBy)</div>
                             </div>
                         </div>
                         <div class="col-md-5">
                             <div class="row">
                                 <div class="col-md-4"><label>Department:</label></div>
-                                <div class="col-md-8"><input type="text" class="blue-textbox" /></div>
+                                <div class="col-md-8">@Html.TextBoxFor(model => model.Department)</div>
                             </div>
                         </div>
                     </div>
@@ -212,13 +225,13 @@
                         <div class="col-md-5 col-md-offset-2">
                             <div class="row">
                                 <div class="col-md-4"><label>Approved by:</label></div>
-                                <div class="col-md-8"><input type="text" class="blue-textbox" /></div>
+                                <div class="col-md-8">@Html.TextBoxFor(model => model.ApprovedBy)</div>
                             </div>
                         </div>
                         <div class="col-md-5">
                             <div class="row">
                                 <div class="col-md-4"><label>Date:</label></div>
-                                <div class="col-md-8"><input type="text" class="blue-textbox" /></div>
+                                <div class="col-md-8">@Html.TextBoxFor(model => model.Date,new { @class="date"})</div>
                             </div>
                         </div>
                     </div>
@@ -227,7 +240,7 @@
                             <label>Signature:</label>
                         </div>
                         <div class="col-md-8">
-                            <input type="text"/>
+                            @Html.TextBoxFor(model => model.Signature)
                         </div>
                     </div>
                 </div>
@@ -246,13 +259,13 @@
                     <div class="row">
                         <div class="col-md-2 col-md-offset-2">
                             <div class="row">
-                                <input type="checkbox" value="newVendor" name="vendor" />
+                                @Html.RadioButtonFor(model => model.IsVendorNameChecked,"0")
                                <label>Yes</label>
                             </div>
                         </div>
                         <div class="col-md-2">
                             <div class="row">
-                                <input type="checkbox" value="newVendor" name="vendor" />
+                                @Html.RadioButtonFor(model => model.IsVendorNameChecked, "1")
                                 <label>No</label>
                             </div>
                         </div>
@@ -266,13 +279,13 @@
                     <div class="row">
                         <div class="col-md-2 col-md-offset-2">
                             <div class="row">
-                                <input type="checkbox" value="newVendor" name="vendor" />
+                                @Html.RadioButtonFor(model => model.IsVendorAddressChecked, "1")
                                 <label>Yes</label>
                             </div>
                         </div>
                         <div class="col-md-2">
                             <div class="row">
-                                <input type="checkbox" value="newVendor" name="vendor" />
+                                @Html.RadioButtonFor(model => model.IsVendorAddressChecked, "0")
                                 <label>No</label>
                             </div>
                         </div>
@@ -288,13 +301,13 @@
                             <div class="col-md-6 col-md-offset-1">
                                 <div class="row">
                                     <div class="col-md-6"><label>Reviewed by (A/P Supervisor):</label></div>
-                                    <div class="col-md-6"><input type="text" class="yellow-textbox" /></div>
+                                    <div class="col-md-6">@Html.TextBoxFor(model=>model.ReviewedByForName,new { @class= "yellow-textbox" })</div>
                                 </div>
                             </div>
                             <div class="col-md-5">
                                 <div class="row">
                                     <div class="col-md-2"><label>Date:</label></div>
-                                    <div class="col-md-8"><input type="text" class="yellow-textbox" /></div>
+                                    <div class="col-md-8">@Html.TextBoxFor(model => model.DateForName, new { @class = "yellow-textbox date" })</div>
                                 </div>
                             </div>
                         </div>
@@ -303,7 +316,7 @@
                                 <label>Signature:</label>
                             </div>
                             <div class="col-md-8">
-                                <input type="text" />
+                                @Html.TextBoxFor(model => model.ForNameSignature)
                             </div>
                         </div>
                     </div>
@@ -315,13 +328,13 @@
                     <div class="row">
                         <div class="col-md-2 col-md-offset-2">
                             <div class="row">
-                                <input type="checkbox" value="newVendor" name="vendor" />
+                                @Html.RadioButtonFor(model => model.IsCreatedinPplSoft,"1")
                                 <label>Yes</label>
                             </div>
                         </div>
                         <div class="col-md-2">
                             <div class="row">
-                                <input type="checkbox" value="newVendor" name="vendor" />
+                                @Html.RadioButtonFor(model => model.IsCreatedinPplSoft, "0")
                                 <label>No</label>
                             </div>
                         </div>
@@ -337,13 +350,13 @@
                             <div class="col-md-6 col-md-offset-1">
                                 <div class="row">
                                     <div class="col-md-6"><label>Reviewed by (A/P Supervisor):</label></div>
-                                    <div class="col-md-6"><input type="text" class="yellow-textbox" /></div>
+                                    <div class="col-md-6">@Html.TextBoxFor(model => model.ReviewedByforPPlsoft,new { @class= "yellow-textbox" })</div>
                                 </div>
                             </div>
                             <div class="col-md-5">
                                 <div class="row">
                                     <div class="col-md-2"><label>Date:</label></div>
-                                    <div class="col-md-8"><input type="text" class="yellow-textbox" /></div>
+                                    <div class="col-md-8">@Html.TextBoxFor(model => model.ReviewDateforPPlsoft, new { @class = "yellow-textbox date" })</div>
                                 </div>
                             </div>
                         </div>
@@ -352,7 +365,7 @@
                                 <label>Signature:</label>
                             </div>
                             <div class="col-md-8">
-                                <input type="text" />
+                                @Html.TextBoxFor(model => model.ForPPLSoftSignature)
                             </div>
                         </div>
                     </div>
@@ -364,13 +377,13 @@
                             <div class="col-md-6 col-md-offset-1">
                                 <div class="row">
                                     <div class="col-md-6"><label>Reviewed by (Authorized Treasury):</label></div>
-                                    <div class="col-md-6"><input type="text" class="yellow-textbox" /></div>
+                                    <div class="col-md-6">@Html.TextBoxFor(model => model.ReviewedByForAuthT, new { @class = "yellow-textbox" })</div>
                                 </div>
                             </div>
                             <div class="col-md-5">
                                 <div class="row">
                                     <div class="col-md-2"><label>Date:</label></div>
-                                    <div class="col-md-8"><input type="text" class="yellow-textbox" /></div>
+                                    <div class="col-md-8"><div class="col-md-6">@Html.TextBoxFor(model => model.DateForAuthT, new { @class = "yellow-textbox date" })</div>
                                 </div>
                             </div>
                         </div>
@@ -379,7 +392,7 @@
                                 <label>Signature:</label>
                             </div>
                             <div class="col-md-8">
-                                <input type="text" />
+                              @Html.TextBoxFor(model => model.ForAuthTsignature)
                             </div>
                         </div>
                     </div>
@@ -388,7 +401,149 @@
         </div>
         </div>
     </div>
-		
+</div>
+<script src="~/Scripts/Common.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $(".date").datepicker({
+                changeMonth: true,//this option for allowing user to select month
+                changeYear: true //this option for allowing user to select from year range
+            });
+        });
+
+        $(document).on('click', '#btnPrint', function () {
+
+            window.open("/userhome/NewVendorFormPDF?option=1", "_blank");
+        });
+
+        $(document).on('click', '#btnDownload', function () {
+            window.open("/userhome/NewVendorFormPDF?option=2", "_blank");
+        });
+
+        $(document).on('click', '#btnSave', function () {
+            debugger
+            var obj = {};
+            if ($('#ID').val() != undefined)
+            {
+                obj.ID = $('#ID').val();
+            }
+            else
+            {
+                obj.ID = 0;
+            }
+            console.log($('[name="IsNewVendor"]'));
+            $('[name="IsNewVendor"]').each(function (idx, ele) {
+                debugger;
+                if(ele.checked)
+                {
+                    obj.IsNewVendor = ele.getAttribute('value');
+                }
+            });
+              
+            obj.DateOfRequest = $('#DateOfRequest').val();
+            obj.CompanyName = $('#CompanyName').val();
+            obj.Address = $('#Address').val();
+            obj.TaxIdNumber = $('#TaxIdNumber').val();
+            obj.PhoneNumber = $('#PhoneNumber').val();
+            obj.ContactName = $('#ContactName').val();
+            obj.ContactTitle = $('#ContactTitle').val();
+            obj.Website = $('#Website').val();
+            obj.Email = $('#Email').val();
+            obj.PaymentTerms = $('#PaymentTerms').val();
+            obj.RequestMode = $('#RequestMode').val();
+            obj.BankName = $('#BankName').val();
+            obj.BankAccountNumber = $('#BankAccountNumber').val();
+            obj.ABANumber = $('#ABANumber').val();
+            obj.SwiftCode = $('#SwiftCode').val();
+            obj.IBANNumber = $('#IBANNumber').val();
+            //$('[name="IBANNumber"]').each(function (idx,ele) {
+            //    debugger;
+            //    if(ele.checked)
+            //    {
+            //        obj.IBANNumber = ele.getAttribute('value');
+            //    }
+            //});
+            
+            $('[name="IsSignedOff"]').each(function (idx, ele) {
+                if (ele.checked) {
+                    obj.IsSignedOff = ele.getAttribute('value');
+                }
+
+            });
+            //obj.IsSignedOff = $('#IsSignedOff').val();
+            $('[name="IsIRSW9Attached"]').each(function (idx, ele) {
+                if (ele.checked) {
+                    obj.IsIRSW9Attached = ele.getAttribute('value');
+                }
+
+            });
+            
+            obj.PreparedBy = $('#PreparedBy').val();
+            obj.Department = $('#Department').val();
+            obj.ApprovedBy = $('#ApprovedBy').val();
+            obj.Date = $('#Date').val();
+            obj.Signature = $('#Signature').val();
+            $('[name="IsVendorNameChecked"]').each(function (idx, ele) {
+                if (ele.checked) {
+                    obj.IsVendorNameChecked = ele.getAttribute('value');
+                }
+
+            });
+            $('[name="IsVendorAddressChecked"]').each(function (idx, ele) {
+                if (ele.checked) {
+                    obj.IsVendorAddressChecked = ele.getAttribute('value');
+                }
+
+            });
+              
+              
+            obj.ReviewedByForName = $('#ReviewedByForName').val();
+            obj.DateForName = $('#DateForName').val();
+            obj.ForNameSignature = $('#ForNameSignature').val();
+            $('[name="IsCreatedinPplSoft"]').each(function (idx, ele) {
+                if (ele.checked) {
+                    obj.IsCreatedinPplSoft = ele.getAttribute('value');
+                }
+
+            });                          
+            obj.ReviewedByforPPlsoft = $('#ReviewedByforPPlsoft').val();
+            obj.ReviewDateforPPlsoft = $('#ReviewDateforPPlsoft').val();
+            obj.ForPPLSoftSignature = $('#ForPPLSoftSignature').val();
+            obj.ReviewedByForAuthT = $('#ReviewedByForAuthT').val();
+            obj.DateForAuthT = $('#DateForAuthT').val();
+            obj.ForAuthTsignature = $('#ForAuthTsignature').val();
+
+
+            $.ajax({
+                url: '/UserHome/NewVendor',
+                type: 'POST',
+                data: { model: obj },
+                success: function (data) {
+                    if(data=="1")
+                    {
+                        alert('data saved successfully.');
+                    }
+                    else if (data=="2")
+                    {
+                        alert('mendatory fields are not filled properly.');
+                    }
+                    else
+                    {
+                        alert(data);
+                    }
+                },
+                error: function (err) {
+                    alert('error:' + err.statusText);
+                }
+            });
+        });
+
+      
+
+    </script>
+
+
 
 			
 			
