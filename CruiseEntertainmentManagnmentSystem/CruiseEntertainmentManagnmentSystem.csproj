@@ -583,6 +583,7 @@
     <Content Include="Views\UserHome\_CrewDataForm.cshtml" />
     <Content Include="Views\UserHome\_FastPaypdf.cshtml" />
     <Content Include="Views\UserHome\_NewVendorpdf.cshtml" />
+    <Content Include="Views\Cruises\ScheduleLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

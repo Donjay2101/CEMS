@@ -29,8 +29,8 @@
     $(document).on('change', '#Schedules', function () {
         //debugger;
         var data = $('#Schedules option:selected').html().split('-');
-        $('#S_startDate').val(data[0]);
-        $('#S_endDate').val(data[1]);
+        $('#S_startDate').html(data[0]);
+        $('#S_endDate').html(data[1]);
         //var cdate = new Date(data[0]);
         setDateToPicker();
     });
@@ -50,7 +50,7 @@
         <div class="row">
             <div class="row ">
                 <div class="col-md-2 text-right">
-                    <label class="date">Schedule Start Date</label>
+                    <label class="date">Schedules for the ship:</label>
                 </div>
                 <div class="col-md-4 text-left">
                     @Html.DropDownList("Schedules")
@@ -58,17 +58,16 @@
                 
             </div>
             <div class="col-md-2">
-                <label class="date">Schedule Start Date</label>
+                <label class="date">Schedule Start Date:</label>
             </div>
             <div class="col-md-4">
-
-                <input type="text"  id="S_startDate" value="@ViewBag.ShipStartDate" disabled style="width:100%;" @*class="wrap-content"*@ />
+                <label id="S_startDate">@ViewBag.ShipStartDate</label>                
             </div>
             <div class="col-md-2">
-                <label class="date"> Schedule End Date</label>
+                <label class="date"> Schedule End Date:</label>
             </div>
             <div class="col-md-4">
-                <input type="text"  id="S_endDate" value="@ViewBag.ShipEndDate" disabled style="width:100%;" @*class="wrap-content"*@ />
+                <label id="S_endDate">@ViewBag.ShipEndDate</label>                
             </div>
         </div>
         <br />
@@ -82,6 +81,66 @@
             </div>*@
 
     </div>
+    <div class="row">
+        <p id="editText" style="color:red;display:none">
+            <span id="editTaskName"></span> Subschedule  is in edit mode.<br />
+            <span id="closeEdit" style="cursor:pointer">close edit mode</span>
+        </p>
+    </div>
+    <div class="section">
+        <div class="row">
+            <div class="col-md-4">
+                Category
+            </div>
+            <div class="col-md-8">
+                @Html.DropDownList("TaskName", "select--")
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                Personnel
+            </div>
+            <div class="col-md-8">
+                <select id="persons">
+
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                Start Date
+            </div>
+            <div class="col-md-8">
+                <input type="text" class="date" name="subscheduleStartDate" id="subscheduleStartDate" style="width:100%;" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                Start Date
+            </div>
+            <div class="col-md-8">
+                <input type="text" class="date" name="subscheduleEndDate" id="subscheduleEndDate" style="width:100%;" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                No. of Days
+            </div>
+            <div class="col-md-8">
+                <label id="ssDays">
+
+                </label>                                
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <input type="hidden" id="tempID"/>
+                <input type="hidden" id="editIndex" />
+                <input type="button" name="tskbtn" class="wrap-content" value="Add" id="Stskbtn" />
+            </div>           
+        </div>
+    </div>
+
     <div class="section">
         
         <br />
@@ -95,14 +154,14 @@
                     <th>Days</th>
                     <th>Action</th>
                 </tr>
-                <tr class="edittr">
-                    <td><div id="dropdown">@Html.DropDownList("TaskName", "select--")</div></td>
+                @*<tr class="edittr">
+                    <td><div id="dropdown"></div></td>
                     <td><div id="Person"><select id="Persons"><option>select--</option></select></div></td>
                     <td><input type="text" class="date" name="StDate" id="StDate" style="width:100%;" /></td>
                     <td><input type="text" class="date" name="EDate" id="EDate" style="width:100%;" /></td>
                     <td><input type="number" name="Days" id="Days" value="" class="wrap-content" /></td>
                     <td><input type="button" name="tskbtn" class="wrap-content" value="Add" id="Stskbtn" /> </td>
-                </tr>
+                </tr>*@
             </table>
         </div>
     </div>

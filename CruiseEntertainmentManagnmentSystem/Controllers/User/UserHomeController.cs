@@ -109,16 +109,17 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers.User
                         model.PersonID = person.ID;
                         db.PersonalInformations.Add(model);
                     }
-                    db.Database.ExecuteSqlCommand("exec sp_SavePositionsForContractorProfile @input,@personID,@categoryID", new SqlParameter("@input", model.PositionList),
+                    if(model.PositionList!=null && model.PositionList.Count()>0)
+                    {
+                        db.Database.ExecuteSqlCommand("exec sp_SavePositionsForContractorProfile @input,@personID,@categoryID", new SqlParameter("@input", model.PositionList),
                         new SqlParameter("@personID", model.PersonID),
-                        new SqlParameter("@CategoryID", model.CategoryID));                    
-                }                
-                
+                        new SqlParameter("@CategoryID", model.CategoryID));
+                    }                    
+                }                                
                 db.SaveChanges();
             }
 
             ViewBag.Categories = new SelectList(db.categories.ToList(), "ID", "Name", model.CategoryID);
-
             ViewBag.Positions = ShrdMaster.Instance.GetPositionsBYPersonIdAndCategoryID(person.ID,model.CategoryID);
             return View(model);
         }

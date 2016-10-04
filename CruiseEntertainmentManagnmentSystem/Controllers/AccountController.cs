@@ -36,11 +36,11 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Login(LoginModel model, string returnUrl)
         {
-            if (ModelState.IsValid && WebSecurity.Login(model.UserName, model.Password, persistCookie: model.RememberMe))
-            {
-                SetupFormsAuthTicket(model, model.RememberMe);
-                return RedirectToLocal(returnUrl);
-            }
+            //if (ModelState.IsValid && WebSecurity.Login(model.UserName, model.Password, persistCookie: model.RememberMe))
+            //{
+            //    SetupFormsAuthTicket(model, model.RememberMe);
+            //    return RedirectToLocal(returnUrl);
+            //}
 
 
             var person = db.persons.Where(x => x.Email== model.UserName && x.Password == model.Password).SingleOrDefault();
@@ -50,6 +50,11 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers
                 return View(model);
             }
             SetupFormsAuthTicket(person, model.RememberMe);
+            if (ShrdMaster.Instance.IsUserAdmin(person.Email))
+            {
+                return RedirectToLocal(returnUrl);
+            }
+           
             returnUrl = "/UserHome/ProfileView";
             return RedirectToLocal(returnUrl);
             // If we got this far, something failed, redisplay form
@@ -163,18 +168,18 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers
                 // Attempt to register the user
                 try
                 {
-                    WebSecurity.CreateUserAndAccount(model.UserName, model.Password);
-                    WebSecurity.Login(model.UserName, model.Password);
+                    //WebSecurity.CreateUserAndAccount(model.UserName, model.Password);
+                    //WebSecurity.Login(model.UserName, model.Password);
                     //Roles.AddUserToRole(model.UserName, "Admin");
-                    var user=userdbcontext.UserProfiles.Where(x => x.UserName == model.UserName).SingleOrDefault();
-                    UserRole role = new UserRole();
-                    role.RoleID = 1;
+                    //var user=userdbcontext.UserProfiles.Where(x => x.UserName == model.UserName).SingleOrDefault();
+                    //UserRole role = new UserRole();
+                    //role.RoleID = 1;
                     
-                    role.UserID = user.UserId;
-                    db.UserRoles.Add(role);
-                    db.SaveChanges();
+                    //role.UserID = user.UserId;
+                    //db.UserRoles.Add(role);
+                    //db.SaveChanges();
                     
-                    return RedirectToAction("Index", "Home");
+                    //return RedirectToAction("Index", "Home");
                 }
                 catch (MembershipCreateUserException e)
                 {

@@ -164,6 +164,7 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers
             var d = db.CruiseTasks.Where(x=>x.ID!=0).ToList();
             var CruiseData = db.cruises.Where(c => c.ID == ID).SingleOrDefault();
             ViewBag.TaskName = new SelectList(d, "ID", "Name");
+            ViewBag.Shows = new SelectList(db.shows.Where(x => x.Ship == ID), "ID", "Name");
             if (CruiseData != null)
             {
                 ViewBag.CruiseName = CruiseData.Name;
@@ -179,7 +180,7 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers
 
 
         [HttpPost]
-        public ActionResult SubmitCruiseSchedule(string model, int CruiseID)
+        public ActionResult SubmitCruiseSchedule(string model,int CruiseID)
         {
             List<CruiseSchedule> schedules = JavaScriptSerializer<List<CruiseSchedule>>.Instance.Deserialize<List<CruiseSchedule>>(model);
 
@@ -192,7 +193,7 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers
           
             foreach (CruiseSchedule c in schedules)
             {
-                c.CruiseID = CruiseID;
+                c.CruiseID = CruiseID;                
                 c.ScheduleNo=scheduleno+1; 
                 db.CruiseSchedules.Add(c);
             }
@@ -221,25 +222,25 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers
                 Year = DateTime.Now.Year;
             }
             //var data = db.CruiseSchedules.Where(c => c.CruiseID == cruiseID && c.Date.Year==Year).ToList();
-                  
+
+            var CruiseScheduleList = db.Database.SqlQuery<CruiseScheduleViewModel>("exec sp_GetSchedules @Year,@cruiseID", new SqlParameter("@Year", Year), new SqlParameter("@cruiseID", cruiseID)).ToList();
+
+            //var CruiseScheduleList = (from d in db.CruiseSchedules
+            //                          join
+            //                              CT in db.CruiseTasks
+            //                              on d.TaskID equals CT.ID                                    
+            //                          orderby d.Date
+            //                          select new CruiseScheduleViewModel
+            //                          {
+            //                              Color = CT.Color,
+            //                              CruiseID = d.CruiseID,
+            //                              TaskName = CT.Name,
+            //                              Date = d.Date,   
+            //                              ShceduleNo=d.ScheduleNo,                                          
+            //                              TaskID=d.TaskID                                        
+            //                          }).Where(x=>x.Date.Year==Year && x.CruiseID==cruiseID).OrderBy(x=>x.Date).ToList();
 
 
-            var CruiseScheduleList = (from d in db.CruiseSchedules
-                                      join
-                                          CT in db.CruiseTasks
-                                          on d.TaskID equals CT.ID                                    
-                                      orderby d.Date
-                                      select new CruiseScheduleViewModel
-                                      {
-                                          Color = CT.Color,
-                                          CruiseID = d.CruiseID,
-                                          TaskName = CT.Name,
-                                          Date = d.Date,   
-                                          ShceduleNo=d.ScheduleNo,                                          
-                                          TaskID=d.TaskID                                        
-                                      }).Where(x=>x.Date.Year==Year && x.CruiseID==cruiseID).OrderBy(x=>x.Date).ToList();
-
-          
 
             var SubTasks = (from CS in db.CruiseSubSchedules where CS.CruiseID==cruiseID  join p in db.persons on CS.PersonID equals p.ID select new CruiseScheduleViewModel{
             PersonID=p.ID,
@@ -270,10 +271,21 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers
             {
                 Year = DateTime.Now.Year;
             }
+
+
+            //var list=db.Database.SqlQuery<CruiseScheduleViewModel>("exec sp_GetSchedules ")
             var list = (from cs in db.CruiseSchedules
                         join ct in db.CruiseTasks on cs.TaskID equals ct.ID
                         join c in db.cruises on cs.CruiseID equals c.ID
-                        select new CruiseScheduleViewModel { CruiseID = cs.CruiseID, CruiseName = c.Name, Date = cs.Date, TaskName = ct.Name, Color = ct.Color }).Where(x=>x.Date.Year==Year)
+                        select new CruiseScheduleViewModel
+                        {
+                            CruiseID = cs.CruiseID,
+                            CruiseName = c.Name,
+                            Date = cs.TaskDate,
+                            TaskName = ct.Name,
+                            Color = ct.Color
+                        }
+                        ).Where(x => x.Date.Year == Year)
                         .OrderBy(x => x.Date).GroupBy(x => x.CruiseID).ToList();
 
             var Notes = (from cs in db.Notes
@@ -365,31 +377,26 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers
             var cruise = db.cruises.Find(cruiseID);
             List<CommonType> schedule=new List<CommonType> ();
 
+             schedule = db.Database.SqlQuery<CommonType>("sp_GetDataForSubSchedules @cruiseID", new SqlParameter("@cruiseID", cruiseID)).ToList();
 
-
-            var cruiseTasks = (from tasks in db.CruiseSchedules.Where(x=>x.CruiseID==cruiseID) group tasks by tasks.ScheduleNo into groupdata 
-                              select new GroupedData<CruiseSchedule> { GroupedBy = groupdata.Key, 
-                                  Data = groupdata, 
-                                  Count = groupdata.Count() }).ToList();
+            //var cruiseTasks = (from tasks in db.CruiseSchedules.Where(x=>x.CruiseID==cruiseID) group tasks by tasks.ScheduleNo into groupdata 
+            //                  select new GroupedData<CruiseSchedule> { GroupedBy = groupdata.Key, 
+            //                      Data = groupdata, 
+            //                      Count = groupdata.Count() }).ToList();
                               
                               //db.CruiseSchedules.Where(x => x.CruiseID == cruiseID).GroupBy(x => x.ScheduleNo).ToList();
-            foreach (GroupedData<CruiseSchedule> GData in cruiseTasks)
-            {
-                var CSchedule = GData.Data.ToList();
-                var max = CSchedule.Max(x => x.Date).ToShortDateString();
-                var min = CSchedule.Min(x => x.Date).ToShortDateString();
-                string val = min + " - " + max;
-                CommonType comn = new CommonType();
-                comn.Value = val;
-                comn.ID = GData.GroupedBy;
-                schedule.Add(comn);
-                //foreach (CruiseSchedule sch in CSchedule)
-                //{
-
-                //}
-
-
-            }
+            //foreach (GroupedData<CruiseSchedule> GData in cruiseTasks)
+            //{
+            //    var CSchedule = GData.Data.ToList();
+            //    var max = CSchedule.Max(x => x.TaskDate).ToShortDateString();
+            //    var min = CSchedule.Min(x => x.TaskDate).ToShortDateString();
+            //    string val = min + " - " + max;
+            //    CommonType comn = new CommonType();
+            //    comn.Value = val;
+            //    comn.ID = GData.GroupedBy;
+            //    schedule.Add(comn);
+               
+            //}
 
 
             ViewBag.CruiseName = cruise.Name;
@@ -418,10 +425,11 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers
             List<Persons> persons = null;
             if(ID>=0)
             {
-                persons = db.persons.Join(db.PersonMappings, x => x.ID, pm => pm.PersonID, (x, pm) => new { Person = x, PersonMapping = pm })
-                    .Where(x => x.PersonMapping.CategoryID == ID)
-                    .Select(x => x.Person).ToList();
-                //persons = db.persons.Where(x => x.Category == ID).OrderBy(x=>x.Name).ToList();
+                persons = db.Database.SqlQuery<Persons>("sp_GetPersonsByCategoryID @CategoryID", new SqlParameter("@CategoryID", ID)).ToList();
+                //persons = db.persons.Join(db.PositionMappings, x => x.ID, pm => pm.PersonID, (x, pm) => new { Person = x, PersonMapping = pm })
+                //    .Where(x => x.PersonMapping.CategoryID == ID)
+                //    .Select(x => x.Person).ToList();
+                ////persons = db.persons.Where(x => x.Category == ID).OrderBy(x=>x.Name).ToList();
             }
             
             return Json(persons, JsonRequestBehavior.AllowGet);

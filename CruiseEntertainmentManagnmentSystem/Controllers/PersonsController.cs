@@ -60,7 +60,11 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers
             //                Color = p.Color,
             //                Category = cat.Name
             //            }).OrderBy(x=>x.Name).Distinct().ToList();
-            var list = db.Database.SqlQuery<PersonsViewModel>("exec sp_GetPersons").ToList();
+
+
+            var d=db.persons.AsQueryable();
+
+            var list = db.Database.SqlQuery<PersonsViewModel>("exec sp_GetPersons").AsQueryable();
                 
             //    db.persons.Select(x=>new PersonsViewModel{
             //                ID = x.ID,
@@ -106,6 +110,7 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers
             {
                 ViewBag.Layout = "~/Views/Shared/_Layout.cshtml";
             }
+            Session["Option"] = option;
 
             //ViewBag.Position = new SelectList(db.positions.OrderBy(x => x.Name).ToList(), "ID", "Name");
             //ViewBag.Categories = ShrdMaster.Instance.GetCategoryIdByPersonID(0);
@@ -134,9 +139,9 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers
         public ActionResult Create(Persons persons,int option=0)
         {
             
-            if(Request.QueryString["option"]!=null)
+            if(Session["Option"]!=null)
             {
-                int.TryParse(Request.QueryString["option"], out option);
+                int.TryParse(Session["Option"].ToString(), out option);
                 
                 if (option==1)
                 {

@@ -4,9 +4,30 @@ var count1 = 0;
 var weekDays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
 
-// -----------------------------------------------------------------------Schedule Calculation--------------------------------------------------------//
+
+function addSchedule() {
+
+    ////debugger;
+    var ID = $('#Cruise').val();
+    sessionStorage.setItem('cruiseID', ID);
+    if (ID != undefined && ID != "") {
+        $('#overLay').css('display', 'block');
+
+        $('#Datacontainer').load('/Cruises/Schedule?ID=' + ID, function () { });
+
+        sessionStorage.setItem('CruiseID', ID);
+    }
+    else {
+        alert('select Cruise for schedule');
+    }
 
 
+
+
+
+}
+
+//------------------------------------------------------New Logic to Add Schedule--------------------///
 Date.daysBetween = function (date1, date2) {
     //Get 1 day in milliseconds
     var one_day = 1000 * 60 * 60 * 24;
@@ -23,40 +44,1054 @@ Date.daysBetween = function (date1, date2) {
     return (diff + 1);
 }
 
-
-$(document).on('change', '#S_startDate', function () {
-
-
-    //date  will give the time as well
-    var curDate = new Date();
-    
-
-    //convert in string 
-    curDate = formatDate(curDate);
-    
-    //convert back to date to compare
-    curDate = new Date(curDate);
-   // alert(curDate);
-    var startDate=$('#S_startDate').val();
-    $('#S_startDate').val(startDate);
-    var startDate = formatDate(startDate);
-
-    startDate = new Date(startDate);
-
-   
-    var newdate = new Date();
-    newdate = formatDate(newdate);
-    if (startDate < curDate)
+function replaceAll(oldtxt,txtToRemove,newTxt)
+{
+    //var regx='/'+txtToRemove+'/g';
+    if (oldtxt != "" &&  oldtxt!=undefined)
     {
-        $('#S_startDate').val(newdate);
-        alert('Start Date Should be greated than current Date');        
+        var txt = oldtxt.replace(/&nbsp;/g,newTxt);
+        return txt;
+    }    
+}
+$(document).on('click', '#btnAddSchedule', function () {
+    debugger;
+   
+    if (!checkDates())
+    {
+        return;
+    }
+    var taskID = $('#cmbtask').val();
+    var taskName = $('#cmbtask option:selected').html();
+    taskName =replaceAll(taskName,'&nbsp;','');
+
+    var startdate = $('#StDate').val();
+    var enddate = $('#EDate').val();
+    var days = $('#Days').html();
+    var ShowID=$('#Shows').val();
+    var ShowName=$('#Shows option:selected').html();
+    //$('#tempID') is hidden element it is used to check whether this function is calling for edit or not if edit will calll this it will have some value otherwise it will not (at the time of add.)
+    var tempID = $('#tempID').val();
+   
+    if (tempID=="" ||tempID==undefined)
+    {       
+        var id = 0;
+        id = parseInt(sessionStorage.getItem('Length'));
+        if (isNaN(id))
+        {
+            id = 0;
+        }
+        scheduleNo = id + 1;        
+    }
+    else
+    {
+        scheduleNo =tempID;
+    }
+    //saving data to object
+    var obj = {};
+    obj.TaskName = taskName;
+    obj.StartDate = startdate;
+    obj.TaskID = taskID;
+    obj.EndDate = enddate;
+    obj.Days = days;
+    obj.tempID = scheduleNo;
+
+    obj.ShowName = "";
+    obj.ShowID = 0;
+    if (ShowID != "" && ShowID != undefined)
+    {
+        obj.ShowName = ShowName;
+        obj.ShowID = ShowID;
+    }
+
+    var schedule = sessionStorage.getItem('Schedule');
+    var jsonArr = JSON.parse(schedule);
+    var indexNo = searchinArray(jsonArr,scheduleNo);
+    var newarr = saveSchedule(obj, indexNo, jsonArr);
+    var trIndex = $('#editIndex').val();
+    AppendToTable(obj,trIndex);
+    sessionStorage.setItem('Schedule',JSON.stringify(newarr));
+    sessionStorage.setItem('Length', newarr.length);       
+    sessionStorage.setItem('data', $('#Datacontainer').html());
+    sessionStorage.setItem('scheduleStartDate', $('#S_startDate').val());
+    sessionStorage.setItem('scheduleEndDate', $('#S_endDate').val());
+    clearControl();
+});
+
+function AppendToTable(obj,trIndex)
+{
+    if (trIndex != "" && trIndex != undefined && trIndex >-1)
+    {
+
+        var taskName = $('#TaskTable tr ').eq(trIndex).find('td').eq(0).html();
+        var startDate = $('#TaskTable tr ').eq(trIndex).find('td').eq(1).html();
+        if (confirm('you are about to edit the task with name ' + taskName + 'which starts on' + startDate + 'date. Are you sure?')) {
+            $('#TaskTable tr ').eq(trIndex).find('td').eq(0).html(obj.TaskName);
+            $('#TaskTable tr ').eq(trIndex).find('td').eq(0).attr('value',obj.TaskID);
+            $('#TaskTable tr ').eq(trIndex).find('td').eq(1).html(obj.ShowName);
+            $('#TaskTable tr ').eq(trIndex).find('td').eq(1).attr('value',obj.ShowID); 
+            $('#TaskTable tr ').eq(trIndex).find('td').eq(2).html(obj.StartDate);
+            $('#TaskTable tr ').eq(trIndex).find('td').eq(3).html(obj.EndDate);
+            $('#TaskTable tr ').eq(trIndex).find('td').eq(4).html(obj.Days);
+            $('#btnAddSchedule').val("Add");
+            $('#editText').css('display', 'none');
+        }
+       
+        $('#editIndex').val("");
+        
+    }
+    else
+    {
+        var htmlString = "<tr value='" + obj.tempID + "'>" +
+       "<td value='"+obj.TaskID+"'>" + obj.TaskName + "</td>" +
+       "<td value='"+obj.ShowID+"'>" + obj.ShowName + "</td>" +
+       "<td>" + obj.StartDate + "</td>" +
+       "<td>" + obj.EndDate + "</td>" +
+       "<td>" + obj.Days + "</td>" +
+       "<td><span class='makelink deleteRow'>X</span>|<span class='makelink editRow'>Edit</span></td>" +
+         "</tr>";
+        $('#TaskTable').append(htmlString);
+    }     
+}
+
+$(document).on('click', '.editRow', function () {
+    debugger;
+    var index = $(this).closest('tr').index();
+    var taskId = $(this).closest('tr').find('td').eq(0).attr('value');
+    $('#editIndex').val(index);
+    $('#Shows').val("");
+    var no = $(this).closest('tr').attr('value');
+    $('#tempID').val(no);
+    var taskName = $(this).closest('tr').find('td').eq(0).html();
+    $('#cmbtask option:selected').html(taskName);
+    $('#cmbtask').val(taskId);
+    var id = $(this).closest('tr').find('td').eq(0).attr('value');
+    if (id == 4 || id == 5 || id == 6 || id == 7)
+    {
+        var ShowName = $(this).closest('tr').find('td').eq(1).html();
+        var ShowID = $(this).closest('tr').find('td').eq(1).attr('value');
+        $('#showsColumn').css('display', 'block');
+        $('#Shows option:selected').html(ShowName);
+        $('#Shows').val(ShowID);
+        
+    }
+
+    $('#StDate').val($(this).closest('tr').find('td').eq(2).html());
+    $('#EDate').val($(this).closest('tr').find('td').eq(3).html());
+    $('#Days').html($(this).closest('tr').find('td').eq(4).html());
+    $('#editTaskName').html(taskName);
+    $('#btnAddSchedule').val("Save");
+    $('#editText').css('display', 'block');
+});
+$(document).on('click', '.deleteRow', function () {
+    debugger;
+    var index = $(this).closest('tr').index();
+    var tempID = $(this).closest('tr').attr('value');
+    var schedule = sessionStorage.getItem('Schedule');
+    var scheduleArr = JSON.parse(schedule);
+    var index = searchinArray(scheduleArr, tempID);
+    if(index>-1)
+    {
+        var newArr=deleteSchedule(scheduleArr,index);
+        sessionStorage.setItem('Schedule', JSON.stringify(newArr));
+        $(this).closest('tr').remove();
+        sessionStorage.setItem('data', $('#Datacontainer').html());
+    }
+})
+$(document).on('click', '#closeEdit', function () {
+    $('#editIndex').val("");
+    $('#tempID').val("");
+    $('#btnAddSchedule').val("Add");
+    $('#editText').css('display', 'none');
+    $('#showsColumn').css('display', 'none');
+    clearControl();
+});
+
+
+
+
+function searchinArray(arr,item)
+{
+    if (arr != null)
+    {
+        for (i = 0; i < arr.length; i++) {
+
+            if (arr[i]['tempID'] == item) {
+                return i;
+            }
+        }
+    }    
+    return -1;
+}
+
+function saveSchedule(obj,indexNo,arr)
+{
+    if (arr == null)
+    {
+        arr = [];
+    }
+    if(indexNo>-1)
+    {
+        arr[indexNo] = obj;
+    }
+    else
+    {
+        arr.push(obj);
+    }
+    
+    
+    return arr;
+}
+
+
+function deleteSchedule(arr,index)
+{
+    arr.splice(index, 1);    
+    return arr;
+}
+
+function checkDates()
+{
+    debugger;
+    var curdate = currentDate();
+    var SstartDate = $('#S_startDate').val();
+    
+    if (SstartDate == "" || SstartDate == undefined) {
+        alert('Scehdule start Date is not given');
+        $('#S_startDate').val("");
+        return false;
     }
    
+    var SEndDate = $('#S_endDate').val();
+    if(SEndDate == "" || SEndDate == undefined) {
+        alert('Scehdule end Date is not given');
+        $('#S_endDate').val("");
+        return false;
+    }
+    SstartDate = new Date(SstartDate);
+    SEndDate = new Date(SEndDate);
+
+    if(SEndDate<SstartDate) {
+        alert('Scehdule end Date cannot be greater than schedule start date.');
+        $('#S_endDate').val("");
+        return false;
+    }
+
+    if(SEndDate < SstartDate) {
+        alert('Scehdule end Date cannot be greater than schedule start date.');
+        $('#S_endDate').val("");
+        return false;
+    }
+
+    var startDate=new Date($('#StDate').val());
+    var endDate = new Date($('#EDate').val());
+
+    if (startDate < SstartDate)
+    {
+        alert('Task start date should be greater than Schedule Start date.');
+        $('#StDate').val("");
+        return false;
+    }
+
+    //if (startDate < SEndDate) {
+    //    alert('Task start date should be less than Schedule end date.Modify Schedule end date to enter task or this date.');
+    //    $('#StDate').val("");
+    //    return false;
+    //}
+
+    if (endDate < SstartDate)
+    {
+        alert('Task end date should be greater than Schedule Start date.');
+        $('#EDate').val("");
+        return false;
+    }
+
+    if (endDate > SEndDate) {
+        alert('Task end date should be less than Schedule end date.Modify Schedule end date to enter task or this date.');
+        $('#EDate').val("");
+        return false;
+    }
+
+    if(startDate>endDate)
+    {
+        alert('Task end date is less than task start date.');
+        return false;
+    }
+
+
+    var days = Date.daysBetween(startDate, endDate);
+    $('#Days').html(days);
+    return true;
+}
+
+
+$(document).on('change', '#StDate', function () {
+    checkDates();
+    var thisDate = new Date($(this).val());
+    var task=$('#cmbtask option:selected').html();
+    var result = checkEngagedDates(thisDate, task);
+    if (!result) {
+        alert('given date is engaged by another task given another date.');
+        $(this).val("");
+    }
+});
+
+ $(document).on('change', '#EDate', function () {
     
+    checkDates();
+    var thisDate = new Date($(this).val());
+    ///checking engaged dates
+    var task = $('#cmbtask option:selected').html();
+    var result = checkEngagedDates(thisDate, task);
+    if(!result)
+    {
+        alert('given date is  engaged by another task given another date.');
+        $(this).val("");
+        return;
+    }
+
+    var startDate=new Date($('#StDate').val());
+    //debugger;
+    if (startDate != null && startDate != "" && startDate != undefined)
+    {
+        var end=Date.daysBetween(startDate,thisDate);
+        for (chk = 0; chk < end;chk+=1)
+        {
+            var result = checkEngagedDates(startDate.AddDays(1), task);
+            if(!result)
+            {
+                alert('given date is  engaged by another task given another date.');              
+                $(this).val("");
+                return;
+                //break;
+
+            }
+        }
+    }
+    
+});
+
+function checkEngagedDates(thisDate,Task)
+{
+    debugger;
+    var count = 0;
+    var length = $('#TaskTable tr').length;
+
+    for (i = 0; i < length; i++) {
+        var startDate = new Date($('#TaskTable tr').eq(i).find('td').eq(2).html());
+        var endDate = new Date($('#TaskTable tr').eq(i).find('td').eq(3).html());
+        var taskname = $('#TaskTable tr').eq(i).find('td').eq(0).html();
+        taskname = replaceAll(taskname, '&nbsp;', '');
+        if (thisDate >= startDate && thisDate <= endDate && Task!=taskname) {
+            count = 1;
+            break;
+        }
+    }
+    if(count==0)
+    {
+        return true;
+    }
+    return false;
+}
+
+$(document).on('change', '#S_startDate', function () {
+    debugger;
+    var SstartDate = new Date($(this).val());
+    var curDate = currentDate();
+    if (SstartDate < curDate) {
+        alert('Scehdule start Date should be greater than current date.');
+        $(this).val("");
+        //  $(this).focus();
+    }
 
 
+});
+
+$(document).on('change', '#S_endDate', function () {
+    //checkDates();
+    debugger;
+    var endate= new Date($(this).val());
+    var startDate = new Date($('#S_startDate').val());
+    var curDate = currentDate();
+    if (endate < startDate) {
+        alert('Scehdule date Date should be greater than start date.');
+        $(this).val("");
+        //  $(this).focus();
+    }
+
+    if (endate <curDate) {
+        alert('Scehdule date Date should be greater than current date.');
+        $(this).val("");
+        //  $(this).focus();
+    }
+});
+function currentDate()
+{
+    var curDate = new Date();
+    curDate.setHours(00);
+    curDate.setMinutes(00);
+    curDate.setSeconds(00);
+    curDate.setMilliseconds(00);
+
+    return curDate;
+}
+
+
+function clearControl()
+{
+    $('#cmbtask').val(-1);
+    $('#StDate').val("");
+    $('#EDate').val("");
+    $('#Days').html("");
+    $('#editIndex').val("");
+    $('#Shows').val("");
+    $('#showsColumn').css('display', 'none');
+    $('#TaskName').val("");
+    $('#persons').val("");
+    $('#subscheduleStartDate').val("");
+    $('#subscheduleEndDate').val("");
+    $('#ssDays').val("");
+}
+
+
+$(document).ready(function () {
+
+  
+    var data = sessionStorage.getItem('data');
+    debugger;
+    if (data != null) {
+
+        $('#overLay').css('display', 'block');
+        $('#Datacontainer').html(data);
+        $('#Days').html("");
+        
+        startDate = sessionStorage.getItem('scheduleStartDate');
+        endDate = sessionStorage.getItem('scheduleEndDate');
+        $('#S_startDate').val(startDate);
+        $('#S_endDate').val(endDate);
+        var offData = sessionStorage.getItem('OFFContainer');
+        if (offData != null) {
+            //alert('asd');
+            // console.log(offData.toString());
+            $('#overLay').css('display', 'none');
+            $('#overLay1').css('display', 'block');
+            $('#Datacontainer1').html(offData.toString());
+            result = sessionStorage.getItem('sundayChecked');
+
+            if (result) {
+
+                $('#sunchkbx').attr('checked', 'checked');
+            }
+        }
+        clearControl();
+    }
+    $('body').on('focus', ".date", function () {
+       // debugger;
+        //$(this).datepicker();
+        $(this).datepicker({
+            changeMonth: true,//this option for allowing user to select month
+            changeYear: true //this option for allowing user to select from year range
+        });
+    });
+})
+
+
+
+
+
+$(document).on('click', '#closebtn', function () {
+    $('#overLay').css('display', 'none');
+    $('#overLay1').css('display', 'none');
+    $('#overLay2').css('display', 'none');
+    //sessionStorage.clear();
+    sessionStorage.removeItem('data');
+    sessionStorage.removeItem('StartDate');
+    sessionStorage.removeItem('EndDate');
+    sessionStorage.removeItem('sundayChecked');
+    sessionStorage.removeItem('Schedule');
+    sessionStorage.removeItem('Length');
+    sessionStorage.removeItem('cruiseID');
+})
+
+//------------------------------------------------------New Logic to Add Schedule--------------------///
+
+//-------------------------------------New logic to manage off---------------------------------------------------////
+function manageOff(startDate, endDate) {
+
+    debugger;
+    var start = startDate;
+    var end = endDate;
+
+    //alert(endDate);
+
+    var htmlString = "<div class='off-management'><div class='row'>"
+        + "<div class='row text-right' style='margin-top:5px;cursor:pointer' id='closebtn'>"
+        + "<span  style='font-size: 19px;border: 1px solid #BFBFBF;margin-right: 3px;color: #A7A7A7;font-weight: bold;cursor:pointer'>&nbsp;X&nbsp;</span>"
+        + "</div>"
+        + "<div class='row'>"
+        + "<h3 class='popup-heading' style='margin-top: 0px;'>OFF Management</h3>"
+        + "</div>"
+           + "<input type='button' id='backbtn' value='Back' class='popup-btn'/>"
+            + "<input type='Submit' value='submit' id='btnsubmitSchedule' name='submit Schedule' class='popup-btn'/>"
+    + "</div>"
+    + "<div class='row'>"
+        + " <div class='col-md-2' style='padding-right: 0px;'>"
+            + "<label class='date'>Start Date: </label>"
+            + "</div>"
+            + "<div class='col-md-4' style='margin-top: 10px;'>"
+                + "<span id='strtDate'>" + formatDate(start) + "</span>"
+            + "</div>"
+            + "<div class='col-md-2'>"
+                    + "<label class='date'>End Date:</label>"
+            + "</div>"
+            + "<div class='col-md-4' style='margin-top: 10px;'>"
+                + "<span id='endDate'>" + formatDate(end) + "</span>"
+            + "</div>"
+    + "</div>"
+    + "<div class='row'>"
+            + "<div class='col-md-1'>"
+                    + "<input type='checkbox' id='sunchkbx'/></div><label class='date'> Mark all sundays as OFF </label>"
+              + "</div>"
+              + "<div style='height: 288px;overflow-y: scroll;border: 1px solid #C1C1C1;border-radius: 5px;'>"
+                    + "<table id='offTable' border='1'><tr><th>Date</th><th>Day</th><th>Task on Date</th><th>Show</th><th>Schedule Off</th></tr>";
+
+
+    ///alert();
+
+
+    while (start <= end) {
+        var name = "";
+        var countDays = 0;
+        length = $('#TaskTable tr').length;
+        if (length < 2) {
+            alert('select atleast one task');
+            return;
+        }
+        for (i = 0; i < length; i++) {
+            var Name = $('#TaskTable tr').eq(i).find('td').eq(0).html();
+            var TaskID = $('#TaskTable tr').eq(i).find('td').eq(0).attr('value');
+            var ShowName = $('#TaskTable tr').eq(i).find('td').eq(1).html();
+            var ShowID = $('#TaskTable tr').eq(i).find('td').eq(1).attr('value');
+            var StartDate = $('#TaskTable tr').eq(i).find('td').eq(2).html();
+            var endDate = $('#TaskTable tr').eq(i).find('td').eq(3).html();
+            var Days = $('#TaskTable tr').eq(i).find('td').eq(4).html();
+            //  countDays = Name + '-' + Days+';';
+
+            StartDate = new Date(StartDate);
+            endDate = new Date(endDate);
+
+            if (start >= StartDate && start <= endDate) {
+                // alert(Name);
+                name = Name;
+                ShowName = ShowName;
+                break;
+            }
+
+        }
+
+        //$('#TaskTable tr').each(function (idx, elem) {
+        //    // console.log(elem);
+        //    var Name = $(elem).find('td').eq(0).html();
+        //    var StartDate = $(elem).find('td').eq(1).html();
+        //    var endDate = $(elem).find('td').eq(2).html();
+        //    var Days = $(elem).find('td').eq(3).html();
+
+        //});
+        htmlString += "<tr><td>" + formatDate(start) + "</td>";
+        var day = start.getDay();
+        var strDay = weekDays[day];
+        htmlString += "<td>" + strDay + "</td>";
+        htmlString += "<td value='"+TaskID+"'>" + name + "</td>";
+        htmlString += "<td value='"+ShowID+"'>" + ShowName + "</td>";
+        htmlString += "<td><input type='checkbox' name='chkbx' class='offchk'/></td></tr>";
+
+        var value = $('#Datacontainer').html();
+        sessionStorage.setItem('Container', value);
+        //console.log(value);
+        start.AddDays(1);
+        ////switch(day)
+        ////{
+        ////    case 1:
+        ////        strDay
+        ////}
+    }
+    htmlString += "</table></div></div>";
+    $('#overLay').css('display', 'none');
+    $('#overLay1').css('display', 'block');
+    $('#Datacontainer1').html("");
+    $('#Datacontainer1').html(htmlString);
+
+    sessionStorage.setItem('OFFContainer',htmlString);
+
+
+
+}
+$(document).on('click', '#backbtn', function () {    
+    var data = sessionStorage.getItem('Container');
+    if (data != null && data != undefined) {
+        $('#overLay1').css('display', 'none');
+        $('#overLay').css('display', 'block');
+        sessionStorage.removeItem("OFFContainer");
+        sessionStorage.removeItem('sundayChecked');
+        sessionStorage.removeItem('OffManager');
+        $('#Datacontainer1').html(data.toString());
+    }
+
+
+});
+
+$(document).on('change', '#sunchkbx', function () {
+
+    var obj = {};
+    var sundayArr=[];
+
+
+    //loop through to all the rows in table for checking the sundays
+    result = $('#sunchkbx').is(':checked');
+    if (result) {
+        sessionStorage.setItem('sundayChecked',result);
+        $('#offTable tr').each(function (idx, obj) {
+            var day = $(this).find('td').eq(1).html();
+            var Task = $(this).find('td').eq(2).html();
+            if (weekDays.indexOf(day) == 0 && Task != 'OFF') {
+
+                //this is to store the current data so that if we will revoke off from this date then off will be replaced by this automatically.
+                obj.Index = idx;
+                obj.Value = $(this).find('td').eq(2).html();
+                obj.ShowName = $(this).find('td').eq(2).attr('value');
+                obj.ShowName = $(this).find('td').eq(3).html();
+                obj.ShowID= $(this).find('td').eq(3).attr('value');
+                obj.DayIndex = weekDays.indexOf(day);
+                sundayArr.push(obj);
+                markOff('OFF', true, idx);             
+            }
+        });
+        
+        sessionStorage.setItem('OffManager', JSON.stringify(sundayArr));
+        var value = $('#Datacontainer1').html();
+        sessionStorage.setItem('OFFContainer', value);
+    }
+    else {
+        sessionStorage.setItem('sundayChecked', result);
+        var data=sessionStorage.getItem('OffManager');
+        sundayArr = JSON.parse(data);
+        for (i = 0; i < sundayArr.length;i++)
+        {
+            if(sundayArr[i]["DayIndex"]==0)
+            {
+                obj = sundayArr[i];
+               markOff(obj,false,sundayArr[i].Index);               
+            }
+        }        
+        var value = $('#Datacontainer1').html();
+        sessionStorage.setItem('OFFContainer', value);
+    }
+    var data = $('#Datacontainer1').html();
+    sessionStorage.setItem('offdata', data);
+})
+
+function markOff(obj,checked,index)
+{
+    debugger;
+    if (checked)
+    {
+        $('#offTable tr').eq(index).find('td').eq(2).html('OFF');
+        $('#offTable tr').eq(index).find('td').eq(2).attr('value','0');
+        $('#offTable tr').eq(index).find('td').eq(3).html('');
+        $('#offTable tr').eq(index).find('td').eq(3).attr('value', '0')
+        $('#offTable tr').eq(index).find('td').eq(4).html('<input type="checkbox" checked  name="chkbx" class="offchk">');
+        $('#offTable tr').eq(index).attr('class', 'off');
+    }
+    else
+    {
+        if (obj != null)
+        {
+            $('#offTable tr').eq(index).find('td').eq(2).html(obj.Value);
+            $('#offTable tr').eq(index).find('td').eq(2).attr('value',obj.TaskID);
+            $('#offTable tr').eq(index).find('td').eq(3).html(obj.ShowName);
+            $('#offTable tr').eq(index).find('td').eq(3).attr('value',obj.ShowID);
+            $('#offTable tr').eq(index).find('td').eq(4).html('<input type="checkbox"  name="chkbx" class="offchk">');
+            $('#offTable tr').eq(index).removeAttr('class');
+        }
+        
+    }
+    
+}
+$(document).on('change', '.offchk', function () {
+    debugger;
+    var obj = {};
+    var offArr;
+    var data = sessionStorage.getItem('OffManager');
+    offArr = JSON.parse(data);
+    if (offArr == null)
+    {
+        offArr = [];
+    }
+    var result = $(this).is(':checked')
+    var index = $(this).closest('tr').index();
+    if (result) {
+   
+        //var length = $('#offTable tr').length;
+        var day = $('#offTable tr').eq(index).find('td').eq(1).html();        
+        obj.Index = index;
+        obj.DayIndex = weekDays.indexOf(day);
+        obj.Value = $('#offTable tr').eq(index).find('td').eq(2).html();
+        obj.TaskID= $('#offTable tr').eq(index).find('td').eq(2).attr('value');
+        obj.ShowName = $('#offTable tr').eq(index).find('td').eq(3).html();
+        obj.ShowID= $('#offTable tr').eq(index).find('td').eq(3).attr('value');
+        offArr.push(obj);
+        markOff(null,true,index);
+        var value = $('#Datacontainer1').html();
+        sessionStorage.setItem('OFFContainer', value);
+        sessionStorage.setItem('OffManager',JSON.stringify(offArr));
+    }
+    else {
+        //var index = $(this).closest('tr').index();
+        
+        //var idx = offArr.indexOf(index);
+        for (i = 0; i < offArr.length;i++)
+        {
+            if(offArr[i]["Index"]==index)
+            {
+                if (offArr[i].DayIndex == 0)
+                {
+                    $('#sunchkbx').removeAttr('checked');
+                    //$('#sunchkbx').prop('checked', 'false');
+                }
+                obj = offArr[i];
+                markOff(obj, false, index);
+                break;
+            }
+        }
+      
+        var value = $('#Datacontainer1').html();
+        sessionStorage.setItem('OFFContainer', value);        
+    }
 
 })
+
+//-------------------------------------New logic to manage off---------------------------------------------------////
+
+////----------------------------------------submit Schedule-------------------------------------------------------///////////////
+
+$(document).on('click', '#btnsubmitSchedule', function () {
+
+    debugger;
+    var cruiseID = sessionStorage.getItem("CruiseID");
+    var TaskArr = [];
+    var obj;
+    $('#offTable tr').each(function (idx, element) {
+        debugger;
+        if (idx != 0)
+        {
+            obj = {};
+            obj.TaskDate= new Date(element.childNodes[0].innerHTML);
+            obj.TaskID = element.childNodes[2].getAttribute('value');
+            obj.ShowID = element.childNodes[3].getAttribute('value');
+            obj.CruiseID = cruiseID;
+            TaskArr.push(obj);
+        }        
+    });
+
+    var jsonstring = JSON.stringify(TaskArr);    
+    $.ajax({
+        url: "/Cruises/SubmitCruiseSchedule",
+        method: "POST",
+        data: { model: jsonstring,CruiseID:cruiseID},
+        dataType: "JSON",
+        success: function (data) {            
+            if (data == "done") {
+                $('#overLay').css('display', 'none');
+                $('#overLay1').css('display', 'none');
+                sessionStorage.clear();
+                GetSchedule(cruiseID);
+            }
+        },
+        error: function () {
+            alert("something went wrong try after sometime.")
+        }
+
+
+    });
+
+});
+
+////----------------------------------------submit Schedule-------------------------------------------------------///////////////
+
+
+/// ------------------------------------------------------Add Sub Scedule-----------------------------------------------------//////////
+
+function addSubSchedule() {
+
+    var cruise = $('#Cruise').val();
+    if (cruise == '' || cruise == undefined) {
+        alert('select any cruise');
+        return;
+    }
+    $('#overLay').css('display', 'block');
+    $('#Datacontainer').load('/Cruises/AddSubschedule?cruiseID=' + cruise, function () { });
+    sessionStorage.setItem('CruiseID', cruise);
+}
+
+//Get persons For selected category
+$(document).on('change', '#TaskName', function () {
+
+    var data = $('#TaskTable tr').eq(0).find('th').eq(0).html();
+
+    if (data == 'Category Name') {
+        var id = $(this).val();
+
+        $.ajax({
+            url:'/Cruises/Persons?ID=' + id,
+            success: function (data) {
+                //debugger;
+                var htmlString = "<option>select--</option>";
+                for (i = 0; i < data.length; i++) {
+                    htmlString += "<option value='" + data[i].ID + "'>" + data[i].FirstName + " " + data[i].LastName + "</option>";
+                }
+                $('#persons').html(htmlString);
+            },
+            error: function (err) {
+                alert(err.statusText);
+            }
+
+        })
+    }
+});
+
+$(document).on('change', '#subscheduleStartDate', function () {
+    debugger;
+    var date = new Date($(this).val());
+    if(!CheckSubScheduleDate(date))
+    {
+        $(this).val("");
+        return;
+    }
+}); 
+
+$(document).on('change', '#subscheduleEndDate', function () {
+    debugger;
+    var date = new Date($(this).val());
+    var startDate = $('#subscheduleStartDate').val();
+    if (!CheckSubScheduleDate(date)) {
+        $(this).val("");
+        return;
+    }
+    var diff = Date.daysBetween(startDate,date);    
+    if(diff>0)
+    {
+        $('#ssDays').html(diff);
+    }
+});
+
+function CheckSubScheduleDate(date)
+{
+    schedulestartDate = new Date($('#S_startDate').html());
+    scheduleEndDate = new Date($('#S_endDate').html());
+    if(date<schedulestartDate || date>scheduleEndDate)
+    {
+        alert('date should be with schedule start date and schedule end date.');
+        return false;
+    }
+    return true;
+
+
+}
+
+
+$(document).on('click', '#Stskbtn', function () {
+    
+    var index = $(this).closest('tr').index();
+    addSubTask();
+});
+
+function addSubTask()
+{
+    debugger;
+    var arr;
+    var categoryID = $('#TaskName').val();
+    var categoryName = $('#TaskName option:selected').html();
+    var personID = $('#persons').val();
+    var personName = $('#persons option:selected').html();
+    var startDate = $('#subscheduleStartDate').val();
+    var endDate = $('#subscheduleEndDate').val();
+    var tempID = $('#tempID').val();
+    var days = $('#ssDays').val();
+    if (tempID=="" ||tempID==undefined)
+    {       
+        var id = 0;
+        id = parseInt(sessionStorage.getItem('Length'));
+        if (isNaN(id))
+        {
+            id = 0;
+        }
+        scheduleNo = id + 1;        
+    }
+    else
+    {
+        scheduleNo =tempID;
+    }
+    if(personID =="" ||personID  ==undefined)
+    {
+        alert('person is not selected');
+        return;
+    }
+
+   arr=JSON.parse(sessionStorage.getItem("SubSchedule"));
+   if(arr==null)
+   {
+       arr=[];
+   }
+
+   var obj = {};
+
+    //save in object
+    obj.CategoryID = categoryID;
+    obj.CategoryName = categoryName;
+    obj.PersonID = personID;
+    obj.PersonName = personName;
+    obj.StartDate = startDate;
+    obj.EndDate =endDate;
+    obj.tempID = scheduleNo;
+    obj.Days = days;
+
+    var indexNo=searchinArray(arr,scheduleNo);
+    //var indexNo = searchinArray(jsonArr,scheduleNo);
+    var newarr = saveSchedule(obj, indexNo,arr);
+    var trIndex = $('#editIndex').val();
+    
+    
+    
+    AppendToSubScheduleTable(obj,trIndex);
+    sessionStorage.setItem('SubSchedule',JSON.stringify(newarr));
+    sessionStorage.setItem('Length', newarr.length);       
+    sessionStorage.setItem('data',$('#Datacontainer').html());
+    sessionStorage.setItem('scheduleStartDate', $('#subscheduleStartDate').val());
+    sessionStorage.setItem('scheduleEndDate', $('#subscheduleEndDate').val());
+    clearControl();
+    
+}
+
+
+function AppendToSubScheduleTable(obj,trIndex)
+{
+    if (trIndex != "" && trIndex != undefined && trIndex > -1) {
+        var taskName = $('#TaskTable tr').eq(trIndex).find('td').eq(0).html();
+        var startDate = $('#TaskTable tr').eq(trIndex).find('td').eq(1).html();
+        if (confirm('you are about to edit the task with name ' + taskName + 'which starts on' + startDate + 'date. Are you sure?')) {
+            $('#TaskTable tr').eq(trIndex).find('td').eq(0).html(obj.CategoryName);
+            $('#TaskTable tr').eq(trIndex).find('td').eq(0).attr('value', obj.CategoryID);
+            $('#TaskTable tr').eq(trIndex).find('td').eq(1).html(obj.PersonName);
+            $('#TaskTable tr').eq(trIndex).find('td').eq(1).attr('value', obj.PersonID);
+            $('#TaskTable tr').eq(trIndex).find('td').eq(2).html(obj.StartDate);
+            $('#TaskTable tr').eq(trIndex).find('td').eq(3).html(obj.EndDate);
+            $('#TaskTable tr').eq(trIndex).find('td').eq(4).html(obj.Days);
+            $('#TaskTable tr').eq(trIndex).find('td').eq(5).html(obj.Days);
+            $('#btnAddSchedule').val("Add");
+            $('#editText').css('display', 'none');
+        }
+        $('#editIndex').val("");
+    }
+    else {
+
+        var htmlString = "<tr value='" + obj.tempID + "'>" +
+       "<td value='" + obj.CategoryID+ "'>" + obj.CategoryName+ "</td>" +
+       "<td value='" + obj.PersonID + "'>" + obj.PersonName+ "</td>" +
+       "<td>" + obj.StartDate + "</td>" +
+       "<td>" + obj.EndDate + "</td>" +
+       "<td>" + obj.Days + "</td>" +
+       "<td><span class='makelink deletesubScheduleRow'>X</span>|<span class='makelink editSubScheduleRow'>Edit</span></td>" +
+         "</tr>";
+        $('#TaskTable').append(htmlString);
+    }
+}
+
+
+
+$(document).on('click','.deletesubScheduleRow', function () {
+
+});
+
+$(document).on('click', '.editSubScheduleRow', function () {
+    debugger;
+    var index = $(this).closest('tr').index();
+    var categoryID = $(this).closest('tr').find('td').eq(0).attr('value');
+    var personID = $(this).closest('tr').find('td').eq(1).attr('value');
+    $('#editIndex').val(index);
+    $('#persons').val(personID);
+    var no = $(this).closest('tr').attr('value');
+    $('#tempID').val(no);
+    var taskName = $(this).closest('tr').find('td').eq(0).html();
+    //$('#cmbtask option:selected').html(taskName);
+    $('#TaskName').val(categoryID);  
+    $('#subscheduleStartDate').val($(this).closest('tr').find('td').eq(2).html());
+    $('#subscheduleEndDate').val($(this).closest('tr').find('td').eq(3).html());
+    $('#ssDays').html($(this).closest('tr').find('td').eq(4).html());
+    $('#editTaskName').html(taskName);
+    $('#Stskbtn').val("Save");
+    $('#editText').css('display', 'block');
+});
+
+
+/// ------------------------------------------------------Add Sub Scedule-----------------------------------------------------//////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// -----------------------------------------------------------------------Old Codes some of these are not on work now --------------------------------------------------------//
+
+
+
+
+// -----------------------------------------------------------------------Schedule Calculation--------------------------------------------------------//
+
+
+
+
 
 function check(data)
 {
@@ -124,278 +1159,6 @@ function convertDate(date)
     return [year, month, day].join('-');
 }
 
-function AddTask(index,option)
-{
-    count = 1;
- 
-
-    var taskID = $('#TaskName').val()
-    var taskname = $('#TaskName option:selected').html();
-    if (taskname == 'select--')
-    {
-        alert('Select any task');
-        return;
-    }
-
-    var S_StartDate = $('#S_startDate').val();
-    var s_EndDate = $('#S_endDate').val();
-
-
-    if (check(S_StartDate))
-    {
-        alert('start date not given');
-        return;
-    }
-
-    if (check(s_EndDate))
-    {
-        alert('end date is not given');
-        return;
-    }
-
-
-    var startDate = $('#StDate').val();
-    var endDate = $('#EDate').val();
-
-    var conStart = new Date(startDate);
-    var conSstart = new Date(S_StartDate);
-    var conend = new Date(endDate);
-    if (option == 1)
-    {
-        if (!check(endDate) && conend< conSstart) {
-            alert('end date should be greater than Schedule start date');
-            return;
-        }
-    }
-
-    
-    if (!check(startDate ) && conStart < conStart)
-    {
-        alert('start date should be greater than Schedule start date');
-        return;
-    }
-
-   
-    
-    var days = $('#Days').val();
-    var difference=0;
-    S_StartDate = formatDate(S_StartDate);
-    s_EndDate = formatDate(s_EndDate);
-    var PersonName;
-    if ($('#Presons') != null)
-    {
-        Personstring = $('#Person').html();
-        PersonName = $('#Persons').val();
-        PersonN = $('#Persons option:selected').html();
-        sessionStorage.setItem('Person', Personstring);
-        if(PersonN=='select--')
-        {
-            alert('select any one person');
-            return;
-        }
-    }
-        
-    
-    var arr = saveTask();
-   // console.log(arr);
-
-    if (S_StartDate != '' && S_StartDate != 'Invalid Date' && S_StartDate != undefined && s_EndDate != '' && s_EndDate != 'Invalid Date' && s_EndDate != undefined)
-    {    
-          
-        if (days != null && days != undefined && days!='')
-        {
-
-            //if (days == 1)
-            //{
-            //    days = 0;
-            //}
-                if(index==1)
-                {
-                    if (S_StartDate == '' || S_StartDate == undefined || S_StartDate == 'Invalid Date' || s_EndDate == '' || s_EndDate == undefined || s_EndDate=='Invalid Date')
-                    {
-                        alert('Start Date and End Date is mendatory');
-                        return;
-                    }
-                    else
-                    {
-                   //     alert('End Date Days' + days);
-                        startDate = S_StartDate;                       
-                        tempstartDate = new Date(S_StartDate);
-                     //   alert('temp start date :' + tempstartDate);
-
-                        var TEndDate = new Date(tempstartDate.AddDays(days-1));
-                       // alert('TEndDAte: ' + TEndDate);
-                        endDate = formatDate(TEndDate);
-                       // alert('End Date' + endDate);
-                    }
-                }
-                else
-                {
-                    //if (option == 1)
-                    //{
-                    //    alert('end date cnnot be greater than Schedule end date.');
-                    //    return;
-                    //}
-                    if (days == null || days == undefined || days == '') {
-                        alert('enter no of Days or start Date or endDate');
-                    }
-                    else {
-                        if (option == 1)
-                        {
-                            var startDate = $('#TaskTable tr').eq(index - 1).find('td').eq(3).find('label').html();
-                        }
-                        else
-                        {
-                            var startDate = $('#TaskTable tr').eq(index - 1).find('td').eq(2).find('label').html();
-                        }
-                        
-                        startDate = new Date(startDate);
-                        var TstartDate = new Date(startDate.AddDays(1));
-                        startDate = formatDate(TstartDate);
-                        //  alert(days);
-                        var TEndDate = new Date(TstartDate.AddDays(days - 1));
-                        /// alert(TEndDate);
-
-                        endDate = formatDate(TEndDate);
-                    }
-
-                }
-              
-        }
-
-
-      //  alert('s_EndDate  ' + s_EndDate);
-
-        var edate = new Date(s_EndDate);
-        end_date = new Date(endDate);
-       // alert(end_date);
-       
-     //   alert('check in greate ' + edate);
-       // alert('check in greate main ' + end_date);
-        if (end_date > edate) {
-            if (option == 1)
-            {
-                alert('end date cnnot be greater than Schedule end date.');
-                return;
-            }
-            
-            //if (option == 1)
-            //{
-            //    alert('end date cannot be greater than schedule date');
-            //    return;
-            //}
-            if (confirm('Date is greater then end date do want to continue')) {
-                end_date = formatDate(end_date);
-                //   alert(end_date);
-                $('#S_endDate').val(end_date);
-            }
-            else {
-                return;
-            }
-        }
-      
-            if (days == null || days == undefined || days=='')
-            {
-                //alert('endDate  1' + endDate)
-                days = Date.daysBetween(startDate, endDate);
-               // alert("Days count "+days)
-              //  alert('f '+days);
-            }
-            else
-            {
-             //   var startDate;
-            }
-
-
-            dropdownstring=$('#dropdown').html();
-           
-            
-            
-          
-            if ((taskname != '') && (taskname != undefined))
-            {
-              //  alert(isNaN(days));
-
-                if ((!isNaN(days)) || days>=0)
-                {
-                    if (days < 0)
-                    {
-                        alert('End Date should be greater then start Date');
-                    }
-                    else
-                    {
-
-                        if (days == 0)
-                        {
-                            days = 1;
-                        }
-                       
-                        $('.edittr').remove();
-                        var idx = $('.edittr').index();
-                        endate = formatDate(endDate);
-                      //  alert('final end Date' + endate);
-                        stdate = formatDate(startDate);
-                        //alert('final start Date' + stdate);
-             
-                        var htmlString = "<tr class='text-center'><td> <label class='wrap-content grey' value='"+taskID+"'>" + taskname + "</label></td>"
-
-                        if (option == 1)
-                        {
-                            htmlString += "<td> <label class='wrap-content grey' value='" + PersonName + "'>" + PersonN + "</label></td>"
-                        }
-
-                        htmlString+="<td><label class='wrap-content grey'>" + stdate + "</label></td><td><label class='wrap-content grey'>" + endate + "</label></td><td><label class='wrap-content grey'>" + days + "</label>"//</td><td><input type='button' class='edit' value='Edit' style='width:60px;font-size: 13px;'  /></td></tr><tr class='edittr'>"
-
-                        if (option == 1)
-                        {
-                            htmlString += "</td><td><input type='button' class='Sedit' value='Edit' style='width:60px;font-size: 13px;'  /></td></tr><tr class='edittr'>"
-                        }
-                        else
-                        {
-                            htmlString += "</td><td><input type='button' class='edit' value='Edit' style='width:60px;font-size: 13px;'  /></td></tr><tr class='edittr'>"
-                        }
-                        
-                        htmlString += "<td ><div id='dropdown' class='wrap-content'>" + dropdownstring + "</div></td>"
-                        if (option == 1)
-                        {
-                            htmlString += "<td ><div id='Person' class='wrap-content'><select id='Persons'></select></div></td>"
-                        }
-                                       htmlString+= "<td ><input type='text' name='StDate' id='StDate' class='Cdate wrap-content'/></td>"
-                                        + "<td ><input type='text'  name='EDate' id='EDate' class='Cdate wrap-content'/></td>"
-                                        + "<td ><input type='number' name='Days' id='Days' value='' class='wrap-content'/></td>"
-                        if (option == 1)
-                        {
-                            htmlString+="<td style='text-align:center'><input type='button' name='tskbtn' class='STbtn' value='Add'  id='Stskbtn' class='wrap-content' style='width:60px;font-size: 13px;'/></td></tr>";
-                        }
-                        else
-                        {
-                            htmlString += "<td style='text-align:center'><input type='button' name='tskbtn' class='Tbtn' value='Add'  id='tskbtn' class='wrap-content' style='width:60px;font-size: 13px;'/></td></tr>";
-                        }
-
-                        $("#TaskTable").append(htmlString);
-                        $('#edittr').remove();
-                        sessionStorage.setItem('dropdown', dropdownstring);
-                        sessionStorage.setItem('StartDate', $('#S_startDate').val());
-                        sessionStorage.setItem('EndDate', $('#S_endDate').val());
-                        sessionStorage.setItem('selectedID', taskID);
-                        
-                        jsonArray=JSON.stringify(arr);
-                        sessionStorage.setItem('taskArray', jsonArray);
-
-                        var string = $('#Datacontainer').html();
-                        sessionStorage.setItem('data', string);
-                        
-                    }          
-                }
-                else
-                {
-                    alert('Days should be in numbers ');
-                    $("#Days").focus();
-                }
-    
-            }
-    }  
-}
 
 
 function EditTask(index,option)
@@ -475,31 +1238,14 @@ function EditTask(index,option)
     //$('#TaskName option:selected').html(TaskName);
 }
 
-function saveTask()
-{
-    ////debugger;
-    //dropdownstring = $('#TaskName').html();
-    length = $('#TaskName >option').length;
 
-    var arr = new Array();
-
-    for(i=1;i<length;i++)
-    {
-        name = $('#TaskName >option').eq(i).html();
-        ID = $('#TaskName >option').eq(i).val();
-        //alert(data);
-        arr[name] = ID;
-    }
-    arr['OFF'] ='0';
-    return arr;
-}
 
 $(document).on('click', '.Tbtn', function () {
     //var index = $(this).closest('tr').index();
     var index = $(this).closest('tr').index();
   //  alert('ad' + index);
     //console.log('ad' + index);
-   AddTask(index);
+ //  AddTask(index);
 });
 
 $(document).on('change', '#uSDate', function () {
@@ -523,40 +1269,6 @@ $(document).on('change', '#uSDate', function () {
 
 })
 
-
-
-
-$(document).on('change', '#TaskName', function () {
-    
-
-    var task = $('#TaskName option:selected').html();
-    
-    var index = $(this).closest('tr').index();
-    var c=0;
-    $('#TaskTable tr').each(function (idx, el) {
-
-        if (idx != index && idx != 0) {
-
-            var prevTask = $('#TaskTable tr').eq(idx).find('td').eq(0).html();
-            if(task==prevTask)
-            {
-                if (confirm('Task is selected previously select any other task'))
-                {
-                   
-                }
-                else
-                {
-                    $(this).focus();
-                }
-                // c = 1;
-                
-               //break;
-            }
-        }
-
-
-    });
-})
 
 //-------------------------for update the date part------------------------///
 $(document).on('change', '#uEDate', function () {
@@ -715,7 +1427,6 @@ function updateTask(index,option)
 
 }
 
-
 //----------------------update button logic-----------------------------//
 $(document).on('click', '#updatebtn', function () {
 
@@ -744,13 +1455,7 @@ $(document).on('click', '.edit', function () {
 
 
 //----------------------- logic when user will tab on update----------------------// 
-$(document).on('focusout', '#StDate', function () {
 
-
-  //  var index = $(this).closest('tr').index()
-   // updateTask(index);
-    
-})
 //----------------------- logic when user will tab----------------------//
 
 
@@ -782,133 +1487,8 @@ $(document).on('focusout', '#Days', function () {
 
 
 
-// -----------------------------------------------------------------------Off Calculation--------------------------------------------------------//
-
-function manageOff(startDate,endDate) {
-        
-
-    var start=startDate;
-    var end = endDate;
-
-    //alert(endDate);
-
-    var htmlString = "<div class='off-management'><div class='row'>"
-        + "<div class='row text-right' style='margin-top:5px;cursor:pointer' id='closebtn'>"
-        + "<span  style='font-size: 19px;border: 1px solid #BFBFBF;margin-right: 3px;color: #A7A7A7;font-weight: bold;cursor:pointer'>&nbsp;X&nbsp;</span>"
-        + "</div>" 
-        +"<div class='row'>"
-        + "<h3 class='popup-heading' style='margin-top: 0px;'>OFF Management</h3>"
-        + "</div>"
-           + "<input type='button' id='backbtn' value='Back' class='popup-btn'/>"
-            + "<input type='Submit' value='submit' id='btnsubmitSchedule' name='submit Schedule' class='popup-btn'/>"
-    + "</div>"
-    + "<div class='row'>"
-        + " <div class='col-md-2' style='padding-right: 0px;'>"
-            + "<label class='date'>Start Date: </label>"
-            + "</div>"
-            + "<div class='col-md-4' style='margin-top: 10px;'>"
-                + "<span id='strtDate'>" + formatDate(start) + "</span>"
-            + "</div>"
-            + "<div class='col-md-2'>"
-                    + "<label class='date'>End Date:</label>"
-            + "</div>"
-            + "<div class='col-md-4' style='margin-top: 10px;'>"
-                + "<span id='endDate'>" + formatDate(end) + "</span>"
-            + "</div>"
-    + "</div>" 
-    +"<div class='row'>"
-            + "<div class='col-md-1'>" 
-                    +"<input type='checkbox' id='sunchkbx'/></div><label class='date'> Mark all sundays as OFF </label>" 
-              +"</div>" 
-              +"<div style='height: 288px;overflow-y: scroll;border: 1px solid #C1C1C1;border-radius: 5px;'>" 
-                    +"<table id='offTable' border='1'><tr><th>Date</th><th>Day</th><th>Task on Date</th><th>Schedule Off</th></tr>";
-
-    
-    ///alert();
 
 
-    while(start<=end)
-    {   
-        var name = "";
-        var countDays = 0;
-        length = $('#TaskTable tr').length;
-        if (length < 3)
-        {
-            alert('select atleast one task');
-            return;
-        }
-        for (i = 0; i < length; i++)
-        {
-            var Name = $('#TaskTable tr').eq(i).find('td').eq(0).find('label').html();
-            var StartDate = $('#TaskTable tr').eq(i).find('td').eq(1).find('label').html();
-            var endDate = $('#TaskTable tr').eq(i).find('td').eq(2).find('label').html();
-            var Days = $('#TaskTable tr').eq(i).find('td').eq(3).find('label').html();
-          //  countDays = Name + '-' + Days+';';
-            
-                StartDate = new Date(StartDate);
-                endDate = new Date(endDate);
-
-                if(start>=StartDate &&start<=endDate)
-                {
-                   // alert(Name);
-                    name = Name;
-                    break;
-                }
-
-        }
-
-        //$('#TaskTable tr').each(function (idx, elem) {
-        //    // console.log(elem);
-        //    var Name = $(elem).find('td').eq(0).html();
-        //    var StartDate = $(elem).find('td').eq(1).html();
-        //    var endDate = $(elem).find('td').eq(2).html();
-        //    var Days = $(elem).find('td').eq(3).html();
-            
-        //});
-        htmlString += "<tr><td>" + formatDate(start) + "</td>";
-        var day = start.getDay();
-        var strDay = weekDays[day];
-        htmlString += "<td>" + strDay + "</td>";
-        htmlString += "<td>" + name + "</td>";
-        htmlString += "<td><input type='checkbox' name='chkbx' class='offchk'/></td></tr>";
-       
-        var value = $('#Datacontainer').html();
-        sessionStorage.setItem('Container', value);
-        console.log(value);
-        start.AddDays(1);
-        ////switch(day)
-        ////{
-        ////    case 1:
-        ////        strDay
-        ////}
-    }
-    htmlString += "</table></div></div>";
-    $('#overLay').css('display', 'none');
-    $('#overLay1').css('display', 'block');
-    $('#Datacontainer1').html("");
-    $('#Datacontainer1').html(htmlString);
-
-    sessionStorage.setItem('OFFContainer',htmlString);
-
-
-  
-}
-
-$(document).on('click', '#backbtn', function () {
-
-    ////debugger;
-    var data = sessionStorage.getItem('Container');
-    if(data!=null && data!=undefined)
-    {
-        $('#overLay1').css('display', 'none');
-        $('#overLay').css('display', 'block');
-        sessionStorage.removeItem("OFFContainer");
-        sessionStorage.removeItem('sundayChecked');
-        $('#Datacontainer1').html(data.toString());
-    }
-        
-
-})
 
 $(document).on('focusout', '#endDate', function () {
 
@@ -922,97 +1502,6 @@ $(document).on('focusout', '#endDate', function () {
     }    
 });
 
-
-$(document).on('change', '#sunchkbx',function(){
-
-
-    //loop through to all the rows in table for checking the sundays
-    result=$('#sunchkbx').is(':checked');
-    if (result)
-    {
-        sessionStorage.setItem('sundayChecked', result);
-        $('#offTable tr').each(function (idx, obj) {
-         
-            var day = $(this).find('td').eq(1).html();
-            var Task = $(this).find('td').eq(2).html();
-            if (weekDays.indexOf(day) == 0 && Task!='OFF') {               
-                   // alert('Index in sun ' + $(this).index() + ' length ' + $('#offTable tr').length);
-                    AddDates($(this).index(), $('#offTable tr').size(),1);
-                    $(this).find('td').eq(2).html('OFF');
-                    $(this).find('td').eq(3).html('<input type="checkbox" checked name="chkbx" class="offchk">');
-                    $(this).attr('class', 'off');
-
-            }
-        })
-        var value = $('#Datacontainer1').html();
-        sessionStorage.setItem('OFFContainer', value);
-    }
-    else {
-        sessionStorage.setItem('sundayChecked', result);
-        $('#offTable tr').each(function (idx, obj) {
-            //alert('asdsa');
-            var day = $(this).find('td').eq(1).html();
-            var Task = $(this).find('td').eq(2).html();
-            console.log(day);
-            console.log(Task);
-            //console.log(weekDays.indexOf(day) == 0 && Task!='OFF');
-            if (weekDays.indexOf(day) == 0 && Task=='OFF') {               
-                // alert('Index in sun ' + $(this).index() + ' length ' + $('#offTable tr').length);
-                minusSundays($(this).index(), $('#offTable tr').size());
-                //$(this).find('td').eq(2).html('OFF');
-                //$(this).find('td').eq(3).html('<input type="checkbox"  name="chkbx" class="offchk">');
-                //$(this).attr('class', 'off');
-
-            }
-        })
-        var value = $('#Datacontainer1').html();
-        sessionStorage.setItem('OFFContainer', value);
-       
-      
-    }
-        var data = $('#Datacontainer1').html();
-        sessionStorage.setItem('offdata', data);
-
-       
-})
-
-
-$(document).on('change', '.offchk', function () {
-
-    var result = $(this).is(':checked')
-  
-    if(result)
-    {
-        
-        var index = $(this).closest('tr').index();
-        var length = $('#offTable tr').length;
-        AddDates(index, length, 0);
-        //result = $('#sunchkbx').is(':checked');
-        //if (result)
-        //{
-        //    AddDates(index, length,1);
-        //}
-        $('#offTable tr').eq(index).find('td').eq(2).html('OFF');
-        $('#offTable tr').eq(index).find('td').eq(3).html('<input type="checkbox" checked  name="chkbx" class="offchk">');
-        $('#offTable tr').eq(index).attr('class', 'off');
-        var value = $('#Datacontainer1').html();
-        sessionStorage.setItem('OFFContainer', value);
-    }
-    else
-    {
-       
-        var index = $(this).closest('tr').index();
-        var length = $('#offTable tr').length;
-        minusDates(index, length, 0);
-        //  $('#offTable tr').eq(index).find('td').eq(2).html('OFF');
-        $('#offTable tr').eq(index).find('td').eq(3).html('<input type="checkbox"  name="chkbx" class="offchk">');
-        $('#offTable tr').eq(index).removeAttr('class');
-        var value = $('#Datacontainer1').html();
-        sessionStorage.setItem('OFFContainer', value);
-        //alert('hello');
-    }
-
-})
 
 
 function AddDates(index,length,opt)
@@ -1509,155 +1998,78 @@ $(document).on('focusout', '#EoffDate', function () {
 
 
 
-function addSchedule() {
-
-    ////debugger;
-    var ID=$('#Cruise').val();
-    if (ID != undefined && ID != "")
-    {
-        $('#overLay').css('display', 'block');
-
-        $('#Datacontainer').load('/Cruises/Schedule?ID='+ID, function () { });
-
-        sessionStorage.setItem('CruiseID',ID);
-    }
-    else
-    {
-        alert('select Cruise for schedule');
-    }
-
-
-
- 
-
-}
 
 
 
 //creating a object to store schedule
-var submitSchedule = function (Date,Task,TaskID) {
+//var submitSchedule = function (Date,Task,TaskID) {
 
-    this.Date = Date;
-    this.Task = Task;
-    this.TaskID = TaskID;
+//    this.Date = Date;
+//    this.Task = Task;
+//    this.TaskID = TaskID;
 
-}
+//}
 
-$(document).on('click', '#btnsubmitSchedule', function () {
+//$(document).on('click', '#btnsubmitSchedule', function () {
     
-    ////debugger;
-    var l = $('#offTable tr').size();
-    var data = "";
-    var arr = new submitSchedule();
-    var subarr = new Array();
-    var tasks = saveTask();
-   // console.log(tasks);
-    //var Taskarr =JSON.parse(tasks);
-    //console.log('out' + sessionStorage.getItem('taskArray'));
-    for (i = 1; i < l; i++)
-    {
-        //debugger;
-        var Date = $('#offTable tr').eq(i).find('td').eq(0).html();
-        var Task = $('#offTable tr').eq(i).find('td').eq(2).html();
-        var TaskID =parseInt(tasks[Task]);
-        console.log('taks ID' + TaskID);
-        if (TaskID != null && !isNaN(TaskID))
-        {
-            var arr = new submitSchedule(Date, Task, TaskID);
-            subarr.push(arr);
-        }
+//    ////debugger;
+//    var l = $('#offTable tr').size();
+//    var data = "";
+//    var arr = new submitSchedule();
+//    var subarr = new Array();
+//    var tasks = saveTask();
+//   // console.log(tasks);
+//    //var Taskarr =JSON.parse(tasks);
+//    //console.log('out' + sessionStorage.getItem('taskArray'));
+//    for (i = 1; i < l; i++)
+//    {
+//        //debugger;
+//        var Date = $('#offTable tr').eq(i).find('td').eq(0).html();
+//        var Task = $('#offTable tr').eq(i).find('td').eq(2).html();
+//        var TaskID =parseInt(tasks[Task]);
+//        console.log('taks ID' + TaskID);
+//        if (TaskID != null && !isNaN(TaskID))
+//        {
+//            var arr = new submitSchedule(Date, Task, TaskID);
+//            subarr.push(arr);
+//        }
         
         
-    }
-    ////debugger;
-    var jsonstring = JSON.stringify(subarr);
+//    }
+//    ////debugger;
+//    var jsonstring = JSON.stringify(subarr);
     
-    cruiseID=$('#CruiseID').val();
+//    cruiseID=$('#CruiseID').val();
     
-    $.ajax({
-        url: "/Cruises/SubmitCruiseSchedule",
-        method: "POST",
-        data: { model: jsonstring, CruiseID: cruiseID },
-        dataType: "JSON",
-        success: function (data) {
-            //alert('asda');
-            //data1 = JSON.parse(data);
-            //console.log(data);
-            //getData(data);
-            if (data == "done")
-            {
-                $('#overLay').css('display', 'none');
-                $('#overLay1').css('display', 'none');
-                sessionStorage.clear();
-                GetSchedule(cruiseID);
-            }                                 
-        },
-        error: function () {
-            alert("something went wrong try after sometime.")
-        }
+//    $.ajax({
+//        url: "/Cruises/SubmitCruiseSchedule",
+//        method: "POST",
+//        data: { model: jsonstring, CruiseID: cruiseID },
+//        dataType: "JSON",
+//        success: function (data) {
+//            //alert('asda');
+//            //data1 = JSON.parse(data);
+//            //console.log(data);
+//            //getData(data);
+//            if (data == "done")
+//            {
+//                $('#overLay').css('display', 'none');
+//                $('#overLay1').css('display', 'none');
+//                sessionStorage.clear();
+//                GetSchedule(cruiseID);
+//            }                                 
+//        },
+//        error: function () {
+//            alert("something went wrong try after sometime.")
+//        }
         
 
-    });
+//    });
     
-});
+//});
 
 
-$(document).ready(function () {
 
-    //if ($('.dhx_cal_tab_first') != undefined)
-    //{
-    //    $('.dhx_cal_tab_first').css('display', 'none');
-    //    $('.dhx_cal_today_button').css('display', 'none');
-    //    $('.active').css('border-bottom-left-radius','5px');
-    //    $('.active').css('border-top-left-radius', '5px');
-    
-    //}
-
-
-    var data = sessionStorage.getItem('data');
-   /// sessionStorage.setItem('data', null);
-    // data = null;
-  //  alert(data);
-    if (data != null)
-    {
-        
-        $('#overLay').css('display', 'block');
-        $('#Datacontainer').html(data.toString());
-
-        startDate=sessionStorage.getItem('StartDate');
-        endDate = sessionStorage.getItem('EndDate');
-        $('#S_startDate').val(startDate);
-        $('#S_endDate').val(endDate);
-        var offData = sessionStorage.getItem('OFFContainer');
-        if (offData != null)
-        {
-            //alert('asd');
-           // console.log(offData.toString());
-            $('#overLay').css('display', 'none');
-            $('#overLay1').css('display', 'block');
-            $('#Datacontainer1').html(offData.toString());
-            result = sessionStorage.getItem('sundayChecked');
-
-            if(result)
-            {
-
-                $('#sunchkbx').attr('checked', 'checked');
-            }
-        }
-        
-    }
-    //console.log(data);
-    //var data = readCookie('container');
-    //alert(data);
-    //if (data != null && data != '')
-    //{
-    //    $('#overLay').css('display', 'block');
-
-    //    //var data = readCookie('container');
-    //    $('#Datacontainer').html(data);
-    //}
-    
-})
 
 
 window.onbeforeunload = function (e) {
@@ -1681,17 +2093,6 @@ function check()
         //return "after reload data will be lost";
     }
 }
-
-$(document).on('click', '#closebtn', function () {
-    $('#overLay').css('display', 'none');
-    $('#overLay1').css('display', 'none');
-    $('#overLay2').css('display', 'none');
-    //sessionStorage.clear();
-    sessionStorage.removeItem('data');
-    sessionStorage.removeItem('StartDate');
-    sessionStorage.removeItem('EndDate');
-    sessionStorage.removeItem('sundayChecked');
-})
 
   /* to calculate Start Date*/
     Date.prototype.MinusDays = function (days) {
@@ -1755,28 +2156,9 @@ $(document).on('click', '#closebtn', function () {
         this.ScheduelNo = scheduelno;
         this.CruiseID = CruiseID;
     }
-    function addSubSchedule()
-    {
+    
 
-        var cruise = $('#Cruise').val();
-        if (cruise == '' || cruise == undefined)
-        {
-            alert('select any cruise');
-            return;
-        }
-        $('#overLay').css('display', 'block');
-        $('#Datacontainer').load('/Cruises/AddSubschedule?cruiseID=' + cruise, function () { });
-
-        sessionStorage.setItem('CruiseID', cruise);
-    }
-
-    $(document).on('click', '#Stskbtn', function () {
-        //var index = $(this).closest('tr').index();
-        var index = $(this).closest('tr').index();
-        //  alert('ad' + index);
-        //console.log('ad' + index);
-        AddTask(index,1);
-    });
+  
 
     $(document).on('click', '.Sedit', function () {
         var index = $(this).closest('tr').index();
@@ -1791,32 +2173,7 @@ $(document).on('click', '#closebtn', function () {
     });
 
 
-    $(document).on('change', '#TaskName', function () {
-
-        var data = $('#TaskTable tr').eq(0).find('th').eq(0).html();
-
-        if(data=='Category Name')
-        {
-            var id = $(this).val();
-
-            $.ajax({
-                url: '/Cruises/Persons?ID='+id,                
-                success: function (data) {
-                    //debugger;
-                    var htmlString = "";
-                    for (i = 0; i < data.length; i++)
-                    {
-                        htmlString += "<option value='" + data[i].ID + "'>" + data[i].FirstName + " "+data[i].LastName+ "</option>";
-                    }                   
-                    $('#Persons').html(htmlString);
-                },
-                error: function (err) {
-                    alert(err.statusText);
-                }
-
-            })
-        }
-    });
+   
 
     function getPersonsArray()
     {

@@ -3,6 +3,18 @@ function showLoadingDiv() {
     $('#loadingDiv').css('display', 'block');
 }
 
+function hideOverLay()
+{
+    $('#overLay1').css('display', 'none');
+}
+
+function showOverLay() {
+    $('#overLay1').css('display', 'block');
+}
+$(document).on('click','#close', function () {
+    hideLoadingDiv();
+    hideOverLay()
+});
 
 function hideLoadingDiv() {
     $('#loadingDiv').css('display', 'none');

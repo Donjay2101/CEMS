@@ -1,9 +1,9 @@
 ﻿@{
     ViewBag.Title = "ShowSchedule";
+    Layout = "~/Views/Cruises/ScheduleLayout.cshtml";
+    //ViewBag.Layout = "~/Views/Cruises/ScheduleLayout.cshtml";
 }
-@{
-    ViewBag.Title = "Index";
-}
+
 
 <style>
 
@@ -72,7 +72,7 @@
 <script>
     $(document).ready(function () {
 
-       //debugger;
+       debugger;
         var CID;
         
             CID=$('#CruiseID').val();
@@ -99,11 +99,18 @@
             $('#Cruise').val(id);
         }
 
+        
+
+        $(document).ready(function () {
+            $(".date").datepicker({
+                changeMonth: true,//this option for allowing user to select month
+                changeYear: true //this option for allowing user to select from year range
+            });
+        });
 
     });
 
     $(document).on('change','#Cruise',function(){
-
         var id = $(this).val();
         GetSchedule(id);
 
@@ -154,7 +161,7 @@
                 </div>
                 <div class="row form-group">
                     <div class="col-md-12">
-                        <a href="#" onclick="addSubSchedule()">Add Contractor</a>
+                        <a href="#" onclick="addSubSchedule()">Add personnel</a>
                     </div>
                 </div>
                 <div class="row form-group">

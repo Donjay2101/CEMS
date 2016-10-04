@@ -22,7 +22,7 @@
 
         function getData(data,year)
         {
-            //debugger;
+            debugger;
             //if (check(data))
             //{
             //    alert('select any ship from list');
@@ -43,7 +43,7 @@
             {
                 return;
             }
-            var yourval = JSON.stringify(data);
+            //var yourval = JSON.stringify(data);
             //var parsed = $.parseJSON(data);;
           // var arr = ;
             //console.log(yourval);
@@ -51,10 +51,10 @@
             //alert(yourval[0].date);
 
 
-            var arr = new Array();
-            dataList = JSON.parse(yourval);
+            //var arr = new Array();
+            dataList =data;
 
-            sessionStorage.setItem('dataList', JSON.stringify(data));
+            sessionStorage.setItem('dataList',JSON.stringify(data));
             //$.each(yourval, function (i, obj) {
                 
             //    //date.push(obj.Date)
@@ -78,10 +78,10 @@
             //var arr = new Array(data);
            // console.log(arr);
             //   alert(arr[0].Date);
-            if (dataList != undefined && dataList != '') {
+            if (data != undefined && dataList != '') {
                 if (dataList.CruiseViewModel.length > 0)
                 {
-                    startDate = new Date(parseInt(dataList.CruiseViewModel[0].Date.replace("/Date(", "").replace(")/", ""), 10));
+                    startDate = convertJSONDate(dataList.CruiseViewModel[0].Date);
                 }
                 else
                 {
@@ -107,14 +107,29 @@
             createCalendar(startDate);
         }
 
+        function ConvertJsonDateString(jsonDate) {
+            var shortDate = null;
+            if (jsonDate) {
+                var regex = /-?\d+/;
+                var matches = regex.exec(jsonDate);
+                var dt = new Date(parseInt(matches[0]));
+                var month = dt.getMonth() + 1;
+                var monthString = month > 9 ? month : '0' + month;
+                var day = dt.getDate();
+                var dayString = day > 9 ? day : '0' + day;
+                var year = dt.getFullYear();
+                shortDate = monthString + '-' + dayString + '-' + year;
+            }
+            return shortDate;
+        }
 
-        var convertJSONDate = function (val) {
+        function convertJSONDate(val) {
 
             //console.log(val);
             //alert(val)
-            var date = new Date(parseInt(val.replace("/Date(", "").replace(")/", ""), 10))
-
-            return date;
+            var dateStr = ConvertJsonDateString(val);
+            var newDate = new Date(dateStr);
+            return newDate;
         }
 
 
@@ -250,13 +265,27 @@
             //dataList
             if (dataList != null)
             {
-                for (i = 0; i < dataList.CruiseViewModel.length; i++) {
-                    
+                for (i = 0; i < dataList.CruiseViewModel.length; i++) {                    
                     var date = convertJSONDate(dataList.CruiseViewModel[i].Date);
                     day = date.getDate();
                     curmonth = date.getMonth();
-                    if(day == count && curmonth == month) {
-                        htmlstring = '<td style="background:' + dataList.CruiseViewModel[i].Color + '">' + count + '</br><span>' + dataList.CruiseViewModel[i].TaskName + '</span>';
+                    if (day == count && curmonth == month) {
+                        debugger;
+                        var task = dataList.CruiseViewModel[i].TaskName;
+                        var taskname=[];
+                        if (task.indexOf(';') > -1)
+                        {
+                            taskname=task.split(';');
+                        }
+                        else
+                        {
+                            taskname[0] = task;
+                        }
+                        htmlstring = '<td style="background:' + dataList.CruiseViewModel[i].Color + '">' + count + '</br><span>' + taskname[0] + '</span>';
+                        if (taskname.length > 1)
+                        {
+                            htmlstring += '</br><span>' + taskname[1] + '</span>';
+                        }
                         ar = 1;
                         for (j = 0; j < dataList.Subtasks.length; j++) {
                             var date1 = convertJSONDate(dataList.Subtasks[j].Date);
