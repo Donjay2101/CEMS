@@ -431,7 +431,7 @@
            
 
             //for header
-            for (i = 0; i < count; i++) {
+            for (i = 1; i <=count; i++) {
                 var datestr;
                 if (i == 0) {
                     datestr = "Ships";
@@ -618,6 +618,8 @@
         function showData(year)
         {
             //debugger;
+
+            //$('#divShip').css('display', 'none');
             year=$('#cmbYear').val();
 
             if(year==undefined || year=="")

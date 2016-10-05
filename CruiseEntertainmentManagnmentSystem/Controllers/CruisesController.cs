@@ -153,6 +153,7 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers
 
         public ActionResult ShowSchedule(int ID=0)
         {
+            ViewBag.ReturnUrl = _returnUrl;
             ViewBag.Cruise = new SelectList(db.cruises, "ID", "Name");
             ViewBag.CruiseID = ID;
             return View();

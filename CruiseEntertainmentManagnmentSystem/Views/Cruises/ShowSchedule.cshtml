@@ -162,9 +162,9 @@
         <div class="row">
             <div class="col-md-5">
                 <div class="row form-group">
-                    <a href="#" class="cal-link"><span class="glyphicon glyphicon-arrow-left" style="padding-right: 10px;"></span>Back</a>
+                    <a href="#" class="cal-link" onclick="goToPrevious('@ViewBag.ReturnUrl')"><span class="glyphicon glyphicon-arrow-left" style="padding-right: 10px;"></span>Back</a>
                 </div>
-                <div class="row form-group">
+                <div class="row form-group" id="divShip">
                     <div class="col-md-2">
                         <label class="label-schedule">Ships</label>
                     </div>
@@ -209,7 +209,7 @@
                         <a href="#" onclick="showData()" class="cal-link">Get Yearly View</a>
                         <a href="#" onclick="getMonthlyView()" class="cal-link">Get Monthly View</a>
                         <a href="#" onclick="openNotes()" class="cal-link">Add Notes </a>
-                        <a href="#" id="exp_data" hidden="hidden" style="margin-left: 37px">Export Data</a>
+                        <a href="#" id="exp_data" hidden="hidden" class="cal-link" style="margin-left: 4px">Export Data</a>
                     </div>
                 </div>         
             </div>

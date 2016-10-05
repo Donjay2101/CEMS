@@ -108,7 +108,7 @@ function getBookingHistory(opt,startDate,endDate)
 
 function goToCreate(url) {
 
-    //debugger;    
+    debugger;    
     newurl=getUrl(url);
     window.location.href = newurl;
 }
@@ -136,7 +136,7 @@ function getUrl(url)
 }
 
 function goToPrevious(url) {
-    //debugger;
+    debugger;
     //console.log(getURL());
   //  var txt = decodeURI(url);
     //url =  txt;
