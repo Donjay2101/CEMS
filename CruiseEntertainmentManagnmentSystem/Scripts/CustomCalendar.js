@@ -294,7 +294,7 @@
 
                             //day1 == count && curmonth1 == month
                             if (day1 == count && curmonth1 == month) {
-                                htmlstring += '<br/><div style="background:' + dataList.Subtasks[j].SubColor + '" >' + dataList.Subtasks[j].Person + '</div>';
+                                htmlstring += '<div style="background:' + dataList.Subtasks[j].SubColor + '" >' + dataList.Subtasks[j].Person + '</div>';
                                 //ar = 1;
                               //  break;
                             }
@@ -375,84 +375,6 @@
             GetSchedule(cruiseID,year);
         }
 
-        //function yearlyView(data,year)
-        //{
-        //    //debugger;
-        //    var curDate;
-        //    var curyear;
-        //    var datestring;
-        //    var startDate;
-        //    var tempstartDate;
-        //    if (year == 0) {
-        //        curDate = new Date();
-        //        curyear = curDate.getFullYear();
-        //        datestring = "01/01/" + curyear;
-        //        startDate = new Date(datestring);
-        //        tempstartDate = startDate;
-        //        year = curyear;
-        //    }
-        //    else {
-        //        curyear = year;
-        //        datestring = "01/01/" + curyear;
-        //        startDate = new Date(datestring);
-        //        tempstartDate = startDate;
-        //    }
-
-
-        //    var leapyear = ((curyear % 4 == 0 && curyear % 100 != 0) || curyear % 400 == 0);
-        //    var count = 365;
-        //    if (leapyear) {
-        //        count = 366;
-        //    }
-        //    if (data.YearlyCruiseViewModel == null) {
-        //        alert('no data availble for the ship.');
-        //        return;
-        //    }
-        //    var htmlString = "";
-        //    htmlString += "<div class='row'><table id='yearlytable'><thead><tr><th  style=' width:100px;font-size:12px;line-height:14px;height:120px;padding-top:0'> <div style='widht:100px'></div></th>";
-        //    var cruise = data.YearlyCruiseViewModel[0].CruiseID;
-
-        //    //for header
-         
-        //    for (i = 0; i <= count; i++) {
-        //        var datestr;
-        //        if (i == 0) {
-        //            datestr = "Ships";
-        //            htmlString += "<th  style='width:100px;font-size:12px;line-height:14px;;border:1px solid;height:150px ;padding-top:0 ' ><span>" + datestr + "</span></th>";
-        //        }
-        //        else {
-        //            datestr = convertDateToString(tempstartDate)
-        //            htmlString += "<th  style='width: 36px;transform : rotate(-90deg);width:100px;font-size:12px;line-height:14px;;border:1px solid;height:150px ;padding-top:0 ' ><span>" + datestr + "</span></th>";
-        //            tempstartDate.AddDays(1);
-        //        }
-
-               
-        //    }
-        //    htmlString += "</thead><tbody>";
-        //    //End header
-
-        //    debugger;
-
-
-
-
-
-
-
-
-
-        //    htmlString += "</tbody></table></div>";
-
-        //    $('.cal-div').hide();
-        //    $('#Cal').show();
-        //    $("#exp_data").show();
-        //    $('.htmldata').val(htmlString);
-
-        //    $('#Cal').html(htmlString);
-        //    $('#Cal').css('height', '455px');
-        //    $('#Cal').css('width', '97%');
-        //}
-  
 
 
 //taking out number of dyas in year

@@ -975,6 +975,7 @@ function addSubTask()
         alert('Schedule is not selected');
         return;
     }
+
     var arr;
 
     var categoryID = $('#TaskName').val();
@@ -986,6 +987,12 @@ function addSubTask()
 
     var categoryName = $('#TaskName option:selected').html();
     var personID = $('#persons').val();
+
+
+    if (personID == "" || personID == undefined || personID=="select--") {
+        alert('Person is not selected');
+        return;
+    }
     var personName = $('#persons option:selected').html();
     var startDate = $('#subscheduleStartDate').val();
     var endDate = $('#subscheduleEndDate').val();
