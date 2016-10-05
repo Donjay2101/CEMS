@@ -240,8 +240,6 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers
             //                              TaskID=d.TaskID                                        
             //                          }).Where(x=>x.Date.Year==Year && x.CruiseID==cruiseID).OrderBy(x=>x.Date).ToList();
 
-
-
             var SubTasks = (from CS in db.CruiseSubSchedules where CS.CruiseID==cruiseID  join p in db.persons on CS.PersonID equals p.ID select new CruiseScheduleViewModel{
             PersonID=p.ID,
             Person=p.Alias,
@@ -273,20 +271,24 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers
             }
 
 
-            //var list=db.Database.SqlQuery<CruiseScheduleViewModel>("exec sp_GetSchedules ")
-            var list = (from cs in db.CruiseSchedules
-                        join ct in db.CruiseTasks on cs.TaskID equals ct.ID
-                        join c in db.cruises on cs.CruiseID equals c.ID
-                        select new CruiseScheduleViewModel
-                        {
-                            CruiseID = cs.CruiseID,
-                            CruiseName = c.Name,
-                            Date = cs.TaskDate,
-                            TaskName = ct.Name,
-                            Color = ct.Color
-                        }
-                        ).Where(x => x.Date.Year == Year)
-                        .OrderBy(x => x.Date).GroupBy(x => x.CruiseID).ToList();
+            var list = db.Database.SqlQuery<CruiseScheduleViewModel>("exec sp_GetSchedulesForYearlyView @year", new SqlParameter("@year", Year))
+                .AsEnumerable()
+                .OrderBy(x => x.Date)
+                .GroupBy(x => x.CruiseID).ToList();
+
+            //var list = (from cs in db.CruiseSchedules
+            //            join ct in db.CruiseTasks on cs.TaskID equals ct.ID
+            //            join c in db.cruises on cs.CruiseID equals c.ID
+            //            select new CruiseScheduleViewModel
+            //            {
+            //                CruiseID = cs.CruiseID,
+            //                CruiseName = c.Name,
+            //                Date = cs.TaskDate,
+            //                TaskName = ct.Name,
+            //                Color = ct.Color
+            //            }
+            //            ).Where(x => x.Date.Year == Year)
+            //            .OrderBy(x => x.Date).GroupBy(x => x.CruiseID).ToList();
 
             var Notes = (from cs in db.Notes
                          join ct in db.CruiseTasks on cs.TaskID equals ct.ID
