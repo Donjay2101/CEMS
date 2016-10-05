@@ -61,6 +61,11 @@ $(document).on('click', '#btnAddSchedule', function () {
         return;
     }
     var taskID = $('#cmbtask').val();
+    if (taskID == "" || taskID == undefined || taskID == "select--")
+    {
+        alert('Task is not selected.');
+        return;
+    }
     var taskName = $('#cmbtask option:selected').html();
     taskName =replaceAll(taskName,'&nbsp;','');
 
@@ -2327,92 +2332,7 @@ function check()
         }
         return personarray;
     }
-    //$(document).on('click', '#btnSubSchedule', function () {
 
-    //    var l = $('#TaskTable tr').size();
-    //    var data = "";
-    //    var arr = new submitSubSchedule();
-    //    var subarr = [];
-    //    var tasks = saveTask(); 
-    //   // var persons=getPersonsArray();
-    //    // console.log(tasks);
-    //    //var Taskarr =JSON.parse(tasks);
-    //    //console.log('out' + sessionStorage.getItem('taskArray'));
-
-
-    //    for (i = 1; i < l-1; i++) {
-    //        var CatName = $('#TaskTable tr').eq(i).find('td').eq(0).find('label').html();
-
-    //        var PersonID = $('#TaskTable tr').eq(i).find('td').eq(1).find('label').attr('value');
-
-    //        var startDate= $('#TaskTable tr').eq(i).find('td').eq(2).find('label').html();
-    //        var endDate = $('#TaskTable tr').eq(i).find('td').eq(3).find('label').html();
-    //        startDate = formatDate(startDate);
-    //        endDate = formatDate(endDate);
-    //        startDate = new Date(startDate);
-    //        endDate = new Date(endDate)
-
-    //        Scheduleno = $('#Schedules').val();
-    //        CruiseID = $('#CruiseID').val();
-    //        var arr = {};
-
-    //        while(startDate<=endDate)
-    //        {
-    //            TaskDate =formatDate(startDate);
-
-    //            var TaskID = parseInt(tasks[CatName]);
-    //          //  var CruiseID = CruiseID;
-    //            arr = {};
-    //            arr.TaskDate = TaskDate;
-    //            arr.PersonID = PersonID;
-    //            arr.TaskID = TaskID;
-    //            arr.ScheduleNo = Scheduleno;
-    //            arr.CruiseID = CruiseID;
-
-    //            //new submitSubSchedule(TaskDate, PersonID, TaskID, Scheduleno, CruiseID);
-    //            subarr.push(arr);
-    //           // arr = null;
-    //            startDate.AddDays(1);
-    //        }
-
-
-    //       // var Days = $('#TaskTable tr').eq(i).find('td').eq(4).find('label').html();
-
-
-            
-    //        //console.log('taks ID' + TaskID);
-            
-           
-    //    }
-    //    ////debugger;
-    //    var jsonstring = JSON.stringify(subarr);
-
-       
-    //    $.ajax({
-    //        url: "/Cruises/SubmitSubSchedules",
-    //        method: "POST",
-    //        data: { model: jsonstring, Scheduleno: Scheduleno,CruiseID:CruiseID },
-    //        dataType: "JSON",
-    //        success: function (data) {
-    //            //alert('asda');
-    //            //data1 = JSON.parse(data);
-    //            //console.log(data);
-    //            //getData(data);
-    //            if (data == "done") {
-    //                $('#overLay').css('display', 'none');
-    //                $('#overLay1').css('display', 'none');
-    //                sessionStorage.clear();
-
-    //                GetSchedule(CruiseID);
-    //            }
-    //        },
-    //        error: function () {
-    //            alert("something went wrong try after sometime.")
-    //        }
-
-
-    //    });
-    //});
 
 
 

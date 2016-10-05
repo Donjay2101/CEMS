@@ -659,7 +659,7 @@
                                         var Sdate = convertJSONDate(data.Subtasks[sb].Date);
                                         if ((Sdate - tempstartDate) == 0 && category == data.Subtasks[sb].CategoryName) {
                                             debugger;
-                                            subHtmlString += "<span style='background:" + data.Subtasks[sb].SubColor + ";'>" + data.Subtasks[sb].Person + "</span></br>";
+                                            subHtmlString += "<div style='font-size:12px;background:" + data.Subtasks[sb].SubColor + ";'>" + data.Subtasks[sb].Person + "</div>";
                                             c = 1;
 
                                             //break;
@@ -685,7 +685,7 @@
                        
                                        
             }
-            console.log(htmlString);
+            //console.log(htmlString);
             //htmlString += "</tbody></table></div>";
             $('#yearlytable').append(htmlString);
             // $("#cmbYear option[value='" + curyear + "']").prop('selected', true);
