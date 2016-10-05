@@ -296,7 +296,7 @@
                             if (day1 == count && curmonth1 == month) {
                                 htmlstring += '<br/><div style="background:' + dataList.Subtasks[j].SubColor + '" >' + dataList.Subtasks[j].Person + '</div>';
                                 //ar = 1;
-                                break;
+                              //  break;
                             }
 
                         }
@@ -356,16 +356,127 @@
         })
 
 
-        function getfullYearView(data,year)
+        function getMonthlyView()
         {
-            //debugger;
-            var curDate ;
+            var cruiseID = $('#Cruise').val();
+            var year = $('#cmbYear').val();
+            if(cruiseID=="" || cruiseID==undefined)
+            {
+                alert('cruise not selected');
+                return;
+            }
+
+            if(year=="" || year==undefined)
+            {
+                alert('year not selected');
+                return;
+            }
+
+            GetSchedule(cruiseID,year);
+        }
+
+        //function yearlyView(data,year)
+        //{
+        //    //debugger;
+        //    var curDate;
+        //    var curyear;
+        //    var datestring;
+        //    var startDate;
+        //    var tempstartDate;
+        //    if (year == 0) {
+        //        curDate = new Date();
+        //        curyear = curDate.getFullYear();
+        //        datestring = "01/01/" + curyear;
+        //        startDate = new Date(datestring);
+        //        tempstartDate = startDate;
+        //        year = curyear;
+        //    }
+        //    else {
+        //        curyear = year;
+        //        datestring = "01/01/" + curyear;
+        //        startDate = new Date(datestring);
+        //        tempstartDate = startDate;
+        //    }
+
+
+        //    var leapyear = ((curyear % 4 == 0 && curyear % 100 != 0) || curyear % 400 == 0);
+        //    var count = 365;
+        //    if (leapyear) {
+        //        count = 366;
+        //    }
+        //    if (data.YearlyCruiseViewModel == null) {
+        //        alert('no data availble for the ship.');
+        //        return;
+        //    }
+        //    var htmlString = "";
+        //    htmlString += "<div class='row'><table id='yearlytable'><thead><tr><th  style=' width:100px;font-size:12px;line-height:14px;height:120px;padding-top:0'> <div style='widht:100px'></div></th>";
+        //    var cruise = data.YearlyCruiseViewModel[0].CruiseID;
+
+        //    //for header
+         
+        //    for (i = 0; i <= count; i++) {
+        //        var datestr;
+        //        if (i == 0) {
+        //            datestr = "Ships";
+        //            htmlString += "<th  style='width:100px;font-size:12px;line-height:14px;;border:1px solid;height:150px ;padding-top:0 ' ><span>" + datestr + "</span></th>";
+        //        }
+        //        else {
+        //            datestr = convertDateToString(tempstartDate)
+        //            htmlString += "<th  style='width: 36px;transform : rotate(-90deg);width:100px;font-size:12px;line-height:14px;;border:1px solid;height:150px ;padding-top:0 ' ><span>" + datestr + "</span></th>";
+        //            tempstartDate.AddDays(1);
+        //        }
+
+               
+        //    }
+        //    htmlString += "</thead><tbody>";
+        //    //End header
+
+        //    debugger;
+
+
+
+
+
+
+
+
+
+        //    htmlString += "</tbody></table></div>";
+
+        //    $('.cal-div').hide();
+        //    $('#Cal').show();
+        //    $("#exp_data").show();
+        //    $('.htmldata').val(htmlString);
+
+        //    $('#Cal').html(htmlString);
+        //    $('#Cal').css('height', '455px');
+        //    $('#Cal').css('width', '97%');
+        //}
+  
+        function getDays(year)
+        {
+            if (year == 0) {
+                curDate = new Date();
+                year = curDate.getFullYear();
+                //year = curyear;
+            }
+            
+            var leapyear = ((year % 4 == 0 && year% 100 != 0) || year % 400 == 0);
+            var count = 365;
+            if (leapyear) {
+                count = 366;
+            }
+            return count;
+        }
+
+        function makeDate(year)
+        {
+            var curDate;
             var curyear;
             var datestring;
             var startDate;
             var tempstartDate;
-            if (year == 0)
-            {
+            if (year == 0) {
                 curDate = new Date();
                 curyear = curDate.getFullYear();
                 datestring = "01/01/" + curyear;
@@ -373,46 +484,52 @@
                 tempstartDate = startDate;
                 year = curyear;
             }
-            else
-            {
+            else {
                 curyear = year;
                 datestring = "01/01/" + curyear;
                 startDate = new Date(datestring);
                 tempstartDate = startDate;
             }
+            return tempstartDate;
 
-            
-            var leapyear = ((curyear % 4 == 0 && curyear % 100 != 0) || curyear % 400 == 0);
-            var count = 365;
-            if (leapyear) {
-                count = 366;
-            }
-            if (data.YearlyCruiseViewModel == null)
-            {
-                alert('no data availble for the ship.');
-                return;
-            }
+        }
+        function makeYearlyViewTable(year)
+        {
+
+            var tempstartDate = makeDate(year);
+            var count = getDays(curyear);
             var htmlString = "";
-             htmlString+= "<div class='row'><table id='yearlytable'><thead><tr><th  style=' width:100px;font-size:12px;line-height:14px;height:120px;padding-top:0'> <div style='widht:100px'></div></th>";
+            htmlString += "<div class='row'><table id='yearlytable'><thead><tr><th  style=' width:100px;font-size:12px;line-height:14px;height:120px;padding-top:0'> <div style='widht:100px'></div></th>";
             var cruise = data.YearlyCruiseViewModel[0].CruiseID;
 
             //for header
             for (i = 1; i <= count; i++) {
                 var datestr;
-                if (i == 0)
-                {
+                if (i == 0) {
                     datestr = "Ships";
                     htmlString += "<th  style='width:100px;font-size:12px;line-height:14px;;border:1px solid;height:150px ;padding-top:0 ' ><span>" + datestr + "</span></th>";
                 }
-                else
-                {
+                else {
                     datestr = convertDateToString(tempstartDate)
                     htmlString += "<th  style='width: 36px;transform : rotate(-90deg);width:100px;font-size:12px;line-height:14px;;border:1px solid;height:150px ;padding-top:0 ' ><span>" + datestr + "</span></th>";
                 }
-               
+
                 tempstartDate.AddDays(1);
             }
             htmlString += "</thead><tbody>";
+        }
+        function getfullYearView(data,year)
+        {
+            //debugger;
+            var tempstartDate = makeDate(year);
+            var count = getDays(year);
+
+            if (data.YearlyCruiseViewModel == null)
+            {
+                alert('no data availble for the ship.');
+                return;
+            }
+            
             //End header
 
             count += 1;
@@ -421,9 +538,10 @@
             {
                // for (ship = 0; ship < data.YearlyCruiseViewModel[j].length; ship++)
                 //{
-                    tempstartDate = new Date(datestring);
+                  //  tempstartDate = new Date(datestring);
                     // var cruise = data[j].CruiseID;
-                    //tempstartDate = new Date(datestring);
+                //tempstartDate = new Date(datestring);
+                    debugger;
                     htmlString += "<tr><td style='border:1px solid;font-weight:bold;text-align:center;padding-left: 20px;padding-right: 20px;background:skyblue;' width='200px'>" + data.YearlyCruiseViewModel[j][0].CruiseName + "</td>";
                     for (k = 1; k < count; k++) //for column
                     {
@@ -493,7 +611,7 @@
 
                     var category,tempCategory;
 
-
+                    debugger;
                     for (sub = 0; sub < data.Subtasks.length;sub++)
                     {
                         if (data.Subtasks[sub].CruiseID == data.YearlyCruiseViewModel[j][0].CruiseID)
@@ -512,25 +630,31 @@
                             {
                                 tempstartDate = new Date(datestring);
                                 htmlString += "<tr><td style=';border:1px solid;font-weight:bold;text-align:center;padding-left: 20px;padding-right: 20px;background:orange;' width='200px'>" + data.Subtasks[sub].CategoryName + "</td>";
+                               
                                 for (k = 1; k < count; k++) //for column
                                 {
-
+                                    debugger;
+                                    htmlString += "<td  width='100px' style='word-wrap:break-word;border:1px solid;text-align:center;'>"; //+ data.Subtasks[sb].Person + "</td>";
                                     for (sb = 0; sb < data.Subtasks.length; sb++) {
                                         //////debugger;
                                         c = 0;
                                         var Sdate = convertJSONDate(data.Subtasks[sb].Date);
                                         if ((Sdate - tempstartDate) == 0 && category == data.Subtasks[sb].CategoryName) {
                                             ////debugger;
-                                            htmlString += "<td  width='100px' style='word-wrap:break-word;border:1px solid;text-align:center; background:" + data.Subtasks[sb].SubColor + ";'>" + data.Subtasks[sb].Person + "</td>";
+                                            htmlString += "<span style='background:" + data.Subtasks[sb].SubColor + ";'>" + data.Subtasks[sb].Person + "</span></br>";
                                             c = 1;
 
-                                            break;
+                                            //break;
 
                                         }
 
                                     }
                                     if (c != 1) {
-                                        htmlString += "<td width='100px'  style='word-wrap:break-word;border:1px solid;text-align:center' ></td>";
+                                        htmlString += "<td width='100px'  style='word-wrap:break-word;border:1px solid;text-align:center'></td>";
+                                    }
+                                    else
+                                    {
+                                        htmlString += "</td>";
                                     }
                                     tempstartDate.AddDays(1);
                                 }
@@ -576,6 +700,7 @@
                 data:{Year:year},
                 success: function (data) {
                     //debugger;
+                   // yearlyView(data,year);
                     getfullYearView(data, year);
                     
                 },
@@ -587,17 +712,25 @@
 
 
         $(document).on('change', '#cmbYear', function () {
-
-            var data = $(this).val();
-            var cruise=$('#Cruise').val();
+            debugger;
+            var year = $(this).val();
+            var cruise = $('#Cruise').val();
+            if (cruise == "" || cruise == undefined) {
+                alert('ship not selected');
+                return;
+            }
+            if (year == "" || year == undefined) {
+                return;
+                //alert('not a valie ');
+            }
             var view = sessionStorage.getItem("View");
             if (view == 1)
             {
-                showData(data);
+                showData(year);
             }
             else
             {
-                GetSchedule(cruise,data);
+                GetSchedule(cruise, year);
             }
             
             

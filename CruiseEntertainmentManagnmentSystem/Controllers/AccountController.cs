@@ -106,18 +106,12 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers
         [HttpPost]
         public ActionResult ChangePassword(ChangePasswordViewModel model)
         {
-            bool changePasswordSucceeded;
-            changePasswordSucceeded = WebSecurity.ChangePassword(User.Identity.Name, model.OldPassword, model.NewPassword);
-            if(changePasswordSucceeded)
-            {
-                return Json("1", JsonRequestBehavior.AllowGet);
-            }
-            else
-            {
-                return Json("0", JsonRequestBehavior.AllowGet);
-            }
-
-            //return View();
+            
+            var person=ShrdMaster.Instance.GetPersonByUserName(User.Identity.GetUserName());
+            ShrdMaster.Instance.ChangePassword(model.NewPassword, person.ID);           
+            Session.Abandon();
+            FormsAuthentication.SignOut();            
+            return Json("1", JsonRequestBehavior.AllowGet);           
         }
 
         //

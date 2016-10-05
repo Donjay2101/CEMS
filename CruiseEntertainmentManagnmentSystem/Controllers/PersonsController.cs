@@ -102,13 +102,19 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers
         [AllowAnonymous]
         public ActionResult Create(int option=0)
         {
+            string username = User.Identity.Name;
+           
             if (option == 1)
             {
-                ViewBag.Layout = "~/Views/Account/_Layout.cshtml";
+                if (string.IsNullOrEmpty(username))
+                {
+                    return Redirect("/Account/Login");
+                }
+                ViewBag.Layout = "~/Views/Shared/_Layout.cshtml";
             }
             else
             {
-                ViewBag.Layout = "~/Views/Shared/_Layout.cshtml";
+                ViewBag.Layout = "~/Views/Account/_Layout.cshtml";                
             }
             Session["Option"] = option;
 
@@ -145,12 +151,19 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers
                 
                 if (option==1)
                 {
+                    ViewBag.Layout = "~/Views/Shared/_Layout.cshtml";
+                    
+                }
+                else
+                {
+                    _returnUrl = "/Account/Login";
                     ViewBag.Layout = "~/Views/Account/_Layout.cshtml";
                 }
             }
             else
             {
-                ViewBag.Layout = "~/Views/Shared/_Layout.cshtml";
+                _returnUrl = "/Account/Login";
+                ViewBag.Layout = "~/Views/Account/_Layout.cshtml";
             }           
             ViewBag.Categories = ShrdMaster.Instance.GetCategoryIdByPersonID(0);
             if (ModelState.IsValid)

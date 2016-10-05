@@ -88,7 +88,7 @@
                         @Html.EditorFor(model => model.ConfirmPassword)
                         @Html.ValidationMessageFor(model => model.ConfirmPassword)
                     </div>
-                </div>     ]
+                </div>     
                 <div class="row">
 
                     <div class="editor-label">
@@ -97,28 +97,18 @@
                     <div class="editor-field">
                         @Html.EditorFor(model => model.Alias)
                         @Html.ValidationMessageFor(model => model.Alias)
-                    </div>
-                </div>        
-                <div class="row">
-
-                    <div class="editor-label">
-                        @Html.LabelFor(model => model.DayRate)
-                    </div>
-                    <div class="editor-field">
-                        @Html.EditorFor(model => model.DayRate)
-                        @Html.ValidationMessageFor(model => model.DayRate)
-                    </div>
+                    </div>                                                        
                 </div>
+
                 <div class="row">
 
                     <div class="editor-label">
-                        @Html.LabelFor(model => model.WeeklySalary)
+                        <label>Choose color:</label>
                     </div>
                     <div class="editor-field">
-                        @Html.EditorFor(model => model.WeeklySalary)
-                        @Html.ValidationMessageFor(model => model.WeeklySalary)
+                        <input type="text" class="text-box single-line" id="Color" name="Color" />
+                        @Html.ValidationMessageFor(model => model.Alias)
                     </div>
-                </div>                                           
                 </div>
             </div>
 
@@ -134,38 +124,24 @@
 }
 
 @section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-  
+    @*@Scripts.Render("~/bundles/jqueryval")*@
+<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" type="text/css" media="all">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tinycolor/0.11.1/tinycolor.min.js"></script>
+<script src="~/Scripts/bootstrap.colorpickersliders.js"></script>
+<link href="~/Content/bootstrap.colorpickersliders.css" rel="stylesheet" />
 <script>
-    //$(function () {
-    //    $('#Color').colorpicker();
-    //});
-    //$('#Color').colorpicker().on('changeColor.colorpicker', function (event) {
-    //    bodyStyle.backgroundColor = event.color.toHex();
-    //});
-    $(function () {
-        $('#Color').colorpicker({
-            customClass: 'colorpicker-2x',
-            sliders: {
-                saturation: {
-                    maxLeft: 200,
-                    maxTop: 200
-                },
-                hue: {
-                    maxTop: 200
-                },
-                alpha:
-                {
-                    maxTop: 200
-                }
-            }
-        });
-    });
 
-    function Validations()
-    {
-        
-    }
+    $(document).ready(function () {
+        $("input#Color").ColorPickerSliders({
+            placement: 'right',
+            hsvpanel: true,
+            previewformat: 'hex'
+        });
+
+    });
+   
 </script>
 }
 

@@ -449,13 +449,13 @@ function clearControl()
     $('#persons').val("");
     $('#subscheduleStartDate').val("");
     $('#subscheduleEndDate').val("");
-    $('#ssDays').val("");
+    $('#ssDays').html("");
 }
 
 
 $(document).ready(function () {
 
-  
+
     var data = sessionStorage.getItem('data');
     debugger;
     if (data != null) {
@@ -463,11 +463,17 @@ $(document).ready(function () {
         $('#overLay').css('display', 'block');
         $('#Datacontainer').html(data);
         $('#Days').html("");
-        
+        if ($('#Schedules') != null) {
+            var no = sessionStorage.getItem("ScheduleNo");
+            $('#Schedules').val(no);
+        }
         startDate = sessionStorage.getItem('scheduleStartDate');
         endDate = sessionStorage.getItem('scheduleEndDate');
         $('#S_startDate').val(startDate);
         $('#S_endDate').val(endDate);
+
+
+
         var offData = sessionStorage.getItem('OFFContainer');
         if (offData != null) {
             //alert('asd');
@@ -482,17 +488,61 @@ $(document).ready(function () {
                 $('#sunchkbx').attr('checked', 'checked');
             }
         }
+        addDateClass();
         clearControl();
+
     }
     $('body').on('focus', ".date", function () {
-       // debugger;
+        // debugger;
         //$(this).datepicker();
         $(this).datepicker({
             changeMonth: true,//this option for allowing user to select month
             changeYear: true //this option for allowing user to select from year range
         });
     });
-})
+});
+
+function addDateClass()
+{
+    if ($('#S_startDate') != null)
+    {
+        $('#S_startDate').removeAttr('class');
+        $('#S_startDate').addClass('date');
+    }
+    
+    if ($('#S_endDate')!=null)
+    {
+        $('#S_endDate').removeAttr('class');
+        $('#S_endDate').addClass('date');
+    }
+    
+    if ($('#StDate') != null)
+    {
+        $('#StDate').removeAttr('class');
+        $('#StDate').addClass('date');
+    }
+
+    if ($('#EDate') != null)
+    {
+        $('#EDate').removeAttr('class');
+        $('#EDate').addClass('date');
+    }
+    
+    if($('#subscheduleStartDate')!=null)
+    {
+        $('#subscheduleStartDate').removeAttr('class');
+        $('#subscheduleStartDate').addClass('date');
+    }
+
+    if ($('#subscheduleEndDate') != null) {
+        $('#subscheduleEndDate').removeAttr('class');
+        $('#subscheduleEndDate').addClass('date');
+    }
+   
+    
+
+}
+
 
 
 
@@ -510,6 +560,9 @@ $(document).on('click', '#closebtn', function () {
     sessionStorage.removeItem('Schedule');
     sessionStorage.removeItem('Length');
     sessionStorage.removeItem('cruiseID');
+    sessionStorage.removeItem('SubSchedule');
+    sessionStorage.removeItem('ScheduleNo');
+
 })
 
 //------------------------------------------------------New Logic to Add Schedule--------------------///
@@ -834,27 +887,29 @@ function addSubSchedule() {
 
 //Get persons For selected category
 $(document).on('change', '#TaskName', function () {
-
+  
     var data = $('#TaskTable tr').eq(0).find('th').eq(0).html();
 
     if (data == 'Category Name') {
         var id = $(this).val();
-
-        $.ajax({
-            url:'/Cruises/Persons?ID=' + id,
-            success: function (data) {
-                //debugger;
-                var htmlString = "<option>select--</option>";
-                for (i = 0; i < data.length; i++) {
-                    htmlString += "<option value='" + data[i].ID + "'>" + data[i].FirstName + " " + data[i].LastName + "</option>";
+        if (id != "select--" && id != undefined && id!="")
+        {
+            $.ajax({
+                url: '/Cruises/Persons?ID=' + id,
+                success: function (data) {
+                    //debugger;
+                    var htmlString = "<option value='-1'>select--</option>";
+                    for (i = 0; i < data.length; i++) {
+                        htmlString += "<option value='" + data[i].ID + "'>" + data[i].FirstName + " " + data[i].LastName + "</option>";
+                    }
+                    $('#persons').html(htmlString);
+                },
+                error: function (err) {
+                    alert(err.statusText);
                 }
-                $('#persons').html(htmlString);
-            },
-            error: function (err) {
-                alert(err.statusText);
-            }
 
-        })
+            });
+        }        
     }
 });
 
@@ -907,15 +962,37 @@ $(document).on('click', '#Stskbtn', function () {
 function addSubTask()
 {
     debugger;
+
+    var schedule = $('#Schedules').val();
+
+    if (schedule == "" || schedule == undefined)
+    {
+        alert('Schedule is not selected');
+        return;
+    }
     var arr;
+
     var categoryID = $('#TaskName').val();
+    if (categoryID == "" || categoryID == undefined)
+    {
+        alert('category is not selected');
+        return;
+    }
+
     var categoryName = $('#TaskName option:selected').html();
     var personID = $('#persons').val();
     var personName = $('#persons option:selected').html();
     var startDate = $('#subscheduleStartDate').val();
     var endDate = $('#subscheduleEndDate').val();
+
+    if (startDate == "" || startDate == undefined || endDate == "" || startDate == undefined)
+    {
+        alert('start date and end date is mandatory');
+        return;
+    }
+
     var tempID = $('#tempID').val();
-    var days = $('#ssDays').val();
+    var days = $('#ssDays').html();
     if (tempID=="" ||tempID==undefined)
     {       
         var id = 0;
@@ -967,6 +1044,8 @@ function addSubTask()
     sessionStorage.setItem('data',$('#Datacontainer').html());
     sessionStorage.setItem('scheduleStartDate', $('#subscheduleStartDate').val());
     sessionStorage.setItem('scheduleEndDate', $('#subscheduleEndDate').val());
+    sessionStorage.setItem('ScheduleNo',schedule);
+    sessionStorage.setItem('cruiseID', $('#Cruise').val());
     clearControl();
     
 }
@@ -984,9 +1063,8 @@ function AppendToSubScheduleTable(obj,trIndex)
             $('#TaskTable tr').eq(trIndex).find('td').eq(1).attr('value', obj.PersonID);
             $('#TaskTable tr').eq(trIndex).find('td').eq(2).html(obj.StartDate);
             $('#TaskTable tr').eq(trIndex).find('td').eq(3).html(obj.EndDate);
-            $('#TaskTable tr').eq(trIndex).find('td').eq(4).html(obj.Days);
-            $('#TaskTable tr').eq(trIndex).find('td').eq(5).html(obj.Days);
-            $('#btnAddSchedule').val("Add");
+            $('#TaskTable tr').eq(trIndex).find('td').eq(4).html(obj.Days);           
+            $('#Stskbtn').val("Add");
             $('#editText').css('display', 'none');
         }
         $('#editIndex').val("");
@@ -1008,7 +1086,18 @@ function AppendToSubScheduleTable(obj,trIndex)
 
 
 $(document).on('click','.deletesubScheduleRow', function () {
-
+    debugger;
+    var index = $(this).closest('tr').index();
+    var tempID = $(this).closest('tr').attr('value');
+    var schedule = sessionStorage.getItem('SubSchedule');
+    var scheduleArr = JSON.parse(schedule);
+    var index = searchinArray(scheduleArr, tempID);
+    if (index > -1) {
+        var newArr = deleteSchedule(scheduleArr, index);
+        sessionStorage.setItem('SubSchedule', JSON.stringify(newArr));
+        $(this).closest('tr').remove();
+        sessionStorage.setItem('data', $('#Datacontainer').html());
+    }
 });
 
 $(document).on('click', '.editSubScheduleRow', function () {
@@ -1029,6 +1118,55 @@ $(document).on('click', '.editSubScheduleRow', function () {
     $('#editTaskName').html(taskName);
     $('#Stskbtn').val("Save");
     $('#editText').css('display', 'block');
+});
+
+
+$(document).on('click', '#btnSaveSubSchedule', function () {
+
+    debugger;
+    var jsonArr = JSON.parse(sessionStorage.getItem("SubSchedule"));
+    var objArr = [];
+    var ScheduleNo = $('#Schedules').val();
+    var CruiseID=sessionStorage.getItem('cruiseID');
+    var obj;
+    for (i = 0; i < jsonArr.length; i++)
+    {
+        startDate = new Date(jsonArr[i].StartDate);
+        endDate = new Date(jsonArr[i].EndDate);
+        
+        
+        while (startDate <= endDate)
+        {
+            obj = new Object;
+            var start= startDate.toDateString();   
+            obj.TaskID = jsonArr[i].CategoryID;
+            obj.PersonID = jsonArr[i].PersonID;
+            obj.TaskDate= new Date(start);
+            obj.ScheduleNo = ScheduleNo;
+            obj.CruiseID = CruiseID;
+            objArr.push(obj);
+            startDate = startDate.AddDays(1);
+        }        
+    }
+
+    var data=JSON.stringify(objArr);
+    $.ajax({
+        url: "/Cruises/SubmitSubSchedules",
+        type: "POST",
+        data: { model: data, Scheduleno: ScheduleNo, CruiseID: CruiseID },
+        success:function(data){
+            $('#overLay').css('display', 'none');
+            sessionStorage.clear();
+            $('#overLay1').css('display', 'none');
+            GetSchedule(CruiseID);
+        },
+        error:function(err){
+            alert('error:'+err.statusText);
+        }
+    });
+
+
+
 });
 
 
@@ -2189,92 +2327,92 @@ function check()
         }
         return personarray;
     }
-    $(document).on('click', '#btnSubSchedule', function () {
+    //$(document).on('click', '#btnSubSchedule', function () {
 
-        var l = $('#TaskTable tr').size();
-        var data = "";
-        var arr = new submitSubSchedule();
-        var subarr = [];
-        var tasks = saveTask(); 
-       // var persons=getPersonsArray();
-        // console.log(tasks);
-        //var Taskarr =JSON.parse(tasks);
-        //console.log('out' + sessionStorage.getItem('taskArray'));
-
-
-        for (i = 1; i < l-1; i++) {
-            var CatName = $('#TaskTable tr').eq(i).find('td').eq(0).find('label').html();
-
-            var PersonID = $('#TaskTable tr').eq(i).find('td').eq(1).find('label').attr('value');
-
-            var startDate= $('#TaskTable tr').eq(i).find('td').eq(2).find('label').html();
-            var endDate = $('#TaskTable tr').eq(i).find('td').eq(3).find('label').html();
-            startDate = formatDate(startDate);
-            endDate = formatDate(endDate);
-            startDate = new Date(startDate);
-            endDate = new Date(endDate)
-
-            Scheduleno = $('#Schedules').val();
-            CruiseID = $('#CruiseID').val();
-            var arr = {};
-
-            while(startDate<=endDate)
-            {
-                TaskDate =formatDate(startDate);
-
-                var TaskID = parseInt(tasks[CatName]);
-              //  var CruiseID = CruiseID;
-                arr = {};
-                arr.TaskDate = TaskDate;
-                arr.PersonID = PersonID;
-                arr.TaskID = TaskID;
-                arr.ScheduleNo = Scheduleno;
-                arr.CruiseID = CruiseID;
-
-                //new submitSubSchedule(TaskDate, PersonID, TaskID, Scheduleno, CruiseID);
-                subarr.push(arr);
-               // arr = null;
-                startDate.AddDays(1);
-            }
+    //    var l = $('#TaskTable tr').size();
+    //    var data = "";
+    //    var arr = new submitSubSchedule();
+    //    var subarr = [];
+    //    var tasks = saveTask(); 
+    //   // var persons=getPersonsArray();
+    //    // console.log(tasks);
+    //    //var Taskarr =JSON.parse(tasks);
+    //    //console.log('out' + sessionStorage.getItem('taskArray'));
 
 
-           // var Days = $('#TaskTable tr').eq(i).find('td').eq(4).find('label').html();
+    //    for (i = 1; i < l-1; i++) {
+    //        var CatName = $('#TaskTable tr').eq(i).find('td').eq(0).find('label').html();
+
+    //        var PersonID = $('#TaskTable tr').eq(i).find('td').eq(1).find('label').attr('value');
+
+    //        var startDate= $('#TaskTable tr').eq(i).find('td').eq(2).find('label').html();
+    //        var endDate = $('#TaskTable tr').eq(i).find('td').eq(3).find('label').html();
+    //        startDate = formatDate(startDate);
+    //        endDate = formatDate(endDate);
+    //        startDate = new Date(startDate);
+    //        endDate = new Date(endDate)
+
+    //        Scheduleno = $('#Schedules').val();
+    //        CruiseID = $('#CruiseID').val();
+    //        var arr = {};
+
+    //        while(startDate<=endDate)
+    //        {
+    //            TaskDate =formatDate(startDate);
+
+    //            var TaskID = parseInt(tasks[CatName]);
+    //          //  var CruiseID = CruiseID;
+    //            arr = {};
+    //            arr.TaskDate = TaskDate;
+    //            arr.PersonID = PersonID;
+    //            arr.TaskID = TaskID;
+    //            arr.ScheduleNo = Scheduleno;
+    //            arr.CruiseID = CruiseID;
+
+    //            //new submitSubSchedule(TaskDate, PersonID, TaskID, Scheduleno, CruiseID);
+    //            subarr.push(arr);
+    //           // arr = null;
+    //            startDate.AddDays(1);
+    //        }
+
+
+    //       // var Days = $('#TaskTable tr').eq(i).find('td').eq(4).find('label').html();
 
 
             
-            //console.log('taks ID' + TaskID);
+    //        //console.log('taks ID' + TaskID);
             
            
-        }
-        ////debugger;
-        var jsonstring = JSON.stringify(subarr);
+    //    }
+    //    ////debugger;
+    //    var jsonstring = JSON.stringify(subarr);
 
        
-        $.ajax({
-            url: "/Cruises/SubmitSubSchedules",
-            method: "POST",
-            data: { model: jsonstring, Scheduleno: Scheduleno,CruiseID:CruiseID },
-            dataType: "JSON",
-            success: function (data) {
-                //alert('asda');
-                //data1 = JSON.parse(data);
-                //console.log(data);
-                //getData(data);
-                if (data == "done") {
-                    $('#overLay').css('display', 'none');
-                    $('#overLay1').css('display', 'none');
-                    sessionStorage.clear();
+    //    $.ajax({
+    //        url: "/Cruises/SubmitSubSchedules",
+    //        method: "POST",
+    //        data: { model: jsonstring, Scheduleno: Scheduleno,CruiseID:CruiseID },
+    //        dataType: "JSON",
+    //        success: function (data) {
+    //            //alert('asda');
+    //            //data1 = JSON.parse(data);
+    //            //console.log(data);
+    //            //getData(data);
+    //            if (data == "done") {
+    //                $('#overLay').css('display', 'none');
+    //                $('#overLay1').css('display', 'none');
+    //                sessionStorage.clear();
 
-                    GetSchedule(CruiseID);
-                }
-            },
-            error: function () {
-                alert("something went wrong try after sometime.")
-            }
+    //                GetSchedule(CruiseID);
+    //            }
+    //        },
+    //        error: function () {
+    //            alert("something went wrong try after sometime.")
+    //        }
 
 
-        });
-    });
+    //    });
+    //});
 
 
 

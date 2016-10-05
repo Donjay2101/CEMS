@@ -245,10 +245,10 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers
             var SubTasks = (from CS in db.CruiseSubSchedules where CS.CruiseID==cruiseID  join p in db.persons on CS.PersonID equals p.ID select new CruiseScheduleViewModel{
             PersonID=p.ID,
             Person=p.Alias,
-            SubColor="",
+            SubColor=p.Color,
             Date=CS.TaskDate,
             CruiseID=CS.CruiseID
-            }).Where(x=>x.Date.Year==Year).OrderBy(x=>x.Date).ToList();
+            }).Where(x=>x.Date.Year==Year).OrderBy(x=>x.PersonID).ToList();
 
             CalendarViewmodel model = new CalendarViewmodel();
             model.CruiseViewModel = CruiseScheduleList;
@@ -326,6 +326,10 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers
         [HttpPost]
         public JsonResult SubmitSubSchedules(string model,int Scheduleno,int CruiseID)
         {
+
+            //TaskId is CategoryId for subschedules....... in database
+
+
             List<CruiseSubSchedule> schedules = JavaScriptSerializer<List<CruiseSubSchedule>>.Instance.Deserialize<List<CruiseSubSchedule>>(model);
 
             //var list = db.CruiseSchedules.Where(x => x.CruiseID == CruiseID).Select(x => x.ScheduleNo).ToList();
@@ -402,12 +406,12 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers
             ViewBag.CruiseName = cruise.Name;
             ViewBag.CruiseID = cruise.ID;
             ViewBag.Schedules = new SelectList(schedule,"ID","Value");
-            if(schedule.Count>0)
-            {
-                var data=schedule[0].Value.Split('-');
-                ViewBag.ShipStartDate = data[0];
-                ViewBag.ShipEndDate = data[1];
-            }
+            //if(schedule.Count>0)
+            //{
+            //    //var data=schedule[0].Value.Split('-');
+            //   // ViewBag.ShipStartDate = data[0];
+            //    //ViewBag.ShipEndDate = data[1];
+            //}
 
             ViewBag.Persons = new SelectList(db.persons.OrderBy(x=>x.FirstName).ToList(), "ID", "FirstName");
             ViewBag.TaskName = new SelectList(db.categories.OrderBy(x=>x.Name).ToList(), "ID", "Name");

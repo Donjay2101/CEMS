@@ -26,8 +26,10 @@ namespace CruiseEntertainmentManagnmentSystem.Models
 
         [Required]
         public string Alias { get; set; }
-        public double WeeklySalary { get; set; }
-        public double DayRate { get; set; }
+
+        public string Color { get; set; }
+        //public double WeeklySalary { get; set; }
+        //public double DayRate { get; set; }
         [NotMapped]
         [Required]
         [DisplayName("Confirm Password")]

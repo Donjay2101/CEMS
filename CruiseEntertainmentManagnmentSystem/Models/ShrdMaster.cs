@@ -355,6 +355,14 @@ namespace CruiseEntertainmentManagnmentSystem.Models
             var data = db.Database.SqlQuery<PersonalInformation>("exec sp_GetpersonalInformationByPersonID @personID", new SqlParameter("@personID", ID)).FirstOrDefault();
             return data;//db.PersonalInformations.FirstOrDefault(x => x.PersonID == ID);
         }
+
+
+        #region Users
+        public void ChangePassword(string newPassword,int ID)
+        {
+            db.Database.ExecuteSqlCommand("sp_ChangePassword @id,@newPassword", new SqlParameter("@id", ID), new SqlParameter("@newPassword", newPassword));
+        }
+        #endregion
     }
 
     public class ShipBrand

@@ -117,10 +117,12 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers.User
                     }                    
                 }                                
                 db.SaveChanges();
+                ViewBag.Success = "1";
             }
 
             ViewBag.Categories = new SelectList(db.categories.ToList(), "ID", "Name", model.CategoryID);
             ViewBag.Positions = ShrdMaster.Instance.GetPositionsBYPersonIdAndCategoryID(person.ID,model.CategoryID);
+            
             return View(model);
         }
 

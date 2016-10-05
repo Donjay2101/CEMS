@@ -95,6 +95,16 @@ namespace CruiseEntertainmentManagnmentSystem.Models
 
         public string Nationality { get; set; }
 
+        [Required(ErrorMessage="Day rate is required.")]
+        [Display(Name ="Day rate")]
+        public double DayRate { get; set; }
+
+
+        
+        [Required(ErrorMessage = "Weekly salary is required.")]
+        [Display(Name = "Weekly salary")]
+        public double WeeklySalary { get; set; }
+
         [NotMapped]
         public string PositionList { get; set; }
         [NotMapped]
