@@ -147,7 +147,7 @@ function AppendToTable(obj,trIndex)
        "<td>" + obj.StartDate + "</td>" +
        "<td>" + obj.EndDate + "</td>" +
        "<td>" + obj.Days + "</td>" +
-       "<td><span class='makelink deleteRow'>X</span>|<span class='makelink editRow'>Edit</span></td>" +
+       "<td style='text-align:center;'><span class='makelink deleteRow  glyphicon glyphicon-trash'></span><span style='padding-left:10px;padding-right:10px;'>|</span><span class='makelink editRow glyphicon glyphicon-pencil'></span></td>" +
          "</tr>";
         $('#TaskTable').append(htmlString);
     }     
@@ -590,19 +590,19 @@ function manageOff(startDate, endDate) {
         + " <div class='col-md-2' style='padding-right: 0px;'>"
             + "<label class='date'>Start Date: </label>"
             + "</div>"
-            + "<div class='col-md-4' style='margin-top: 10px;'>"
+            + "<div class='col-md-4'>"
                 + "<span id='strtDate'>" + formatDate(start) + "</span>"
             + "</div>"
             + "<div class='col-md-2'>"
                     + "<label class='date'>End Date:</label>"
             + "</div>"
-            + "<div class='col-md-4' style='margin-top: 10px;'>"
+            + "<div class='col-md-4'>"
                 + "<span id='endDate'>" + formatDate(end) + "</span>"
             + "</div>"
     + "</div>"
     + "<div class='row'>"
             + "<div class='col-md-1'>"
-                    + "<input type='checkbox' id='sunchkbx'/></div><label class='date'> Mark all sundays as OFF </label>"
+                    + "<input type='checkbox' id='sunchkbx'/></div><label class='date' style='padding-top:10px;'> Mark all sundays as OFF </label>"
               + "</div>"
               + "<div style='height: 288px;overflow-y: scroll;border: 1px solid #C1C1C1;border-radius: 5px;'>"
                     + "<table id='offTable' border='1'><tr><th>Date</th><th>Day</th><th>Task on Date</th><th>Show</th><th>Schedule Off</th></tr>";
@@ -1077,7 +1077,7 @@ function AppendToSubScheduleTable(obj,trIndex)
        "<td>" + obj.StartDate + "</td>" +
        "<td>" + obj.EndDate + "</td>" +
        "<td>" + obj.Days + "</td>" +
-       "<td><span class='makelink deletesubScheduleRow'>X</span>|<span class='makelink editSubScheduleRow'>Edit</span></td>" +
+       "<td><span class='makelink deletesubScheduleRow glyphicon glyphicon-trash'></span><span style='padding-left:10px;padding-right:10px;'>|</span><span class='makelink editSubScheduleRow glyphicon glyphicon-pencil'></span></td>" +
          "</tr>";
         $('#TaskTable').append(htmlString);
     }

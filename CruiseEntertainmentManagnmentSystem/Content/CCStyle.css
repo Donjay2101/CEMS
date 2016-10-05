@@ -220,7 +220,7 @@ a.create-link{
     padding-bottom: 10px!important;
     padding-top: 10px!important;
 }
-input#offbtn {
+input#offbtn,#btnSaveSubSchedule,#btnAddSchedule {
     background: #5192CB;
     width: 18%;
     color: white;

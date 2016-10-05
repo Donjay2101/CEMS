@@ -27,22 +27,20 @@
             @*<input type="button" onclick="countTask()" value="count" />*@
             @*@Html.DropDownList("Cruises")*@
         </div>
-        <br />
-        <div class="row">
+        <div class="row form-group">
             <div class="col-md-2">
-                <label class="date">Schedule Start Date</label>
+                <label class="date" style="padding-top:10px">Schedule Start Date</label>
             </div>
             <div class="col-md-4" >
                 <input type="text" class="date" id="S_startDate" style="width:100%;" @*class="wrap-content"*@ />
             </div>
             <div class="col-md-2">
-                <label class="date">Schedule End Date</label> 
+                <label class="date" style="padding-top:10px">Schedule End Date</label> 
             </div>
             <div class="col-md-4">
                 <input type="text" class="date" id="S_endDate" style="width:100%;" @*class="wrap-content"*@ />
             </div>
         </div>
-        <br />
         @*<div class="row">
                 <div class="col-md-3">
                     NO. Of Days
@@ -62,74 +60,80 @@
             </p>
         </div>
         <div class="row">
-            <div class="row">
-                <div class="col-md-4">
-                    Task Name
-                </div>
-                <div class="col-md-4">
-                    <div id="dropdown">
-                        <select id="cmbtask">
-                            <option value="-1">select--</option>
-                            @foreach (var item in ViewBag.TaskName)
-                            {
-                                string name = item.Text;
-                                if (name.IndexOf('-') > -1)
+            <div class="col-md-6">
+                <div class="row form-group">
+                    <div class="col-md-4">
+                        <label class="control-label">Name</label>
+                    </div>
+                    <div class="col-md-8">
+                        <div id="dropdown">
+                            <select id="cmbtask">
+                                <option value="-1">select--</option>
+                                @foreach (var item in ViewBag.TaskName)
                                 {
-                                    var d = name.Split('-');
-                                    <option value="@item.Value">&nbsp;&nbsp;&nbsp;&nbsp;@d[1]</option>
-                                }
-                                else
-                                {
-                                    <option value="@item.Value">@name</option>
-                                }
+                                    string name = item.Text;
+                                    if (name.IndexOf('-') > -1)
+                                    {
+                                        var d = name.Split('-');
+                                        <option value="@item.Value">&nbsp;&nbsp;&nbsp;&nbsp;@d[1]</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@item.Value">@name</option>
+                                    }
 
-                            }
-                        </select>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" id="showsColumn" style="display:none">
+                    <div class="col-md-4">
+                        <label class="control-label" style="padding-top:10px">Shows</label>
+                    </div>
+                    <div class="col-md-8">
+                        <div id="cmbShows">
+                            @Html.DropDownList("Shows", "select--")
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <label class="control-label"  style="padding-top:10px">No. of Days</label>
+                    </div>
+                    <div class="col-md-8">
+                        <label id="Days" class="label-field"></label>
+                        @*<input type="lab" name="Days" id="Days" value="" class="wrap-content" />*@
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <input type="button" name="tskbtn" class="Tbtn wrap-content" value="Add" id="btnAddSchedule" style="width:100%;" />
+                        <input type="hidden" id="tempID" />
+                        <input type="hidden" id="editIndex" />
                     </div>
                 </div>
             </div>
-            <div class="row" id="showsColumn" style="display:none">
-                <div class="col-md-4">
-                    Shows
+            <div class="col-md-6">
+    
+                <div class="row">
+                    <div class="col-md-4">
+                        <label class="control-label" style="padding-top:10px"> Task Start Date</label>
+                    </div>
+                    <div class="col-md-8">
+                        <input type="text" class="date" name="StDate" id="StDate" style="width:100%;" />
+                    </div>
                 </div>
-                <div class="col-md-4">
-                    <div id="cmbShows">
-                        @Html.DropDownList("Shows","select--")
+                <div class="row">
+                    <div class="col-md-4">
+                        <label class="control-label" style="padding-top:10px"> Task End Date</label>
+                    </div>
+                    <div class="col-md-8">
+                        <input type="text" class="date" name="EDate" id="EDate" style="width:100%;" />
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-4">
-                    Task Start Date
-                </div>
-                <div class="col-md-4">
-                    <input type="text" class="date" name="StDate" id="StDate" style="width:100%;" />
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-4">
-                    Task End Date
-                </div>
-                <div class="col-md-4">
-                    <input type="text" class="date" name="EDate" id="EDate" style="width:100%;" />
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-4">
-                    No. of Days
-                </div>
-                <div class="col-md-4">
-                    <label id="Days"></label>
-                    @*<input type="lab" name="Days" id="Days" value="" class="wrap-content" />*@
-                </div>
-            </div>
-            <div class="row">                
-                <div class="col-md-4">
-                    <input type="button" name="tskbtn" class="Tbtn wrap-content" value="Add" id="btnAddSchedule" /> 
-                    <input type="hidden" id="tempID" />
-                    <input type="hidden" id="editIndex" />
-                </div>
-            </div>
+      
         </div>
         
         <br />

@@ -284,6 +284,7 @@ table#personsTable {
     top: 15%;
     left: 22%;
     overflow: scroll;
+        min-height: 550px;
 }
 a#btncheck {
     color: #1271A2;
@@ -743,5 +744,27 @@ input#Stskbtn {
     height: 24px;
 }
   /*NewVendor*/
+  label.label-schedule {
+    color: #55c9e9;
+    font-size: 1em;
+}
+  #databox a {
+    color: #e6e6e6;
+    /*border: 1px solid grey; */
+    padding: 5px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 3px;
+    background:#49505a;
+}
 
-
+  .label-field{
+    padding: 4px;
+    padding-left: 10px;
+    background:#f9f8f8;
+    width: 100%;
+    margin-top: 10px;
+    border: 1px solid #eae6e6;
+    border-radius: 3px;
+     height: 25px;
+}
