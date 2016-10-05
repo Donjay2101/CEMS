@@ -160,68 +160,58 @@
         <div class="row form-group">
         </div>
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-5">
                 <div class="row form-group">
+                    <a href="#"><span class="glyphicon glyphicon-arrow-left" style="padding-right: 10px;"></span>Back</a>
+                </div>
+                <div class="row form-group">
+                    <div class="col-md-2">
+                        <label class="label-schedule">Ships</label>
+                    </div>
                     <div class="col-md-6">
                         @Html.DropDownList("Cruise",ViewBag.Cruise as IEnumerable<SelectListItem>,"select--",new { @class= "form-control" })
                         @*@Html.DropDownList("Cruise", "Select")*@
                     </div>
                 </div>
                 <div class="row form-group">
+                    <div class="col-md-2"><label class="label-schedule">For year</label></div>
+                    <div class="col-md-8">
+                        <select id="cmbYear" style="width: 71px;" class="form-control">
+                            <option value="">select--</option>
+                            @{
+
+                                int year = DateTime.Now.Year;
+                                int startYear = year - 10;
+                            }
+
+                            @for (int i = 1; i <= 20; i++)
+                            {
+                                if (year == startYear)
+                                {
+                                    <option value="@startYear" selected>@startYear</option>
+                                }
+                                else
+                                {
+                                    <option value="@startYear">@startYear</option>
+                                }
+
+                                startYear++;
+                            }
+                        </select>
+                    </div>
+                </div>                     
+            </div>
+            <div class="col-md-7 text-right">
+                <div class="row form-group">
                     <div class="col-md-12">
                         <a href="#" onclick="addSubSchedule()">Add personnel</a>
-                    </div>
-                </div>
-                <div class="row form-group">
-                    <div class="col-md-12">
                         <a href="#" onclick="addSchedule()">Add Schedule</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="row form-group">
-                    <div class="col-md-12">
-                        <div class="row">
-                            <div class="col-md-2"><label class="control-label">For year</label></div>
-                            <div class="col-md-8">
-                                <select id="cmbYear" style="width: 71px;" class="form-control">
-                                    <option value="">select--</option>
-                                    @{
-
-                                        int year = DateTime.Now.Year;
-                                        int startYear = year - 10;
-                                    }
-
-                                    @for (int i = 1; i <= 20; i++)
-                                    {
-                                        if (year == startYear)
-                                        {
-                                            <option value="@startYear" selected>@startYear</option>
-                                        }
-                                        else
-                                        {
-                                            <option value="@startYear">@startYear</option>
-                                        }
-
-                                        startYear++;
-                                    }
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row form-group">
-                    <div class="col-md-12">
                         <a href="#" onclick="showData()">Get Yearly View</a>
-                    </div>
-                </div>
-                <div class="row form-group">
-                    <div class="col-md-12">
+                        <a href="#" onclick="getMonthlyView()">Get Monthly View</a>
                         <a href="#" onclick="openNotes()">Add Notes </a>
-                        <a href="#" onclick="getMonthlyView();" style="margin-left: 20px;">Get Monthly View</a>
                         <a href="#" id="exp_data" hidden="hidden" style="margin-left: 37px">Export Data</a>
                     </div>
-                </div>
+                </div>         
             </div>
         </div>            
     </div>
