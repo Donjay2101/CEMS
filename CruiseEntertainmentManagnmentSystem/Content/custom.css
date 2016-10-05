@@ -748,8 +748,8 @@ input#Stskbtn {
     color: #55c9e9;
     font-size: 1em;
 }
-  #databox a {
-    color: #e6e6e6;
+    .cal-link{
+    color: #e6e6e6!important;
     /*border: 1px solid grey; */
     padding: 5px;
     padding-left: 20px;
