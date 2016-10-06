@@ -265,7 +265,7 @@ namespace CruiseEntertainmentManagnmentSystem.Controllers
 
         public ActionResult getYearlySchedule(int Year=0)
         {
-            var cruise = db.CruiseSchedules.GroupBy(c => c.CruiseID).ToList();
+           // var cruise = db.CruiseSchedules.GroupBy(c => c.CruiseID).ToList();
             if(Year==0)
             {
                 Year = DateTime.Now.Year;

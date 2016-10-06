@@ -72,7 +72,14 @@ $(document).on('click', '#btnAddSchedule', function () {
     var startdate = $('#StDate').val();
     var enddate = $('#EDate').val();
     var days = $('#Days').html();
-    var ShowID=$('#Shows').val();
+    var ShowID = $('#Shows').val();
+    if (taskID == 4 || taskID == 5 || taskID == 6 || taskID == 7) {
+        if(ShowID=="" ||ShowID==undefined ||ShowID=="select--")
+        {
+            alert('show is not selected.');
+            return;
+        }
+    }
     var ShowName=$('#Shows option:selected').html();
     //$('#tempID') is hidden element it is used to check whether this function is calling for edit or not if edit will calll this it will have some value otherwise it will not (at the time of add.)
     var tempID = $('#tempID').val();
@@ -189,18 +196,29 @@ $(document).on('click', '.editRow', function () {
 });
 $(document).on('click', '.deleteRow', function () {
     debugger;
-    var index = $(this).closest('tr').index();
-    var tempID = $(this).closest('tr').attr('value');
-    var schedule = sessionStorage.getItem('Schedule');
-    var scheduleArr = JSON.parse(schedule);
-    var index = searchinArray(scheduleArr, tempID);
-    if(index>-1)
+    if (confirm('are you sure you want to delete the task?'))
     {
-        var newArr=deleteSchedule(scheduleArr,index);
-        sessionStorage.setItem('Schedule', JSON.stringify(newArr));
-        $(this).closest('tr').remove();
-        sessionStorage.setItem('data', $('#Datacontainer').html());
+
+        $('#editIndex').val("");
+        $('#tempID').val("");
+        $('#btnAddSchedule').val("Add");
+        $('#editText').css('display', 'none');
+        $('#showsColumn').css('display', 'none');
+        var index = $(this).closest('tr').index();
+        var tempID = $(this).closest('tr').attr('value');
+        var schedule = sessionStorage.getItem('Schedule');
+        var scheduleArr = JSON.parse(schedule);
+        var index = searchinArray(scheduleArr, tempID);
+        if (index > -1) {
+            var newArr = deleteSchedule(scheduleArr, index);
+            sessionStorage.setItem('Schedule', JSON.stringify(newArr));
+            $(this).closest('tr').remove();
+            sessionStorage.setItem('data', $('#Datacontainer').html());
+        }
+        clearControl();
     }
+    
+    
 })
 $(document).on('click', '#closeEdit', function () {
     $('#editIndex').val("");
@@ -443,7 +461,7 @@ function currentDate()
 
 function clearControl()
 {
-    $('#cmbtask').val(-1);
+    $('#cmbtask').val("");
     $('#StDate').val("");
     $('#EDate').val("");
     $('#Days').html("");
@@ -1099,17 +1117,28 @@ function AppendToSubScheduleTable(obj,trIndex)
 
 $(document).on('click','.deletesubScheduleRow', function () {
     debugger;
-    var index = $(this).closest('tr').index();
-    var tempID = $(this).closest('tr').attr('value');
-    var schedule = sessionStorage.getItem('SubSchedule');
-    var scheduleArr = JSON.parse(schedule);
-    var index = searchinArray(scheduleArr, tempID);
-    if (index > -1) {
-        var newArr = deleteSchedule(scheduleArr, index);
-        sessionStorage.setItem('SubSchedule', JSON.stringify(newArr));
-        $(this).closest('tr').remove();
-        sessionStorage.setItem('data', $('#Datacontainer').html());
+    if (confirm('are you srue you want to delete the task?'))
+    {
+        $('#editIndex').val("");
+        $('#tempID').val("");
+        $('#btnAddSchedule').val("Add");
+        $('#editText').css('display', 'none');
+        $('#showsColumn').css('display', 'none');
+        var index = $(this).closest('tr').index();
+        var tempID = $(this).closest('tr').attr('value');
+        var schedule = sessionStorage.getItem('SubSchedule');
+        var scheduleArr = JSON.parse(schedule);
+        var index = searchinArray(scheduleArr, tempID);
+        if (index > -1) {
+            var newArr = deleteSchedule(scheduleArr, index);
+            sessionStorage.setItem('SubSchedule', JSON.stringify(newArr));
+            $(this).closest('tr').remove();
+            sessionStorage.setItem('data', $('#Datacontainer').html());
+        }
+        clearControl();
     }
+
+    
 });
 
 $(document).on('click', '.editSubScheduleRow', function () {
