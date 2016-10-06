@@ -92,10 +92,14 @@
 
             </div>
             <div class="row">
-                <p id="editText" style="color:red;display:none">
-                    <span id="editTaskName"></span> Subschedule  is in edit mode.<br />
-                    <span id="closeEdit" style="cursor:pointer">close edit mode</span>
-                </p>
+                <div class="col-md-12">
+                    <p id="editText" class="edit-mode">
+                     
+                        <span id="editTaskName"></span> Subschedule  is in edit mode.
+                        <span id="closeEdit" style="cursor:pointer;float:right;" class="glyphicon glyphicon-remove"></span>
+                    </p>
+                </div>
+
             </div>
             <div class="section">
                 <div class="row">
@@ -166,30 +170,27 @@
 
                 <br />
                 <div class="row">
-                    <table border="1" id="TaskTable" style="border-color: azure;" class="table table-condensed table-bordered">
-                        <tr>
-                            <th>Category Name</th>
-                            <th>Person</th>
-                            <th>Start Date</th>
-                            <th>End Date</th>
-                            <th>Days</th>
-                            <th>Action</th>
-                        </tr>
-                        @*<tr class="edittr">
-                                <td><div id="dropdown"></div></td>
-                                <td><div id="Person"><select id="Persons"><option>select--</option></select></div></td>
-                                <td><input type="text" class="date" name="StDate" id="StDate" style="width:100%;" /></td>
-                                <td><input type="text" class="date" name="EDate" id="EDate" style="width:100%;" /></td>
-                                <td><input type="number" name="Days" id="Days" value="" class="wrap-content" /></td>
-                                <td><input type="button" name="tskbtn" class="wrap-content" value="Add" id="Stskbtn" /> </td>
-                            </tr>*@
-                    </table>
+                    <div class="col-md-12">
+                        <table border="1" id="TaskTable" style="border-color: azure;" class="table table-condensed table-bordered">
+                            <tr>
+                                <th>Category Name</th>
+                                <th>Person</th>
+                                <th>Start Date</th>
+                                <th>End Date</th>
+                                <th>Days</th>
+                                <th>Action</th>
+                            </tr>
+                            @*<tr class="edittr">
+                <td><div id="dropdown"></div></td>
+                <td><div id="Person"><select id="Persons"><option>select--</option></select></div></td>
+                <td><input type="text" class="date" name="StDate" id="StDate" style="width:100%;" /></td>
+                <td><input type="text" class="date" name="EDate" id="EDate" style="width:100%;" /></td>
+                <td><input type="number" name="Days" id="Days" value="" class="wrap-content" /></td>
+                <td><input type="button" name="tskbtn" class="wrap-content" value="Add" id="Stskbtn" /> </td>
+            </tr>*@
+                        </table>
+                        <input type="button" id="btnSaveSubSchedule" value="Proceed" style="width:15%" />
+                    </div>
                 </div>
             </div>
-
-
-            <div class="row">
-                <input type="button" id="btnSaveSubSchedule" value="Proceed" style="width:15%" />
-            </div>
-
         </div>

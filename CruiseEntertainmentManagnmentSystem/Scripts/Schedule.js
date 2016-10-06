@@ -1107,7 +1107,7 @@ function AppendToSubScheduleTable(obj,trIndex)
        "<td>" + obj.StartDate + "</td>" +
        "<td>" + obj.EndDate + "</td>" +
        "<td>" + obj.Days + "</td>" +
-       "<td><span class='makelink deletesubScheduleRow glyphicon glyphicon-trash'></span><span style='padding-left:10px;padding-right:10px;'>|</span><span class='makelink editSubScheduleRow glyphicon glyphicon-pencil'></span></td>" +
+       "<td style='text-align:center;'><span class='makelink deletesubScheduleRow glyphicon glyphicon-trash'></span><span style='padding-left:10px;padding-right:10px;'>|</span><span class='makelink editSubScheduleRow glyphicon glyphicon-pencil'></span></td>" +
          "</tr>";
         $('#TaskTable').append(htmlString);
     }

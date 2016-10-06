@@ -54,9 +54,9 @@
     <div class="section">
         <div class="row">
            <p class="text">Tasks for the Schedule(Note:Should be in Order)</p> 
-            <p id="editText" style="color:red;display:none">
-                <span id="editTaskName"></span> Task is in edit mode.<br />
-                <span id="closeEdit" style="cursor:pointer">close edit mode</span>
+            <p id="editText" class="edit-mode">
+                <span id="editTaskName"></span> Task is in edit mode.
+                <span id="closeEdit" style="cursor:pointer;float:right;" class="glyphicon glyphicon-remove"></span>
             </p>
         </div>
         <div class="row">
@@ -138,51 +138,49 @@
         
         <br />
         <div class="row" style="overflow-y: scroll;height: 234px;border: 1px solid #B7B7B7;border-radius: 6px;">
-            <table border="1" id="TaskTable" style="border-color: azure;" class="table table-bordered table-condensed">
-                <tr>
-                    <th>Task Name</th>
-                    <th>Show(If there is any)</th>
-                    <th>Start Date</th>
-                    <th>End Date</th>
-                    <th>Days</th>
-                    <th>Action</th>
-                </tr>
-                @*<tr class="edittr">
-                    <td>
-                    <div id="dropdown">
-                        <select>
-                            @foreach (var item in ViewBag.TaskName)
+            <div class="col-md-12">
+                <table border="1" id="TaskTable" style="border-color: azure;" class="table table-bordered table-condensed">
+                    <tr>
+                        <th>Task Name</th>
+                        <th>Show(If there is any)</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>Days</th>
+                        <th>Action</th>
+                    </tr>
+                    @*<tr class="edittr">
+                <td>
+                <div id="dropdown">
+                    <select>
+                        @foreach (var item in ViewBag.TaskName)
+                        {
+                            string name = item.Text;
+                            if (name.IndexOf('-') > -1)
                             {
-                                string name = item.Text;
-                                if (name.IndexOf('-') > -1)
-                                {
-                                    var d=name.Split('-');
-                                    <option value="@item.Value">&nbsp;&nbsp;&nbsp;&nbsp;@d[1]</option>
-                                }
-                                else
-                                {
-                                    <option value="@item.Value">@name</option>
-                                }
-
+                                var d=name.Split('-');
+                                <option value="@item.Value">&nbsp;&nbsp;&nbsp;&nbsp;@d[1]</option>
                             }
-                        </select>
-                            
-                    </div>
-                    </td>
-                    <td><input type="text" class="date" name="StDate" id="StDate" style="width:100%;" /></td>
-                    <td><input type="text" class="date" name="EDate" id="EDate" style="width:100%;" /></td>
-                    <td><input type="number" name="Days" id="Days" value="" class="wrap-content" /></td>
-                    <td><input type="button" name="tskbtn" class="Tbtn wrap-content" value="Add" id="tskbtn"/> </td>
-                </tr>*@
-            </table>
+                            else
+                            {
+                                <option value="@item.Value">@name</option>
+                            }
+
+                        }
+                    </select>
+
+                </div>
+                </td>
+                <td><input type="text" class="date" name="StDate" id="StDate" style="width:100%;" /></td>
+                <td><input type="text" class="date" name="EDate" id="EDate" style="width:100%;" /></td>
+                <td><input type="number" name="Days" id="Days" value="" class="wrap-content" /></td>
+                <td><input type="button" name="tskbtn" class="Tbtn wrap-content" value="Add" id="tskbtn"/> </td>
+            </tr>*@
+                </table>
+                <input type="button" id="offbtn" value="Proceed" />
+            </div>
+          
         </div>
     </div>
-
-
-    <div class="row">
-        <input type="button" id="offbtn" value="Proceed"/>
-    </div>
-
 </div>
 
 <script>

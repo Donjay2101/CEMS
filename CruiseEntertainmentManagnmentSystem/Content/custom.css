@@ -768,3 +768,11 @@ input#Stskbtn {
     border-radius: 3px;
      height: 25px;
 }
+.edit-mode {
+    color: #d01a17;
+    display: block;
+    /* border: 1px solid #cecece; */
+    padding: 5px;
+    display: none;
+    box-shadow: 0 0 5px #969696;
+}
